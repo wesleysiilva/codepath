@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fase 1 — Fundamentos de TI | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    :root { --fase-color: #9B8FFF; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../index.html" class="nav-link">Plano</a>
+      <a href="fase1.html" class="nav-link active">Fase 1</a>
+      <a href="fase2.html" class="nav-link">Fase 2</a>
+      <a href="fase3.html" class="nav-link">Fase 3</a>
+      <a href="fase4.html" class="nav-link">Fase 4</a>
+      <a href="fase5.html" class="nav-link">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Plano de Ensino</a>
+    <a href="fase1.html">Fase 1 — Fundamentos</a>
+    <a href="fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="fase4.html">Fase 4 — Python</a>
+    <a href="fase5.html">Fase 5 — Especialização</a>
+  </div>
+
+  <div class="fase-hero">
+    <div class="fase-hero-text">
+      <div class="fase-badge">Fase 01 · Início da jornada</div>
+      <h1 class="fase-title">Fundamentos de TI<br>& Como o Computador<br>Funciona</h1>
+      <p class="fase-desc">Antes de programar, é preciso entender a máquina. Esta fase desvenda o hardware, o software, o sistema operacional e a arquitetura que torna tudo possível — preparando uma base sólida para todo o resto.</p>
+      <div class="fase-meta-pills">
+        <div class="meta-pill"><strong>Módulos:</strong> 5</div>
+        <div class="meta-pill"><strong>Projeto:</strong> Mapa da máquina</div>
+      </div>
+      <div class="fase-nav">
+        <a href="../index.html" class="fase-nav-btn">← Plano geral</a>
+        <span class="fase-nav-sep">·</span>
+        <a href="fase2.html" class="fase-nav-btn">Fase 2 →</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="modules-section">
+
+    <div class="section-label" style="margin-bottom:1.25rem;">Módulos desta fase</div>
+
+    <div class="modules-grid">
+
+      <!-- Módulo 1 -->
+      <div class="module-card">
+        <div class="module-header" onclick="toggleModule('m1')">
+          <div class="module-icon">🖥️</div>
+          <div class="module-meta">
+            <div class="module-title">Hardware & Componentes</div>
+            <div class="module-sub">O que há dentro do computador</div>
+          </div>
+          <span class="module-chevron" id="chev-m1">▼</span>
+        </div>
+        <div class="module-body" id="body-m1">
+          <p>O ponto de partida é a desmistificação: o computador não é uma caixa preta mágica. É um conjunto de peças físicas com funções muito específicas, trabalhando em harmonia. Antes de escrever qualquer linha de código, você precisa saber o que está acontecendo dentro da máquina que vai executar esse código.</p>
+          <div class="topics-list">
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>CPU — o cérebro</strong>Núcleos, clock, pipeline. Como o processador executa instruções uma a uma (ou várias em paralelo). Analogia com um cozinheiro seguindo uma receita.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Memória RAM</strong>Volátil e rápida. A "bancada de trabalho" — existe para acesso imediato, não para guardar permanentemente. Por que reiniciar o PC perde dados abertos.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Armazenamento: HD e SSD</strong>Persistente e mais lento. A diferença de velocidade entre HD (mecânico) e SSD (eletrônico) e por que isso importa no dia a dia do desenvolvedor.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>GPU e placa-mãe</strong>A GPU como processador especializado em paralelismo (e por que a IA adora GPUs). A placa-mãe como o "esqueleto" que conecta tudo.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Periféricos I/O</strong>Dispositivos de entrada (teclado, mouse, câmera) e saída (monitor, caixas de som). A cadeia completa de uma ação do usuário até a resposta na tela.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Atividade prática</strong>Desmontar (virtualmente, com simuladores, ou fisicamente com um PC antigo) e identificar cada componente. Criar um mapa visual da máquina.</div>
+            </div>
+          </div>
+          <div class="deliverable">
+            <span class="deliverable-icon">🎯</span>
+            <div><strong>Entregável:</strong> Diagrama desenhado à mão ou digital com todas as peças do computador, suas funções e como se comunicam. Você deve conseguir explicar verbalmente o que cada componente faz.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Módulo 2 -->
+      <div class="module-card">
+        <div class="module-header" onclick="toggleModule('m2')">
+          <div class="module-icon">⚙️</div>
+          <div class="module-meta">
+            <div class="module-title">Sistemas Operacionais</div>
+            <div class="module-sub">O software que gerencia tudo</div>
+          </div>
+          <span class="module-chevron" id="chev-m2">▼</span>
+        </div>
+        <div class="module-body" id="body-m2">
+          <p>O sistema operacional é o intermediário entre o hardware e os programas. Sem entendê-lo, você ficará perdido ao instalar ferramentas, resolver permissões ou entender por que um código roda diferente no Windows e no Linux. Esta etapa desmistifica o que acontece "debaixo do capô" do SO.</p>
+          <div class="topics-list">
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>O que é um SO</strong>A camada de abstração entre o hardware e o usuário. Por que precisamos de um sistema operacional — sem ele, cada programa precisaria falar diretamente com o hardware.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Windows, Linux e macOS</strong>Diferenças filosóficas (licença aberta vs. fechada), mercados de uso (servidores adoram Linux), e por que desenvolvedores frequentemente preferem sistemas baseados em Unix.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Processos e memória</strong>O que é um processo? Como o SO gerencia vários programas rodando ao mesmo tempo (multitasking). O que acontece quando você abre o Spotify e o Chrome juntos.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Sistema de arquivos</strong>Hierarquia de pastas e arquivos. Permissões (quem pode ler, escrever, executar). Caminhos absolutos e relativos — conceito crucial para programação.</div>
+            </div>
+          </div>
+          <div class="deliverable">
+            <span class="deliverable-icon">🎯</span>
+            <div><strong>Entregável:</strong> Você abre o Gerenciador de Tarefas (Windows) ou Monitor de Atividade (Mac) / htop (Linux) e explica o que está vendo — quais processos existem, quanto de memória cada um usa, e o que acontece ao abrir um novo programa.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Módulo 3 -->
+      <div class="module-card">
+        <div class="module-header" onclick="toggleModule('m3')">
+          <div class="module-icon">🏗️</div>
+          <div class="module-meta">
+            <div class="module-title">Arquitetura de Von Neumann</div>
+            <div class="module-sub">O modelo que define computadores modernos</div>
+          </div>
+          <span class="module-chevron" id="chev-m3">▼</span>
+        </div>
+        <div class="module-body" id="body-m3">
+          <p>John von Neumann, em 1945, descreveu uma arquitetura que define praticamente todos os computadores modernos até hoje. Entender esse modelo é entender por que o computador funciona como funciona — e por que programas são o que são. Este é um dos pilares teóricos mais importantes do curso.</p>
+          <div class="topics-list">
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Memória unificada</strong>A ideia revolucionária: dados e instruções do programa ficam na mesma memória. Antes de Von Neumann, os programas eram "queimados" no hardware (cabos e chaves). Isso permitiu que softwares fossem criados e modificados facilmente.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Unidade de Controle (UC)</strong>O "maestro" que busca instruções na memória, decodifica o que elas significam e coordena os outros componentes para executá-las. É ela que diz "agora some isso, agora guarda aquilo".</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>ULA — Unidade Lógica e Aritmética</strong>A "calculadora" do processador. Realiza todas as operações matemáticas (soma, subtração, multiplicação) e lógicas (AND, OR, NOT, comparações). Tudo que o computador "pensa" passa pela ULA.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Ciclo Fetch-Decode-Execute</strong>O loop infinito do processador: buscar instrução na memória → decodificar o que significa → executar a operação → repetir. Um processador moderno faz bilhões de ciclos por segundo.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Registradores</strong>Memória ultra-rápida dentro do processador (poucos bytes). Variáveis do nível mais baixo possível. O Contador de Programa (PC) guarda o endereço da próxima instrução a executar.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Barramento (Bus)</strong>Os "corredores" que conectam CPU, memória e I/O. Barramento de dados, de endereço e de controle — cada um com sua função. A largura do barramento define quantos bits viajam de uma vez.</div>
+            </div>
+          </div>
+          <div class="deliverable">
+            <span class="deliverable-icon">🎯</span>
+            <div><strong>Entregável:</strong> Você desenha o diagrama de Von Neumann do zero, sem consultar, e explica em voz alta o que cada componente faz usando uma analogia própria (crie a sua — não repita a que viu no conteúdo). Isso confirma internalização real, não memorização.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Módulo 4 -->
+      <div class="module-card">
+        <div class="module-header" onclick="toggleModule('m4')">
+          <div class="module-icon">🔢</div>
+          <div class="module-meta">
+            <div class="module-title">Representação de Dados</div>
+            <div class="module-sub">Como o computador entende o mundo</div>
+          </div>
+          <span class="module-chevron" id="chev-m4">▼</span>
+        </div>
+        <div class="module-body" id="body-m4">
+          <p>O computador só conhece dois estados: ligado e desligado, 1 e 0. Mas com isso ele representa números, letras, imagens, sons e vídeos. Entender como essa tradução funciona é fundamental para compreender por que bugs de overflow existem, por que arquivos têm tamanhos, e o que é encoding de texto na prática.</p>
+          <div class="topics-list">
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Sistema binário</strong>Base 2 vs. base 10. Como converter entre decimal e binário. Por que o computador usa binário (estados físicos de transistores). Bit e byte.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Hexadecimal</strong>Base 16 como atalho para o binário. Cores no CSS (#FF5733) são hexadecimais. Endereços de memória também. Você aprende a "ler" hex intuitivamente.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Números inteiros e negativos</strong>Complemento de dois — como representar números negativos em binário. Overflow: o que acontece quando um número ultrapassa o limite de bits disponíveis.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Texto: ASCII e Unicode/UTF-8</strong>Como letras viram números. ASCII (128 caracteres) e seus limites. Unicode como solução global. Por que "encoding" importa e o que causa aquele caractere estranho "Ã©" em vez de "é".</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Imagens e pixels</strong>RGB como três números (0–255). Uma imagem como uma grade de pixels. O que é resolução. Por que uma foto de 12 megapixels ocupa tanto espaço.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Compressão</strong>Ideia geral de compressão com e sem perdas. Por que um MP3 soa parecido com o WAV original mas ocupa 10x menos. JPEG vs PNG para imagens.</div>
+            </div>
+          </div>
+          <div class="deliverable">
+            <span class="deliverable-icon">🎯</span>
+            <div><strong>Entregável:</strong> Mini-tabela mostrando como seu nome é representado em ASCII/Unicode, com os valores decimais, binários e hexadecimais de cada letra. Pode ser feito em papel ou planilha.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Módulo 5 -->
+      <div class="module-card">
+        <div class="module-header" onclick="toggleModule('m5')">
+          <div class="module-icon">🖥️</div>
+          <div class="module-meta">
+            <div class="module-title">Linha de Comando</div>
+            <div class="module-sub">Falar diretamente com o sistema operacional</div>
+          </div>
+          <span class="module-chevron" id="chev-m5">▼</span>
+        </div>
+        <div class="module-body" id="body-m5">
+          <p>A interface gráfica é uma camada de conveniência. O terminal é onde o controle de verdade acontece. Todo desenvolvedor usa o terminal diariamente — para rodar programas, instalar pacotes, navegar em pastas, usar Git. Esta etapa tira o medo do terminal e transforma ele numa ferramenta natural.</p>
+          <div class="topics-list">
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>O que é o terminal / shell</strong>A diferença entre terminal, shell e prompt. Bash, Zsh, PowerShell. Por que o terminal parece intimidador e por que isso passa rapidamente com prática.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Comandos essenciais de navegação</strong>pwd, ls/dir, cd, mkdir, rm/del. Criar, mover e apagar pastas e arquivos. Caminhos absolutos vs. relativos no terminal.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Manipulação de arquivos</strong>cat, echo, cp, mv. Redirecionar saída para um arquivo (> e >>). Pipes (|) — encadear comandos para criar fluxos de processamento.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Permissões e variáveis de ambiente</strong>chmod (Linux/Mac). PATH: por que digitar python no terminal funciona (ou não). Como adicionar algo ao PATH. sudo e quando usá-lo com cuidado.</div>
+            </div>
+          </div>
+          <div class="deliverable">
+            <span class="deliverable-icon">🎯</span>
+            <div><strong>Entregável:</strong> Você navegando pelo sistema de arquivos usando apenas o terminal, cria uma estrutura de pastas de um projeto fictício, cria um arquivo de texto sem sair do terminal, e move esse arquivo para outra pasta. Tudo sem tocar no mouse.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border-light);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+      <a href="../index.html" class="fase-nav-btn">← Plano geral</a>
+      <a href="fase2.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">Próxima: Fase 2 — Redes & Internet →</a>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 1 de 5</span>
+      <div class="footer-phases">
+        <a href="fase1.html" style="border-color:var(--fase-color);color:var(--fase-color);">F1</a>
+        <a href="fase2.html">F2</a>
+        <a href="fase3.html">F3</a>
+        <a href="fase4.html">F4</a>
+        <a href="fase5.html">F5</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fase 3 — Lógica & Algoritmos | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    :root { --fase-color: #5BA6E8; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../index.html" class="nav-link">Plano</a>
+      <a href="fase1.html" class="nav-link">Fase 1</a>
+      <a href="fase2.html" class="nav-link">Fase 2</a>
+      <a href="fase3.html" class="nav-link active">Fase 3</a>
+      <a href="fase4.html" class="nav-link">Fase 4</a>
+      <a href="fase5.html" class="nav-link">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Plano de Ensino</a>
+    <a href="fase1.html">Fase 1 — Fundamentos</a>
+    <a href="fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="fase4.html">Fase 4 — Python</a>
+    <a href="fase5.html">Fase 5 — Especialização</a>
+  </div>
+
+  <div class="fase-hero">
+    <div class="fase-hero-text">
+      <div class="fase-badge">Fase 03 · Raciocínio lógico</div>
+      <h1 class="fase-title">Lógica de<br>Programação<br>& Algoritmos</h1>
+      <p class="fase-desc">Pensar como programador antes de escrever código. Esta fase ensina decomposição de problemas, fluxogramas, pseudocódigo, algoritmos clássicos e estruturas de dados — com raciocínio como protagonista, não sintaxe.</p>
+      <div class="fase-meta-pills">
+        <div class="meta-pill"><strong>Duração:</strong> 3 meses</div>
+        <div class="meta-pill"><strong>Módulos:</strong> 5</div>
+        <div class="meta-pill"><strong>Projeto:</strong> Sistema de cadastro refatorado</div>
+      </div>
+      <div class="fase-nav">
+        <a href="fase2.html" class="fase-nav-btn">← Fase 2</a>
+        <span class="fase-nav-sep">·</span>
+        <a href="fase4.html" class="fase-nav-btn">Fase 4 →</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="modules-section">
+
+    <div class="section-label" style="margin-bottom:1.25rem;">Módulos desta fase</div>
+
+    <div class="modules-grid">
+
+      <div class="module-card">
+        <div class="module-header" onclick="toggleModule('m1')">
+          <div class="module-icon">🧩</div>
+          <div class="module-meta">
+            <div class="module-title">Pensamento Computacional</div>
+            <div class="module-sub">Decompor, abstrair, reconhecer padrões</div>
+          </div>
+          <span class="module-chevron" id="chev-m1">▼</span>
+        </div>
+        <div class="module-body" id="body-m1">
+          <p>Pensamento computacional não é sinônimo de programar — é uma forma de resolver problemas que pode (e deve) ser praticada longe do computador. São quatro pilares que, juntos, formam a base de qualquer programador eficiente.</p>
+          <div class="topics-list">
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Decomposição</strong>Quebrar problemas grandes em problemas menores e manejáveis. Exercício: "Como fazer um sanduíche?" — decompor em sub-tarefas cada vez menores até chegar em instruções atômicas que um computador poderia executar.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Reconhecimento de padrões</strong>Identificar repetições e similaridades entre problemas diferentes. "Esse problema é parecido com aquele que resolvi antes?" é a pergunta mais valiosa que um programador pode fazer.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Abstração</strong>Focar no que importa, ignorar o que não importa. Uma função é abstração: quem chama não precisa saber como funciona por dentro. Modelar o mundo em estruturas que um programa possa manipular.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Algoritmos e fluxogramas</strong>Sequências de passos bem definidas. Fluxograma como linguagem visual para descrever algoritmos. Símbolos: início/fim (oval), processo (retângulo), decisão (losango), I/O (paralelogramo).</div>
+            </div>
+          </div>
+          <div class="deliverable">
+            <span class="deliverable-icon">🎯</span>
+            <div><strong>Entregável:</strong> Fluxograma de uma rotina cotidiana sua (ex: decidir o que comer no almoço, escolher um filme para assistir) com pelo menos 2 pontos de decisão. Papel é suficiente.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-header" onclick="toggleModule('m2')">
+          <div class="module-icon">📝</div>
+          <div class="module-meta">
+            <div class="module-title">Pseudocódigo & Estruturas de Controle</div>
+            <div class="module-sub">Lógica em português estruturado</div>
+          </div>
+          <span class="module-chevron" id="chev-m2">▼</span>
+        </div>
+        <div class="module-body" id="body-m2">
+          <p>Pseudocódigo é a ponte entre o pensamento humano e o código de computador. Escrever pseudocódigo força você a pensar na lógica sem se preocupar com sintaxe — e depois, traduzir esse pseudocódigo para Python na Fase 4 se torna natural. As estruturas de controle são os blocos com que toda lógica é construída.</p>
+          <div class="topics-list">
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Variáveis e tipos de dados</strong>Contêineres nomeados para guardar valores. Tipos: número inteiro, número decimal, texto, booleano (verdadeiro/falso). Por que o tipo importa — você não pode somar um número com um texto sem conversão.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Condicionais: SE / SENÃO</strong>O "se isso, então aquilo" que dirige toda lógica. SE … ENTÃO … SENÃO … FIM-SE. Condições compostas: E (AND), OU (OR), NÃO (NOT). Tabela verdade de forma intuitiva.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Laços: ENQUANTO e PARA</strong>Repetição até uma condição ser atendida (enquanto) vs. repetição um número fixo de vezes (para). Loop infinito: o que é e como evitar. Diferença entre iteração e recursão (prévia).</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Funções (procedimentos)</strong>Blocos reutilizáveis de código com nome. Parâmetros de entrada e valor de retorno. O princípio DRY (Don't Repeat Yourself). Por que escrever a mesma lógica duas vezes é sempre um sinal de que há um problema de design.</div>
+            </div>
+          </div>
+          <div class="deliverable">
+            <span class="deliverable-icon">🎯</span>
+            <div><strong>Entregável:</strong> Pseudocódigo de um algoritmo para verificar se um número é primo, com as estruturas de controle corretas. Você executa o algoritmo "na mão" com três exemplos (um número primo, um composto e o número 1) para validar.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-header" onclick="toggleModule('m3')">
+          <div class="module-icon">🔍</div>
+          <div class="module-meta">
+            <div class="module-title">Algoritmos Clássicos</div>
+            <div class="module-sub">Busca, ordenação e recursão</div>
+          </div>
+          <span class="module-chevron" id="chev-m3">▼</span>
+        </div>
+        <div class="module-body" id="body-m3">
+          <p>Alguns problemas aparecem tão frequentemente na computação que soluções clássicas e eficientes foram desenvolvidas e estudadas por décadas. Conhecê-las não é só saber a solução — é desenvolver o vocabulário e a intuição para reconhecer quando um problema se encaixa em um padrão conhecido.</p>
+          <div class="topics-list">
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Busca linear</strong>Verificar elemento por elemento. O(n). Quando usar: listas pequenas ou não ordenadas. Simples mas ineficiente para grandes volumes.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Busca binária</strong>Dividir pela metade a cada passo (precisa de lista ordenada). O(log n). A diferença entre buscar em 1 bilhão de itens com busca linear vs. binária: 1 bilhão de passos vs. ~30 passos.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Bubble Sort e Selection Sort</strong>Algoritmos de ordenação simples para visualizar o conceito. Não são eficientes (O(n²)) mas são fáceis de entender passo a passo. Visualizações animadas ajudam muito aqui.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Recursão — ideia geral</strong>Uma função que chama a si mesma. O caso base (quando parar) e o caso recursivo. Fatorial e Fibonacci como exemplos clássicos. Pilha de chamadas e o risco de stack overflow.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Complexidade: O(n) intuitivo</strong>Big O como vocabulário para descrever eficiência. O(1), O(log n), O(n), O(n²). Não precisa de prova matemática — precisa da intuição: "se dobrar o input, o que acontece com o tempo?"</div>
+            </div>
+          </div>
+          <div class="deliverable">
+            <span class="deliverable-icon">🎯</span>
+            <div><strong>Entregável:</strong> Você implementa busca linear e busca binária em pseudocódigo e explica verbalmente por que a busca binária é mais eficiente — usando um exemplo concreto com números reais para demonstrar a diferença de passos.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-header" onclick="toggleModule('m4')">
+          <div class="module-icon">📦</div>
+          <div class="module-meta">
+            <div class="module-title">Estruturas de Dados</div>
+            <div class="module-sub">Listas, pilhas, filas e dicionários</div>
+          </div>
+          <span class="module-chevron" id="chev-m4">▼</span>
+        </div>
+        <div class="module-body" id="body-m4">
+          <p>Estruturas de dados são as formas de organizar informação em memória. A escolha da estrutura certa para um problema pode ser a diferença entre um programa eficiente e um lento. Esta etapa apresenta as estruturas fundamentais com analogias do mundo real antes de qualquer código.</p>
+          <div class="topics-list">
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Arrays / Listas</strong>Sequência ordenada de elementos com índice numérico. Acesso por índice é O(1). Inserção no meio é custosa. Analogia: assentos numerados numa fileira de cinema.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Pilha (Stack)</strong>LIFO — Last In, First Out. Último a entrar, primeiro a sair. Analogia: pilha de pratos. Uso real: histórico de "desfazer" (Ctrl+Z), pilha de chamadas de funções.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Fila (Queue)</strong>FIFO — First In, First Out. Primeiro a entrar, primeiro a sair. Analogia: fila de banco. Uso real: fila de impressão, sistema de atendimento ao cliente.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Dicionário / Mapa (Hash Map)</strong>Pares chave-valor. Acesso por chave em O(1) médio. Analogia: dicionário de português — você busca pela palavra (chave) para encontrar a definição (valor). Uso real: quase tudo em programação moderna.</div>
+            </div>
+          </div>
+          <div class="deliverable">
+            <span class="deliverable-icon">🎯</span>
+            <div><strong>Entregável:</strong> Para cada estrutura, você inventa uma situação do cotidiano que seria modelada com aquela estrutura e explica por que escolheu ela e não outra. Quatro situações, quatro justificativas.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-header" onclick="toggleModule('m5')">
+          <div class="module-icon">🔧</div>
+          <div class="module-meta">
+            <div class="module-title">Código Limpo & Depuração</div>
+            <div class="module-sub">Escrever código que outros (e você mesmo) entendem</div>
+          </div>
+          <span class="module-chevron" id="chev-m5">▼</span>
+        </div>
+        <div class="module-body" id="body-m5">
+          <p>Código que funciona é o mínimo. Código limpo é o que separa programadores iniciantes de profissionais. Esta etapa introduz os princípios de legibilidade, organização e depuração — habilidades que você vai usar pelo resto da carreira, independente da linguagem.</p>
+          <div class="topics-list">
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Nomes que comunicam</strong>Variáveis e funções com nomes descritivos. A regra: quem lê o nome deve entender o propósito sem ler a implementação. <code style="background:var(--bg);padding:1px 5px;border-radius:4px;font-size:11px;">x</code> vs. <code style="background:var(--bg);padding:1px 5px;border-radius:4px;font-size:11px;">idade_usuario</code>.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Comentários com propósito</strong>Comentar o "por quê", não o "o quê". "Somei 1 aqui" é inútil. "Adicionei 1 para compensar índice base-zero" é útil. Código bem escrito se explica sozinho na maioria das vezes.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Funções com responsabilidade única</strong>Princípio SRP: cada função faz uma coisa e faz bem. Funções longas são o sinal mais claro de que algo precisa ser refatorado. "Se você precisar usar 'e' para descrever o que a função faz, ela faz coisas demais."</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Depuração sistemática</strong>Debugging não é adivinhar — é método. Leia o erro com cuidado (a mensagem geralmente diz onde está o problema). Use print() ou um debugger para inspecionar o estado. Reduza o problema: qual é o menor código que reproduz o bug?</div>
+            </div>
+          </div>
+          <div class="deliverable">
+            <span class="deliverable-icon">🎯</span>
+            <div><strong>Entregável:</strong> Você recebe um código intencionalmente mal escrito (variáveis com nomes sem sentido, funções longas, sem comentários) e o refatora: renomeia variáveis, quebra em funções menores e adiciona comentários onde necessário. O código final deve ser legível por outra pessoa sem explicação verbal.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border-light);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+      <a href="fase2.html" class="fase-nav-btn">← Fase 2: Redes & Internet</a>
+      <a href="fase4.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">Próxima: Fase 4 — Python →</a>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 3 de 5</span>
+      <div class="footer-phases">
+        <a href="fase1.html">F1</a>
+        <a href="fase2.html">F2</a>
+        <a href="fase3.html" style="border-color:var(--fase-color);color:var(--fase-color);">F3</a>
+        <a href="fase4.html">F4</a>
+        <a href="fase5.html">F5</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/nav.js"></script>
+</body>
+</html>

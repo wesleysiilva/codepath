@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fase 2 — Redes, Internet & Segurança | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    :root { --fase-color: #2EC38A; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../index.html" class="nav-link">Plano</a>
+      <a href="fase1.html" class="nav-link">Fase 1</a>
+      <a href="fase2.html" class="nav-link active">Fase 2</a>
+      <a href="fase3.html" class="nav-link">Fase 3</a>
+      <a href="fase4.html" class="nav-link">Fase 4</a>
+      <a href="fase5.html" class="nav-link">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Plano de Ensino</a>
+    <a href="fase1.html">Fase 1 — Fundamentos</a>
+    <a href="fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="fase4.html">Fase 4 — Python</a>
+    <a href="fase5.html">Fase 5 — Especialização</a>
+  </div>
+
+  <div class="fase-hero">
+    <div class="fase-hero-text">
+      <div class="fase-badge">Fase 02 · Conectividade</div>
+      <h1 class="fase-title">Redes, Internet<br>& Segurança<br>Digital</h1>
+      <p class="fase-desc">Como os computadores conversam entre si — e como isso sustenta toda a internet. Esta fase explica os protocolos, a web, as APIs e os fundamentos de segurança que todo desenvolvedor precisa dominar.</p>
+      <div class="fase-meta-pills">
+        <div class="meta-pill"><strong>Duração:</strong> 2 meses</div>
+        <div class="meta-pill"><strong>Módulos:</strong> 4</div>
+        <div class="meta-pill"><strong>Projeto:</strong> Glossário de redes + DevTools</div>
+      </div>
+      <div class="fase-nav">
+        <a href="fase1.html" class="fase-nav-btn">← Fase 1</a>
+        <span class="fase-nav-sep">·</span>
+        <a href="fase3.html" class="fase-nav-btn">Fase 3 →</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="modules-section">
+
+    <div class="section-label" style="margin-bottom:1.25rem;">Módulos desta fase</div>
+
+    <div class="modules-grid">
+
+      <!-- Módulo 1 -->
+      <div class="module-card">
+        <div class="module-header" onclick="toggleModule('m1')">
+          <div class="module-icon">🌐</div>
+          <div class="module-meta">
+            <div class="module-title">Redes de Computadores</div>
+            <div class="module-sub">LAN, WAN, IP, roteadores e switches</div>
+          </div>
+          <span class="module-chevron" id="chev-m1">▼</span>
+        </div>
+        <div class="module-body" id="body-m1">
+          <p>Uma rede é simplesmente um conjunto de dispositivos que podem se comunicar. Mas os detalhes de como essa comunicação funciona são sofisticados — e entendê-los transforma você de usuário passivo da internet em alguém que sabe o que está acontecendo quando clica em um link.</p>
+          <div class="topics-list">
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>O que é uma rede</strong>Dois computadores conectados já são uma rede. LAN (rede local, como a de casa) vs. WAN (rede ampla, como a internet). Como redes se interconectam para formar a internet.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Endereço IP</strong>O "endereço postal" de cada dispositivo. IPv4 (ex: 192.168.1.1) vs. IPv6. IP público vs. privado. DHCP: como o roteador distribui endereços automaticamente.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>DNS — Domain Name System</strong>O "livro de endereços" da internet. Como "google.com" vira um endereço IP. Hierarquia de servidores DNS. O que acontece quando um site "cai" por problema de DNS.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>TCP vs UDP</strong>TCP: confiável, com confirmação de entrega (HTTP, e-mail). UDP: rápido, sem garantia (streaming, jogos online). Por que jogos online usam UDP e por que pacotes são perdidos às vezes.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Roteador e switch</strong>Switch: conecta dispositivos dentro de uma rede local. Roteador: conecta redes diferentes (sua LAN com a internet). NAT: como vários dispositivos compartilham um único IP público.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Modelo em camadas</strong>A ideia de que a comunicação funciona em camadas (física, transporte, aplicação). Não precisa decorar o modelo OSI — precisa entender o conceito de abstração em camadas, que reaparecerá em programação.</div>
+            </div>
+          </div>
+          <div class="deliverable">
+            <span class="deliverable-icon">🎯</span>
+            <div><strong>Entregável:</strong> Você usa o comando <code style="background:var(--bg3);padding:1px 5px;border-radius:4px;font-size:12px;">nslookup</code> ou <code style="background:var(--bg3);padding:1px 5px;border-radius:4px;font-size:12px;">dig</code> para descobrir o IP de 5 sites conhecidos e explica por que o mesmo site pode ter IPs diferentes dependendo de onde você está no mundo.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Módulo 2 -->
+      <div class="module-card">
+        <div class="module-header" onclick="toggleModule('m2')">
+          <div class="module-icon">🌍</div>
+          <div class="module-meta">
+            <div class="module-title">Web, HTTP e APIs</div>
+            <div class="module-sub">Como uma página chega no seu navegador</div>
+          </div>
+          <span class="module-chevron" id="chev-m2">▼</span>
+        </div>
+        <div class="module-body" id="body-m2">
+          <p>A web é a aplicação mais usada da internet — mas a internet é muito mais do que a web. Entender HTTP, o modelo cliente-servidor, e o que é uma API transforma você em alguém capaz de entender (e construir) qualquer aplicação conectada.</p>
+          <div class="topics-list">
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>HTTP e HTTPS</strong>O protocolo da web. Request e response. Métodos: GET (buscar), POST (enviar), PUT (atualizar), DELETE (apagar). Códigos de status: 200 OK, 404 Not Found, 500 Server Error.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Cliente × Servidor</strong>Modelo fundamental de aplicações modernas. O navegador (cliente) pede; o servidor responde. Onde o código roda: no navegador (frontend) ou no servidor (backend).</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>O que é uma API</strong>Interface de programação — um contrato entre sistemas. REST API como o padrão mais comum. JSON como formato de dados. Você faz uma requisição real a uma API pública (ex: previsão do tempo, fatos aleatórios).</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>DevTools na prática</strong>Aba "Network" do Chrome/Firefox. Ver requisições HTTP ao vivo ao navegar por um site. Entender headers, body, tempo de resposta. A ferramenta favorita de todo desenvolvedor web.</div>
+            </div>
+          </div>
+          <div class="deliverable">
+            <span class="deliverable-icon">🎯</span>
+            <div><strong>Entregável:</strong> Você abre o DevTools, navega para um site (ex: Wikipedia), identifica a requisição HTML principal, uma requisição de imagem e uma de JavaScript, e explica o que cada uma faz e qual é o status code de cada uma.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Módulo 3 -->
+      <div class="module-card">
+        <div class="module-header" onclick="toggleModule('m3')">
+          <div class="module-icon">🔒</div>
+          <div class="module-meta">
+            <div class="module-title">Segurança Digital</div>
+            <div class="module-sub">Proteção, senhas e higiene digital</div>
+          </div>
+          <span class="module-chevron" id="chev-m3">▼</span>
+        </div>
+        <div class="module-body" id="body-m3">
+          <p>Segurança não é um módulo separado — é uma mentalidade. Mas para desenvolver essa mentalidade, você precisa entender as ameaças reais. Esta etapa não ensina invasão, mas explica como ataques funcionam conceitualmente para que você possa escrever código mais seguro no futuro.</p>
+          <div class="topics-list">
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Senhas e autenticação</strong>O que torna uma senha forte. Hashing de senhas (nunca guardar senha pura). Autenticação de dois fatores. Por que reutilizar senha é perigoso.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Criptografia — ideia geral</strong>Simétrica (uma chave para criptografar e descriptografar) vs. assimétrica (chave pública e privada). HTTPS usa criptografia. O protocolo TLS. Por que ver o cadeado verde importa.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Phishing e engenharia social</strong>Ataques que exploram pessoas, não sistemas. Como identificar um e-mail de phishing. Por que "o elo mais fraco é humano" é verdade e o que fazer sobre isso.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Boa higiene digital</strong>Gerenciadores de senha. Updates de segurança (por que ignorá-los é arriscado). Redes Wi-Fi públicas e VPNs. Permissões de apps. O que são cookies e o que eles guardam.</div>
+            </div>
+          </div>
+          <div class="deliverable">
+            <span class="deliverable-icon">🎯</span>
+            <div><strong>Entregável:</strong> Você faz uma "auditoria de segurança" da sua própria vida digital: verifica se alguma senha foi vazada (usando haveibeenpwned.com), identifica quais apps têm permissões excessivas no celular, e cria um plano de 3 ações concretas para melhorar sua segurança.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Módulo 4 -->
+      <div class="module-card">
+        <div class="module-header" onclick="toggleModule('m4')">
+          <div class="module-icon">🗺️</div>
+          <div class="module-meta">
+            <div class="module-title">Projeto: Glossário de Redes</div>
+            <div class="module-sub">Consolidar com um entregável real</div>
+          </div>
+          <span class="module-chevron" id="chev-m4">▼</span>
+        </div>
+        <div class="module-body" id="body-m4">
+          <p>O projeto final da Fase 2 transforma o conhecimento absorvido em algo publicável. Você cria um mini-glossário de redes usando HTML e CSS básico — não porque precisará dominar web dev agora, mas porque o ato de escrever e publicar algo real consolida o aprendizado de uma forma que nenhum exercício escrito consegue.</p>
+          <div class="topics-list">
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>HTML básico de sobrevivência</strong>Tags fundamentais (html, head, body, h1-h3, p, ul, li, a). Não é o foco — é o veículo. O suficiente para publicar conteúdo na web.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>CSS básico de sobrevivência</strong>Cores, fontes, margens, padding. Tornar a página legível e com cara de página de verdade. Não precisa ser bonito — precisa ser funcional.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Publicar com GitHub Pages</strong>Criar um repositório no GitHub (primeiro contato com Git), fazer upload dos arquivos, e publicar o glossário com uma URL pública. Você sai com um link para compartilhar.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Apresentação oral</strong>Você explica 5 termos do glossário de memória, usando suas próprias palavras. Este exercício de comunicação técnica será cobrado em todas as fases seguintes.</div>
+            </div>
+          </div>
+          <div class="deliverable">
+            <span class="deliverable-icon">🎯</span>
+            <div><strong>Entregável:</strong> Glossário online publicado com pelo menos 15 termos de redes definidos com suas próprias palavras, com exemplos práticos. URL pública compartilhável. Apresentação de 5 minutos.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border-light);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+      <a href="fase1.html" class="fase-nav-btn">← Fase 1: Fundamentos de TI</a>
+      <a href="fase3.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">Próxima: Fase 3 — Lógica & Algoritmos →</a>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 2 de 5</span>
+      <div class="footer-phases">
+        <a href="fase1.html">F1</a>
+        <a href="fase2.html" style="border-color:var(--fase-color);color:var(--fase-color);">F2</a>
+        <a href="fase3.html">F3</a>
+        <a href="fase4.html">F4</a>
+        <a href="fase5.html">F5</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/nav.js"></script>
+</body>
+</html>

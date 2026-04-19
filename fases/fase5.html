@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fase 5 — Especialização | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    :root { --fase-color: #E8705A; }
+
+    .trilhas-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 1.25rem 0;
+    }
+    @media (max-width: 700px) { .trilhas-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 420px) { .trilhas-grid { grid-template-columns: 1fr; } }
+
+    .trilha-card {
+      padding: 1rem;
+      background: var(--bg3);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+    }
+    .trilha-icon { font-size: 1.4rem; margin-bottom: 6px; }
+    .trilha-name { font-family: var(--font-display); font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .trilha-desc { font-size: 11px; color: var(--text-3); line-height: 1.5; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../index.html" class="nav-link">Plano</a>
+      <a href="fase1.html" class="nav-link">Fase 1</a>
+      <a href="fase2.html" class="nav-link">Fase 2</a>
+      <a href="fase3.html" class="nav-link">Fase 3</a>
+      <a href="fase4.html" class="nav-link">Fase 4</a>
+      <a href="fase5.html" class="nav-link active">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Plano de Ensino</a>
+    <a href="fase1.html">Fase 1 — Fundamentos</a>
+    <a href="fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="fase4.html">Fase 4 — Python</a>
+    <a href="fase5.html">Fase 5 — Especialização</a>
+  </div>
+
+  <div class="fase-hero">
+    <div class="fase-hero-text">
+      <div class="fase-badge">Fase 05 · Identidade de desenvolvedor</div>
+      <h1 class="fase-title">Especialização<br>& Projetos<br>Autorais</h1>
+      <p class="fase-desc">A fase final transforma conhecimento em identidade. Você escolhe uma trilha de interesse, constrói um projeto real do início ao fim, aprende a colaborar com Git e sai com um portfólio público — a evidência concreta de quem você se tornou.</p>
+      <div class="fase-meta-pills">
+        <div class="meta-pill"><strong>Duração:</strong> 4+ meses</div>
+        <div class="meta-pill"><strong>Módulos:</strong> 5</div>
+        <div class="meta-pill"><strong>Projeto:</strong> Portfólio público + projeto autoral</div>
+      </div>
+      <div class="fase-nav">
+        <a href="fase4.html" class="fase-nav-btn">← Fase 4</a>
+        <span class="fase-nav-sep">·</span>
+        <a href="../index.html" class="fase-nav-btn">Ver plano geral →</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="modules-section">
+
+    <div class="section-label" style="margin-bottom:1.25rem;">Módulos desta fase</div>
+
+    <div class="modules-grid">
+
+      <div class="module-card">
+        <div class="module-header" onclick="toggleModule('m1')">
+          <div class="module-icon">🗺️</div>
+          <div class="module-meta">
+            <div class="module-title">Escolha da Trilha</div>
+            <div class="module-sub">Para onde ir daqui — 6 direções possíveis</div>
+          </div>
+          <span class="module-chevron" id="chev-m1">▼</span>
+        </div>
+        <div class="module-body" id="body-m1">
+          <p>Esta é a decisão mais importante da jornada — e não é irreversível. Você explora as principais áreas da programação, testa um pouquinho de cada uma em aulas de "degustação", e escolhe onde vai aprofundar na fase final. O critério não é "o que dá mais dinheiro" — é "o que faz você querer programar nos fins de semana".</p>
+
+          <div class="trilhas-grid">
+            <div class="trilha-card">
+              <div class="trilha-icon">🌐</div>
+              <div class="trilha-name">Desenvolvimento Web</div>
+              <div class="trilha-desc">HTML, CSS, JavaScript. Criar sites e aplicações que rodam no navegador. Flask/Django no backend.</div>
+            </div>
+            <div class="trilha-card">
+              <div class="trilha-icon">🎮</div>
+              <div class="trilha-name">Desenvolvimento de Jogos</div>
+              <div class="trilha-desc">Pygame (Python) ou Unity (C#). Física, sprites, colisões, game loop. Projetos com identidade visual.</div>
+            </div>
+            <div class="trilha-card">
+              <div class="trilha-icon">📊</div>
+              <div class="trilha-name">Ciência de Dados</div>
+              <div class="trilha-desc">Pandas, matplotlib, análise exploratória. Transformar dados brutos em insights visuais.</div>
+            </div>
+            <div class="trilha-card">
+              <div class="trilha-icon">📱</div>
+              <div class="trilha-name">Desenvolvimento Mobile</div>
+              <div class="trilha-desc">Flutter (Dart) ou React Native. Apps que rodam no celular com interfaces nativas.</div>
+            </div>
+            <div class="trilha-card">
+              <div class="trilha-icon">🤖</div>
+              <div class="trilha-name">Automação & Scripts</div>
+              <div class="trilha-desc">Selenium, scripts de produtividade, APIs. Automatizar tarefas repetitivas do dia a dia.</div>
+            </div>
+            <div class="trilha-card">
+              <div class="trilha-icon">🔐</div>
+              <div class="trilha-name">Segurança / Pentest</div>
+              <div class="trilha-desc">CTF, análise de vulnerabilidades, redes. Para quem quer entender como sistemas são protegidos (e como são atacados).</div>
+            </div>
+          </div>
+
+          <div class="deliverable">
+            <span class="deliverable-icon">🎯</span>
+            <div><strong>Entregável:</strong> Um documento de 1 página escrito por você: qual trilha escolheu, por que, o que espera aprender, e qual seria seu projeto ideal ao final. Essa declaração de intenção será revisitada no final da fase.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-header" onclick="toggleModule('m2')">
+          <div class="module-icon">🏗️</div>
+          <div class="module-meta">
+            <div class="module-title">Projeto Autoral Guiado</div>
+            <div class="module-sub">Do problema à solução funcionando</div>
+          </div>
+          <span class="module-chevron" id="chev-m2">▼</span>
+        </div>
+        <div class="module-body" id="body-m2">
+          <p>O projeto autoral é o coração da Fase 5. É mais complexo que o da Fase 4, envolve a trilha escolhida, e é desenvolvido com autonomia crescente. Você conta com um mentor que faz perguntas em vez de dar respostas e sugere caminhos sem percorrê-los — e você enfrenta e supera as dificuldades reais do desenvolvimento.</p>
+          <div class="topics-list">
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Definição e escopo</strong>O projeto precisa ser desafiador o suficiente para exigir aprendizado, mas realizável no prazo. Wireframe ou esboço do que será construído. Divisão em milestones com datas.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Pesquisa e aprendizado autônomo</strong>Você aprenderá coisas que ainda não foram ensinadas no curso. Documentação, Stack Overflow, tutoriais — aprender a aprender é a habilidade mais importante desta etapa.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Revisões de código (code review)</strong>Você apresenta o código regularmente. Não para corrigi-lo — para receber perguntas: "Por que essa variável tem esse nome?", "O que acontece se o input for vazio aqui?"</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Refatoração e versão final</strong>Todo projeto tem uma "versão que funciona" e uma "versão de que você se orgulha". O aluno aprende que refatorar não é um sinal de que errou — é uma parte normal e necessária do desenvolvimento.</div>
+            </div>
+          </div>
+          <div class="deliverable">
+            <span class="deliverable-icon">🎯</span>
+            <div><strong>Entregável:</strong> Projeto funcionando no GitHub com README detalhado, instruções de instalação e uso, e pelo menos 10 commits com mensagens descritivas que contam a história do desenvolvimento.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-header" onclick="toggleModule('m3')">
+          <div class="module-icon">🌿</div>
+          <div class="module-meta">
+            <div class="module-title">Git Avançado & Colaboração</div>
+            <div class="module-sub">Branches, pull requests e trabalho em equipe</div>
+          </div>
+          <span class="module-chevron" id="chev-m3">▼</span>
+        </div>
+        <div class="module-body" id="body-m3">
+          <p>Na Fase 4, o aluno usou Git como uma forma de salvar versões. Na Fase 5, ele aprende a usar Git como os desenvolvedores profissionais usam — com branches, pull requests e um fluxo de trabalho que permite colaborar sem destruir o código um do outro.</p>
+          <div class="topics-list">
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Branches</strong>A ideia de linhas paralelas de desenvolvimento. <code style="background:var(--bg);padding:1px 5px;border-radius:4px;font-size:11px;">git branch</code>, <code style="background:var(--bg);padding:1px 5px;border-radius:4px;font-size:11px;">git checkout -b</code>, <code style="background:var(--bg);padding:1px 5px;border-radius:4px;font-size:11px;">git merge</code>. Por que a branch <code style="background:var(--bg);padding:1px 5px;border-radius:4px;font-size:11px;">main</code> deve sempre ter código funcionando.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Conflitos de merge</strong>O que é um conflito e por que ele não é um desastre. Como resolver conflitos manualmente. A habilidade de resolver conflitos de merge é o que diferencia quem realmente usa Git de quem finge usar.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Pull Requests</strong>O fluxo do GitHub: fork, branch, PR, review, merge. Mesmo que o aluno trabalhe sozinho, praticar esse fluxo prepara para colaboração real. Escrever uma boa descrição de PR é uma habilidade profissional.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Contribuição open source</strong>Encontrar um projeto no GitHub que aceite contribuições iniciantes (label "good first issue"). Fazer o primeiro PR real — mesmo uma correção de typo na documentação já conta e ensina o fluxo completo.</div>
+            </div>
+          </div>
+          <div class="deliverable">
+            <span class="deliverable-icon">🎯</span>
+            <div><strong>Entregável:</strong> O projeto autoral desenvolvido em branches separadas por feature, com histórico de merge visível. Bônus: uma contribuição real (ou tentativa) a um projeto open source, documentada no README do portfólio.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-header" onclick="toggleModule('m4')">
+          <div class="module-icon">🎯</div>
+          <div class="module-meta">
+            <div class="module-title">Portfólio & Apresentação</div>
+            <div class="module-sub">Comunicar o que foi construído</div>
+          </div>
+          <span class="module-chevron" id="chev-m4">▼</span>
+        </div>
+        <div class="module-body" id="body-m4">
+          <p>Um projeto que não pode ser mostrado é como um livro que ninguém leu. O portfólio é a prova pública do que foi construído — e a habilidade de comunicar tecnicamente é tão importante quanto a habilidade de programar. Esta etapa prepara você para apresentar seu trabalho com clareza e orgulho.</p>
+          <div class="topics-list">
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Página de portfólio</strong>Site simples (pode ser GitHub Pages) com foto, bio curta, lista de projetos com links e descrições. Não precisa ser elaborado — precisa ser honesto e funcional.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>README como carta de apresentação</strong>O README do projeto autoral deve responder: o que é, por que foi construído, como instalar, como usar, e o que vem a seguir. Screenshots ou GIF do programa em ação valem muito.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Apresentação técnica oral</strong>15 minutos: demonstração ao vivo do projeto, explicação das decisões de design, um problema difícil que foi enfrentado e como foi resolvido, e o que seria feito diferente. Simula uma entrevista técnica.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Perfil GitHub público</strong>Foto, bio, pinned repositories. O GitHub como currículo técnico — um perfil ativo diz mais sobre um desenvolvedor do que qualquer certificado.</div>
+            </div>
+          </div>
+          <div class="deliverable">
+            <span class="deliverable-icon">🎯</span>
+            <div><strong>Entregável:</strong> Portfólio online publicado com pelo menos 3 projetos documentados, perfil do GitHub ativo com o projeto autoral em destaque, e apresentação ao vivo de 15 minutos bem executada.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-header" onclick="toggleModule('m5')">
+          <div class="module-icon">🌱</div>
+          <div class="module-meta">
+            <div class="module-title">Comunidade & Próximos Passos</div>
+            <div class="module-sub">A jornada continua — agora com mapa</div>
+          </div>
+          <span class="module-chevron" id="chev-m5">▼</span>
+        </div>
+        <div class="module-body" id="body-m5">
+          <p>Programar solo tem um teto. Programar em comunidade não tem. O módulo final não ensina uma nova tecnologia — ensina como continuar aprendendo, como encontrar pessoas que ajudam, e como transformar curiosidade em carreira. É a preparação para o que vem depois do curso.</p>
+          <div class="topics-list">
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Comunidades online</strong>Discord de programação, Reddit (r/learnpython, r/webdev), grupos no Telegram e WhatsApp. Como fazer perguntas bem formuladas (quem sabe fazer boas perguntas aprende mais rápido).</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Plataformas de prática</strong>LeetCode, HackerRank para algoritmos. freeCodeCamp e The Odin Project para web. Kaggle para dados. Saber onde praticar é metade do caminho.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>O que vem depois</strong>Dependendo da trilha: cursos aprofundados, faculdade, bootcamp, estágio, freelance, projetos pessoais. Não existe um caminho único — existe o caminho que faz sentido para cada pessoa.</div>
+            </div>
+            <div class="topic-item">
+              <div class="topic-dot"></div>
+              <div class="topic-text"><strong>Síndrome do impostor</strong>Todo desenvolvedor sente que não sabe o suficiente — inclusive os seniores. Reconhecer isso é o primeiro passo para não deixá-la paralisar. O antídoto: continuar construindo coisas.</div>
+            </div>
+          </div>
+          <div class="deliverable">
+            <span class="deliverable-icon">🎯</span>
+            <div><strong>Entregável final da jornada:</strong> Um parágrafo escrito por você descrevendo para onde quer ir a partir daqui — qual área quer explorar, qual projeto quer construir, qual comunidade quer participar. Essa é a declaração de intenção de um desenvolvedor. A jornada não termina aqui.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:3rem;padding:2rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);text-align:center;">
+      <div style="font-size:2rem;margin-bottom:0.75rem;">🎓</div>
+      <div style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:0.5rem;">Parabéns por chegar até aqui</div>
+      <p style="font-size:0.9rem;color:var(--text-2);max-width:500px;margin:0 auto 1.5rem;font-weight:300;line-height:1.7;">Ao completar as 5 fases deste plano, você não apenas sabe programar — você se enxerga como alguém que constrói coisas com código. Essa diferença de identidade muda como você aprende para sempre.</p>
+      <a href="../index.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">← Voltar ao plano completo</a>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 5 de 5</span>
+      <div class="footer-phases">
+        <a href="fase1.html">F1</a>
+        <a href="fase2.html">F2</a>
+        <a href="fase3.html">F3</a>
+        <a href="fase4.html">F4</a>
+        <a href="fase5.html" style="border-color:var(--fase-color);color:var(--fase-color);">F5</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/nav.js"></script>
+</body>
+</html>
