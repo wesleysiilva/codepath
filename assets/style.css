@@ -685,3 +685,288 @@ body {
   .hero-stats { flex-direction: column; gap: 1rem; }
   .stat-div { width: 40px; height: 1px; }
 }
+
+/* ======= TOPIC ITEM — CLICKABLE VARIANT ======= */
+.topic-item--link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.topic-item--link:hover {
+  border-color: color-mix(in srgb, var(--fase-color) 35%, transparent);
+  background: color-mix(in srgb, var(--fase-color) 8%, var(--bg3));
+}
+
+.topic-item--link:hover .topic-dot {
+  box-shadow: 0 0 6px color-mix(in srgb, var(--fase-color) 60%, transparent);
+}
+
+.topic-item--link:hover .topic-arrow { opacity: 1; transform: translateX(3px); }
+
+.topic-arrow {
+  font-size: 13px;
+  color: var(--fase-color);
+  opacity: 0;
+  transition: all 0.2s;
+  margin-left: auto;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+/* ======= AULA (LESSON) PAGES ======= */
+.breadcrumb {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text-3);
+  flex-wrap: wrap;
+}
+
+.breadcrumb a { color: var(--text-3); text-decoration: none; transition: color 0.15s; }
+.breadcrumb a:hover { color: var(--text-2); }
+.breadcrumb-sep { color: var(--border); font-size: 11px; }
+.breadcrumb-current { color: var(--text-2); }
+
+.aula-hero {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 2rem;
+}
+
+.aula-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  line-height: 1.05;
+  margin-bottom: 1rem;
+}
+
+.aula-intro {
+  font-size: 1.05rem;
+  color: var(--text-2);
+  line-height: 1.75;
+  font-weight: 300;
+  max-width: 640px;
+  margin-bottom: 1.5rem;
+}
+
+.aula-meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.aula-body {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 2rem 2rem 5rem;
+}
+
+.aula-section { margin-bottom: 3rem; }
+
+.aula-section-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 0.85rem;
+  line-height: 1.2;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.aula-text {
+  font-size: 1rem;
+  color: var(--text-2);
+  line-height: 1.8;
+  font-weight: 300;
+  margin-bottom: 1rem;
+}
+
+.aula-text strong { color: var(--text); font-weight: 500; }
+
+.aula-callout {
+  display: flex;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  background: color-mix(in srgb, var(--fase-color) 8%, var(--bg2));
+  border: 1px solid color-mix(in srgb, var(--fase-color) 22%, transparent);
+  border-radius: var(--radius-sm);
+  margin: 1.5rem 0;
+}
+
+.aula-callout-icon { font-size: 1.5rem; flex-shrink: 0; line-height: 1; margin-top: 2px; }
+
+.aula-callout-text {
+  font-size: 0.95rem;
+  color: var(--text-2);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.aula-callout-text strong { color: var(--text); font-weight: 500; display: block; margin-bottom: 0.3rem; }
+
+.aula-steps { list-style: none; display: flex; flex-direction: column; gap: 8px; margin: 1.25rem 0; }
+
+.aula-step {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1rem 1.25rem;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.aula-step-num {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--fase-color);
+  min-width: 1.75rem;
+  line-height: 1.5;
+  flex-shrink: 0;
+}
+
+.aula-step-content { flex: 1; font-size: 0.95rem; color: var(--text-2); line-height: 1.65; font-weight: 300; }
+.aula-step-content strong { color: var(--text); display: block; font-weight: 600; margin-bottom: 3px; font-size: 0.98rem; }
+
+.aula-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 1.25rem 0;
+}
+
+.aula-card {
+  padding: 1.25rem;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.aula-card-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fase-color);
+  margin-bottom: 0.4rem;
+}
+
+.aula-card h4 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.aula-card p { font-size: 0.88rem; color: var(--text-2); line-height: 1.65; font-weight: 300; margin: 0; }
+
+/* Memory Hierarchy Visual */
+.memory-hierarchy { display: flex; flex-direction: column; gap: 5px; margin: 1.5rem 0; }
+
+.mem-tier {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.7rem 1.25rem;
+  background: color-mix(in srgb, var(--tier-color) 8%, var(--bg2));
+  border: 1px solid color-mix(in srgb, var(--tier-color) 20%, transparent);
+  border-radius: var(--radius-sm);
+}
+
+.mem-tier-name {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--tier-color);
+  min-width: 110px;
+  flex-shrink: 0;
+}
+
+.mem-tier-bar {
+  flex: 1;
+  height: 6px;
+  background: color-mix(in srgb, var(--tier-color) 15%, var(--bg3));
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.mem-tier-fill {
+  height: 100%;
+  background: var(--tier-color);
+  border-radius: 3px;
+}
+
+.mem-tier-stats {
+  font-size: 12px;
+  color: var(--text-3);
+  white-space: nowrap;
+  min-width: 160px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* Key Terms */
+.aula-terms { display: flex; flex-direction: column; gap: 6px; margin: 1.25rem 0; }
+
+.aula-term {
+  display: flex;
+  gap: 1.25rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg2);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  align-items: baseline;
+}
+
+.aula-term-word {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+  min-width: 130px;
+  flex-shrink: 0;
+}
+
+.aula-term-def { font-size: 0.9rem; color: var(--text-2); line-height: 1.6; font-weight: 300; }
+
+.aula-divider {
+  border: none;
+  border-top: 1px solid var(--border-light);
+  margin: 2.5rem 0;
+}
+
+.aula-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-light);
+  margin-top: 1rem;
+}
+
+@media (max-width: 600px) {
+  .aula-hero { padding: 1.5rem 1.25rem 1.25rem; }
+  .aula-body { padding: 1.5rem 1.25rem 4rem; }
+  .breadcrumb { padding: 1.25rem 1.25rem 0; }
+  .aula-cards { grid-template-columns: 1fr; }
+  .mem-tier-stats { display: none; }
+  .aula-term { flex-direction: column; gap: 3px; }
+  .aula-term-word { min-width: unset; }
+}

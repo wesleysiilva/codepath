@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CPU — O Cérebro do Computador | Fase 1 | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/style.css">
+  <style>
+    :root { --fase-color: #9B8FFF; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link">Plano</a>
+      <a href="../fase1.html" class="nav-link active">Fase 1</a>
+      <a href="../fase2.html" class="nav-link">Fase 2</a>
+      <a href="../fase3.html" class="nav-link">Fase 3</a>
+      <a href="../fase4.html" class="nav-link">Fase 4</a>
+      <a href="../fase5.html" class="nav-link">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html">Plano de Ensino</a>
+    <a href="../fase1.html">Fase 1 — Fundamentos</a>
+    <a href="../fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="../fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="../fase4.html">Fase 4 — Python</a>
+    <a href="../fase5.html">Fase 5 — Especialização</a>
+  </div>
+
+  <!-- BREADCRUMB -->
+  <nav class="breadcrumb" aria-label="Navegação">
+    <a href="../../index.html">Plano</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Fase 1</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Hardware & Componentes</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">CPU — o cérebro</span>
+  </nav>
+
+  <!-- LESSON HERO -->
+  <header class="aula-hero">
+    <div class="fase-badge">Fase 1 · Hardware & Componentes</div>
+    <h1 class="aula-title">CPU — o cérebro<br>do computador</h1>
+    <p class="aula-intro">
+      Antes de escrever uma linha de código, você precisa entender o que vai executá-lo.
+      A CPU é o componente que faz tudo acontecer — aprenda como ela funciona, o que são
+      núcleos e clock, e por que isso importa para quem programa.
+    </p>
+    <div class="aula-meta">
+      <div class="meta-pill"><strong>⏱</strong> ~20 min</div>
+      <div class="meta-pill"><strong>📶</strong> Iniciante</div>
+      <div class="meta-pill">Módulo 1 de 5</div>
+    </div>
+  </header>
+
+  <!-- LESSON BODY -->
+  <article class="aula-body">
+
+    <!-- ─── O QUE É A CPU ─── -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">O que é a CPU?</h2>
+
+      <p class="aula-text">
+        <strong>CPU</strong> significa <em>Central Processing Unit</em> — em português, Unidade Central de Processamento.
+        É o componente responsável por executar todas as instruções de todos os programas que rodam no seu computador.
+        Tudo que acontece — abrir um app, carregar uma página, calcular uma soma, renderizar um pixel na tela —
+        passa pela CPU em algum momento.
+      </p>
+
+      <p class="aula-text">
+        Você já deve ter ouvido a CPU ser chamada de "cérebro do computador". É uma analogia útil, mas incompleta.
+        Um cérebro cria, imagina, sonha e toma decisões próprias. A CPU não faz nada disso: ela apenas executa
+        instruções que alguém escreveu — com uma velocidade absurda. A inteligência vem do programa.
+        <strong>A CPU é o músculo que executa o que o código manda.</strong>
+      </p>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">💡</span>
+        <div class="aula-callout-text">
+          <strong>Onde fica a CPU?</strong>
+          Fisicamente, a CPU é um chip encaixado diretamente na placa-mãe, em um soquete específico.
+          Ela é coberta por um dissipador de calor (aquele bloco metálico com ventoinha) porque gera
+          muito calor durante o uso. Em celulares, a CPU faz parte de um chip integrado chamado SoC
+          (System on a Chip), junto com a GPU e outros componentes.
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── ANALOGIA DO COZINHEIRO ─── -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">A analogia do cozinheiro</h2>
+
+      <p class="aula-text">
+        Para entender como a CPU funciona, imagine um cozinheiro profissional trabalhando
+        com uma receita na frente dele. Ele trabalha assim:
+      </p>
+
+      <ol class="aula-steps">
+        <li class="aula-step">
+          <span class="aula-step-num">1</span>
+          <div class="aula-step-content">
+            <strong>Lê o próximo passo da receita</strong>
+            "Adicione 200g de farinha"
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">2</span>
+          <div class="aula-step-content">
+            <strong>Entende o que precisa fazer</strong>
+            "Ah, preciso pegar a farinha e medir 200g"
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">3</span>
+          <div class="aula-step-content">
+            <strong>Executa a ação</strong>
+            Ele pega a farinha, pesa, e adiciona à tigela
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">4</span>
+          <div class="aula-step-content">
+            <strong>Volta para o passo 1</strong>
+            Lê o próximo passo e recomeça o ciclo
+          </div>
+        </li>
+      </ol>
+
+      <p class="aula-text">
+        É exatamente isso que a CPU faz — mas em vez de passos de receita, ela executa <strong>instruções de máquina</strong>
+        (operações como "some esses dois números", "mova este valor para aquele endereço", "compare se X é maior que Y"),
+        e em vez de segundos por passo, ela faz <strong>bilhões de ciclos por segundo</strong>.
+      </p>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🔁</span>
+        <div class="aula-callout-text">
+          <strong>O loop nunca para.</strong>
+          A CPU fica executando esse ciclo ininterruptamente enquanto o computador está ligado.
+          Quando não há nada útil para fazer, o sistema operacional faz a CPU executar instruções de
+          "espera" — mas ela nunca realmente para. É por isso que computadores consomem energia mesmo
+          quando você não está fazendo nada aparente.
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── FETCH-DECODE-EXECUTE ─── -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">O ciclo Fetch → Decode → Execute</h2>
+
+      <p class="aula-text">
+        O nome técnico para o que o cozinheiro faz é <strong>ciclo Fetch-Decode-Execute</strong>
+        (em português: Buscar-Decodificar-Executar). É o processo fundamental de toda CPU moderna,
+        desde os computadores de 1950 até os processadores mais avançados de hoje.
+      </p>
+
+      <ol class="aula-steps">
+        <li class="aula-step">
+          <span class="aula-step-num">01</span>
+          <div class="aula-step-content">
+            <strong>Fetch — Buscar a instrução</strong>
+            A CPU precisa saber qual instrução executar. Ela consulta um registrador especial
+            chamado <em>Program Counter</em> (PC), que guarda o endereço de memória da próxima instrução.
+            A CPU vai até esse endereço na RAM e <strong>busca os bits</strong> da instrução.
+            Depois de buscá-la, o PC avança para apontar para a instrução seguinte.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">02</span>
+          <div class="aula-step-content">
+            <strong>Decode — Decodificar o que fazer</strong>
+            A instrução chega como uma sequência de bits (ex: <code style="background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12px;">10110000 01100001</code>).
+            A <em>Unidade de Controle</em> (UC) interpreta esses bits e entende o que precisa ser feito:
+            "é uma soma?", "é mover dados?", "é um salto condicional?". Ela então prepara
+            os sinais elétricos para os componentes certos executarem a operação.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">03</span>
+          <div class="aula-step-content">
+            <strong>Execute — Executar a operação</strong>
+            A instrução é finalmente executada. Se for uma operação matemática ou lógica
+            (soma, comparação, AND, OR...), ela vai para a <em>ULA</em> — Unidade Lógica e Aritmética,
+            a "calculadora" da CPU. Se for uma instrução de movimentação de dados, a Unidade de Controle
+            coordena a transferência. O resultado pode ser guardado num registrador ou escrito de volta na RAM.
+          </div>
+        </li>
+      </ol>
+
+      <p class="aula-text">
+        Após o Execute, o ciclo volta para o Fetch — desta vez buscando a instrução no novo endereço
+        que o Program Counter aponta. E assim continua, sem parar, enquanto o computador estiver ligado.
+      </p>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🧠</span>
+        <div class="aula-callout-text">
+          <strong>Por que isso importa para você?</strong>
+          Quando você escreve <code style="background:var(--bg);padding:1px 6px;border-radius:4px;font-size:12px;">x = 2 + 3</code> em Python,
+          o interpretador transforma isso em dezenas de instruções de máquina que passam pelo
+          ciclo Fetch-Decode-Execute várias vezes. Uma linha de código de alto nível
+          pode virar centenas de instruções de baixo nível — e cada uma delas segue esse mesmo ciclo.
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── NÚCLEOS ─── -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">Núcleos: mais cozinheiros na cozinha</h2>
+
+      <p class="aula-text">
+        Por muitos anos, CPUs tinham apenas um núcleo — um único cozinheiro. Mas em meados dos anos 2000,
+        os fabricantes chegaram num limite físico: aumentar o clock gerava calor demais. A solução foi
+        colocar <strong>múltiplos núcleos</strong> dentro de um único chip. Cada núcleo é uma CPU completa,
+        capaz de executar seu próprio ciclo Fetch-Decode-Execute de forma independente.
+      </p>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Single-core</div>
+          <h4>1 cozinheiro</h4>
+          <p>Faz uma tarefa por vez. Se um programa trava, toda a CPU fica ocupada. Os primeiros PCs pessoais funcionavam assim.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Quad-core</div>
+          <h4>4 cozinheiros</h4>
+          <p>Quatro tarefas em paralelo. Você pode ter música tocando, um jogo rodando e um arquivo baixando ao mesmo tempo — sem engasgos.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">8–16 núcleos</div>
+          <h4>Processadores modernos</h4>
+          <p>Intel Core i7/i9, AMD Ryzen 7/9, Apple M3. Para edição de vídeo, programação pesada, jogos com muita simulação.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Servidores</div>
+          <h4>32–128+ núcleos</h4>
+          <p>Servidores que rodam centenas de processos em paralelo. Quando seu site atende mil usuários ao mesmo tempo, é isso que torna possível.</p>
+        </div>
+      </div>
+
+      <p class="aula-text">
+        Mas atenção: <strong>mais núcleos não significa sempre mais rápido</strong>. Um programa precisa ser
+        escrito para aproveitar múltiplos núcleos — caso contrário, ele usa apenas um. É por isso que
+        aprender sobre concorrência e paralelismo é uma habilidade valiosa para programadores.
+      </p>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🔍</span>
+        <div class="aula-callout-text">
+          <strong>Teste agora:</strong>
+          No Windows, abra o Gerenciador de Tarefas (Ctrl+Shift+Esc), vá em "Desempenho" e
+          clique em "CPU". Você verá quantos núcleos sua máquina tem e a porcentagem de uso de cada um.
+          No Mac, abra o "Monitor de Atividade" e clique em "CPU". Tente abrir um jogo ou compilar
+          um programa e veja o que acontece com os gráficos.
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── CLOCK SPEED ─── -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">Clock: a velocidade do metrônomo</h2>
+
+      <p class="aula-text">
+        O clock é o "metrônomo" interno da CPU — um sinal elétrico que pulsa em uma frequência constante e
+        sincroniza todas as operações do processador. A cada pulso, a CPU pode avançar um passo no ciclo
+        de execução.
+      </p>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">⚡</span>
+        <div class="aula-callout-text">
+          <strong>3,6 GHz = 3.600.000.000 ciclos por segundo.</strong>
+          GHz significa Gigahertz — giga = bilhão, hertz = ciclos por segundo. Uma CPU de 3,6 GHz
+          pode completar até 3,6 bilhões de ciclos a cada segundo em cada núcleo. Para ter uma noção:
+          em 1 segundo, essa CPU executa mais ciclos do que o número de segundos que se passaram desde
+          o nascimento de Jesus Cristo.
+        </div>
+      </div>
+
+      <p class="aula-text">
+        Mais clock significa, em geral, mais instruções por segundo — mas não é tão simples assim.
+        Instruções complexas podem levar vários ciclos. E a velocidade de entrega de dados da RAM
+        pode limitar o quanto a CPU consegue aproveitar um clock alto.
+      </p>
+
+      <p class="aula-text">
+        <strong>Por que não fazemos CPUs de 100 GHz?</strong> O problema é físico: transistores mais
+        rápidos geram mais calor. A partir de certo ponto, o processador derreteria literalmente.
+        É por isso que a indústria migrou para <em>mais núcleos</em> em vez de clock maior — e por
+        isso que os processadores modernos vêm com soluções elaboradas de resfriamento.
+      </p>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Clock base vs. turbo</div>
+          <h4>Velocidade adaptativa</h4>
+          <p>CPUs modernas têm um clock "base" (ex: 2,4 GHz) e um "turbo" (ex: 4,8 GHz). O turbo é ativado em cargas pesadas e dura enquanto o calor permitir.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Overclocking</div>
+          <h4>Forçar o limite</h4>
+          <p>Entusiastas "overclockeiam" CPUs — forçam um clock maior que o de fábrica. Mais desempenho, mais calor, mais risco. Geralmente requer resfriamento a água.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── CACHE ─── -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">Cache: a memória ultra-rápida da CPU</h2>
+
+      <p class="aula-text">
+        A CPU pode executar bilhões de ciclos por segundo. A RAM pode responder a algumas dezenas de
+        milhões de requisições por segundo. Há uma diferença de velocidade enorme — e se a CPU
+        tivesse que ir até a RAM a cada instrução, ficaria parada esperando na maior parte do tempo.
+      </p>
+
+      <p class="aula-text">
+        A solução é o <strong>cache</strong>: uma memória menor, muito mais rápida e fisicamente
+        dentro do próprio chip da CPU. Quando a CPU precisa de um dado, ela primeiro procura no cache.
+        Se encontrar (isso se chama <em>cache hit</em>), ótimo — acesso ultra-rápido. Se não encontrar
+        (<em>cache miss</em>), ela vai buscar na RAM e guarda uma cópia no cache para o próximo acesso.
+      </p>
+
+      <p class="aula-text">O cache é organizado em níveis, do mais rápido e menor ao mais lento e maior:</p>
+
+      <div class="memory-hierarchy">
+        <div class="mem-tier" style="--tier-color:#9B8FFF">
+          <span class="mem-tier-name">Registradores</span>
+          <div class="mem-tier-bar"><div class="mem-tier-fill" style="width:3%"></div></div>
+          <span class="mem-tier-stats">Bytes · &lt; 1 ns · dentro do núcleo</span>
+        </div>
+        <div class="mem-tier" style="--tier-color:#7A8FFF">
+          <span class="mem-tier-name">Cache L1</span>
+          <div class="mem-tier-bar"><div class="mem-tier-fill" style="width:7%"></div></div>
+          <span class="mem-tier-stats">32–64 KB · ~1 ns · por núcleo</span>
+        </div>
+        <div class="mem-tier" style="--tier-color:#5599FF">
+          <span class="mem-tier-name">Cache L2</span>
+          <div class="mem-tier-bar"><div class="mem-tier-fill" style="width:13%"></div></div>
+          <span class="mem-tier-stats">256 KB–1 MB · ~5 ns · por núcleo</span>
+        </div>
+        <div class="mem-tier" style="--tier-color:#4AACCC">
+          <span class="mem-tier-name">Cache L3</span>
+          <div class="mem-tier-bar"><div class="mem-tier-fill" style="width:22%"></div></div>
+          <span class="mem-tier-stats">4–32 MB · ~20 ns · compartilhado</span>
+        </div>
+        <div class="mem-tier" style="--tier-color:#4AAA77">
+          <span class="mem-tier-name">RAM</span>
+          <div class="mem-tier-bar"><div class="mem-tier-fill" style="width:55%"></div></div>
+          <span class="mem-tier-stats">8–64 GB · ~60 ns · fora do chip</span>
+        </div>
+        <div class="mem-tier" style="--tier-color:#666">
+          <span class="mem-tier-name">SSD / HD</span>
+          <div class="mem-tier-bar"><div class="mem-tier-fill" style="width:100%"></div></div>
+          <span class="mem-tier-stats">256 GB–4 TB · µs a ms · disco</span>
+        </div>
+      </div>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🍳</span>
+        <div class="aula-callout-text">
+          <strong>Analogia da cozinha:</strong>
+          Imagine que você é o cozinheiro. Os <strong>registradores</strong> são os ingredientes nas suas mãos — acesso instantâneo.
+          O <strong>L1</strong> é a bancada na sua frente. O <strong>L2</strong> é a prateleira ao lado. O <strong>L3</strong> é a despensa do restaurante.
+          A <strong>RAM</strong> é o supermercado a 5 minutos de carro. O <strong>HD/SSD</strong> é um fornecedor que entrega no dia seguinte.
+          Quanto mais longe você precisar ir buscar um ingrediente, mais tempo você perde esperando.
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── REGISTRADORES ─── -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">Registradores: a memória das suas mãos</h2>
+
+      <p class="aula-text">
+        Se o cache já é rápido, os <strong>registradores</strong> são o nível extremo: memória físicamente
+        dentro de cada núcleo da CPU, com acesso praticamente instantâneo — em menos de 1 ciclo de clock.
+        O preço disso é que existem poucos deles e guardam muito pouco (dezenas a centenas de bytes no total).
+      </p>
+
+      <p class="aula-text">
+        Os registradores guardam exatamente o que a CPU está usando <em>agora, neste ciclo</em>:
+      </p>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Program Counter (PC)</div>
+          <h4>O ponteiro de instrução</h4>
+          <p>Guarda o endereço de memória da próxima instrução a ser buscada. Quando você "pula" para uma função no código, o PC muda de valor.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Registradores gerais</div>
+          <h4>As "mãos" da CPU</h4>
+          <p>Guardam os operandos das operações (ex: os dois números que serão somados) e os resultados intermediários. Equivalem a variáveis no nível mais baixo possível.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Stack Pointer (SP)</div>
+          <h4>O topo da pilha</h4>
+          <p>Aponta para o topo da pilha de chamadas — a estrutura que controla quais funções estão ativas no seu programa. Você vai entender melhor isso na Fase 3.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Flags / Status</div>
+          <h4>O resultado da comparação</h4>
+          <p>Guardam resultados de comparações: "o resultado foi zero?", "ocorreu overflow?". São usados para decidir se um <code style="font-size:12px;">if</code> vai ou não executar.</p>
+        </div>
+      </div>
+
+      <p class="aula-text">
+        Quando você escreve <code style="background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:13px;">x = 10 + 5</code>, os valores 10 e 5 são carregados em
+        registradores, a ULA os soma, e o resultado 15 é guardado em outro registrador antes de
+        ser movido para o endereço de memória correspondente à variável <code style="background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:13px;">x</code>.
+        Tudo isso em uma fração de nanossegundo.
+      </p>
+    </section>
+
+    <!-- ─── POR QUE IMPORTA ─── -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">Por que isso importa para você, programador?</h2>
+
+      <p class="aula-text">
+        Você raramente vai escrever código que manipula registradores diretamente — linguagens de alto
+        nível como Python abstraem tudo isso. Mas entender a CPU muda como você pensa sobre o código.
+      </p>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Loops infinitos</div>
+          <h4>CPU a 100%</h4>
+          <p>Um <code style="font-size:12px;">while True:</code> sem break faz um núcleo ficar preso em bilhões de ciclos inúteis. É por isso que o ventilador do PC dispara e o sistema trava.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Algoritmos</div>
+          <h4>Ciclos desperdiçados</h4>
+          <p>Um algoritmo O(n²) faz a CPU trabalhar muito mais que um O(n log n). Na Fase 3, você vai entender exatamente o que isso significa na prática.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Cache misses</div>
+          <h4>Código que "briga" com a memória</h4>
+          <p>Código que acessa memória de forma previsível (arrays em sequência) é mais rápido que código que "pula" por lugares aleatórios — por causa do cache.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Threads e núcleos</div>
+          <h4>Paralelismo real</h4>
+          <p>Programas que usam múltiplas threads podem rodar em múltiplos núcleos simultaneamente. Sem entender isso, você nunca aproveita o hardware de verdade.</p>
+        </div>
+      </div>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🎯</span>
+        <div class="aula-callout-text">
+          <strong>Teste prático:</strong>
+          Abra o Gerenciador de Tarefas enquanto abre vários programas ao mesmo tempo.
+          Observe como o uso da CPU sobe. Depois feche tudo e veja cair.
+          Isso é você vendo o ciclo Fetch-Decode-Execute trabalhando em tempo real.
+        </div>
+      </div>
+    </section>
+
+    <hr class="aula-divider">
+
+    <!-- ─── TERMOS-CHAVE ─── -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">Termos-chave desta aula</h2>
+
+      <div class="aula-terms">
+        <div class="aula-term">
+          <span class="aula-term-word">CPU</span>
+          <span class="aula-term-def">Central Processing Unit. O processador que executa todas as instruções de todos os programas.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Núcleo (Core)</span>
+          <span class="aula-term-def">Uma unidade de processamento completa dentro da CPU. Mais núcleos = mais tarefas em paralelo.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Clock / GHz</span>
+          <span class="aula-term-def">Frequência de ciclos por segundo. 3,6 GHz = 3,6 bilhões de ciclos/s. Define a velocidade bruta de execução.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Fetch-Decode-Execute</span>
+          <span class="aula-term-def">O ciclo fundamental da CPU: buscar instrução → decodificar → executar → repetir infinitamente.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">ULA</span>
+          <span class="aula-term-def">Unidade Lógica e Aritmética. A "calculadora" da CPU — executa somas, comparações e operações lógicas.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Registradores</span>
+          <span class="aula-term-def">Memória mínima dentro do núcleo, acesso em &lt;1 ciclo. Guarda os dados sendo usados agora.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Program Counter</span>
+          <span class="aula-term-def">Registrador que aponta para o endereço da próxima instrução a ser executada.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Cache L1/L2/L3</span>
+          <span class="aula-term-def">Memórias intermediárias entre registradores e RAM. Reduzem o tempo de espera por dados.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Cache hit / miss</span>
+          <span class="aula-term-def">Hit: dado encontrado no cache (rápido). Miss: dado não encontrado, precisa buscar na RAM (lento).</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── NAVEGAÇÃO INFERIOR ─── -->
+    <nav class="aula-nav" aria-label="Navegação da aula">
+      <a href="../fase1.html" class="fase-nav-btn">← Voltar ao Módulo 1</a>
+      <a href="fase1-ram.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">Próxima: Memória RAM →</a>
+    </nav>
+
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 1 · Hardware & Componentes</span>
+      <div class="footer-phases">
+        <a href="../fase1.html" style="border-color:var(--fase-color);color:var(--fase-color);">F1</a>
+        <a href="../fase2.html">F2</a>
+        <a href="../fase3.html">F3</a>
+        <a href="../fase4.html">F4</a>
+        <a href="../fase5.html">F5</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/nav.js"></script>
+</body>
+</html>

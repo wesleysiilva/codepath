@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Armazenamento: HD e SSD | Fase 1 | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/style.css">
+  <style>
+    :root { --fase-color: #9B8FFF; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link">Plano</a>
+      <a href="../fase1.html" class="nav-link active">Fase 1</a>
+      <a href="../fase2.html" class="nav-link">Fase 2</a>
+      <a href="../fase3.html" class="nav-link">Fase 3</a>
+      <a href="../fase4.html" class="nav-link">Fase 4</a>
+      <a href="../fase5.html" class="nav-link">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html">Plano de Ensino</a>
+    <a href="../fase1.html">Fase 1 — Fundamentos</a>
+    <a href="../fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="../fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="../fase4.html">Fase 4 — Python</a>
+    <a href="../fase5.html">Fase 5 — Especialização</a>
+  </div>
+
+  <nav class="breadcrumb" aria-label="Navegação">
+    <a href="../../index.html">Plano</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Fase 1</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Hardware & Componentes</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">Armazenamento: HD e SSD</span>
+  </nav>
+
+  <header class="aula-hero">
+    <div class="fase-badge">Fase 1 · Hardware & Componentes</div>
+    <h1 class="aula-title">Armazenamento:<br>HD e SSD</h1>
+    <p class="aula-intro">
+      Seus arquivos, projetos, sistema operacional e programas vivem no armazenamento.
+      Entenda a diferença entre o disco rígido mecânico e o SSD eletrônico — e por que
+      essa diferença muda a experiência de trabalhar como desenvolvedor.
+    </p>
+    <div class="aula-meta">
+      <div class="meta-pill"><strong>⏱</strong> ~15 min</div>
+      <div class="meta-pill"><strong>📶</strong> Iniciante</div>
+      <div class="meta-pill">Módulo 1 de 5</div>
+    </div>
+  </header>
+
+  <article class="aula-body">
+
+    <!-- O QUE É ARMAZENAMENTO -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">Armazenamento vs. RAM: a diferença fundamental</h2>
+
+      <p class="aula-text">
+        Na aula anterior vimos que a RAM é rápida mas volátil — perde tudo ao desligar. O armazenamento
+        (HD ou SSD) é o oposto: <strong>persistente e não-volátil</strong>. Os dados sobrevivem a
+        desligamentos, quedas de energia e reinicializações.
+      </p>
+
+      <p class="aula-text">
+        É no armazenamento que ficam: o sistema operacional, todos os seus arquivos, fotos, vídeos,
+        programas instalados, projetos de código e banco de dados. A RAM é temporária; o armazenamento é permanente.
+      </p>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">📦</span>
+        <div class="aula-callout-text">
+          <strong>Analogia:</strong>
+          Se a RAM é a mesa de trabalho (só o que você está usando agora), o armazenamento é o arquivo
+          morto da empresa — onde tudo fica guardado, organizado, disponível para ser trazido para a
+          mesa quando necessário.
+        </div>
+      </div>
+    </section>
+
+    <!-- HD -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">HD: o disco rígido mecânico</h2>
+
+      <p class="aula-text">
+        O <strong>HD</strong> (Hard Disk Drive) é um dispositivo mecânico — literalmente tem partes físicas
+        se movendo enquanto funciona. Dentro de uma caixa hermética há um ou mais pratos de metal
+        (discos) que giram em alta velocidade, e uma cabeça de leitura/escrita que se move sobre eles,
+        como a agulha de um toca-discos.
+      </p>
+
+      <ol class="aula-steps">
+        <li class="aula-step">
+          <span class="aula-step-num">1</span>
+          <div class="aula-step-content">
+            <strong>Os pratos giram</strong>
+            Normalmente a 5400 ou 7200 rotações por minuto (RPM). Quanto mais rápido giram, mais rápido os dados passam sob a cabeça de leitura.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">2</span>
+          <div class="aula-step-content">
+            <strong>A cabeça se posiciona</strong>
+            Para ler um arquivo, a cabeça precisa se mover mecanicamente até a trilha correta no disco. Isso leva tempo — chamamos de <em>latência de seek</em> (busca).
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">3</span>
+          <div class="aula-step-content">
+            <strong>Dados são lidos magneticamente</strong>
+            A superfície do prato tem regiões magnetizadas em direções opostas — representando 0s e 1s. A cabeça detecta essas variações e converte em dados digitais.
+          </div>
+        </li>
+      </ol>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Vantagens do HD</div>
+          <h4>Custo e capacidade</h4>
+          <p>HDs são baratos por GB. Um HD de 4TB custa bem menos que um SSD equivalente. Ideal para guardar backups, filmes, arquivos que não precisam de acesso rápido.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Desvantagens do HD</div>
+          <h4>Lento e frágil</h4>
+          <p>Partes mecânicas = mais lento, consome mais energia, faz barulho e pode ser danificado por impactos físicos. Um choque enquanto o disco está girando pode estragar tudo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SSD -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">SSD: armazenamento eletrônico</h2>
+
+      <p class="aula-text">
+        O <strong>SSD</strong> (Solid State Drive) não tem partes móveis. Ele usa <strong>memória flash</strong>
+        — a mesma tecnologia de um pen drive, mas muito mais rápida e confiável. Dados são armazenados em
+        células de transistores que retêm carga elétrica, representando 0s e 1s.
+      </p>
+
+      <p class="aula-text">
+        Como não há partes mecânicas se movendo, o acesso a qualquer parte do SSD é quase instantâneo.
+        Não existe "seek time" — você não precisa esperar uma cabeça se mover. O resultado é uma diferença
+        de velocidade dramática em relação ao HD.
+      </p>
+
+      <div class="memory-hierarchy">
+        <div class="mem-tier" style="--tier-color:#9B8FFF">
+          <span class="mem-tier-name">NVMe SSD</span>
+          <div class="mem-tier-bar"><div class="mem-tier-fill" style="width:100%"></div></div>
+          <span class="mem-tier-stats">3.000–7.000 MB/s · ultra-rápido</span>
+        </div>
+        <div class="mem-tier" style="--tier-color:#5599FF">
+          <span class="mem-tier-name">SATA SSD</span>
+          <div class="mem-tier-bar"><div class="mem-tier-fill" style="width:45%"></div></div>
+          <span class="mem-tier-stats">500–600 MB/s · rápido</span>
+        </div>
+        <div class="mem-tier" style="--tier-color:#666">
+          <span class="mem-tier-name">HD 7200 RPM</span>
+          <div class="mem-tier-bar"><div class="mem-tier-fill" style="width:15%"></div></div>
+          <span class="mem-tier-stats">100–160 MB/s · lento</span>
+        </div>
+        <div class="mem-tier" style="--tier-color:#444">
+          <span class="mem-tier-name">HD 5400 RPM</span>
+          <div class="mem-tier-bar"><div class="mem-tier-fill" style="width:8%"></div></div>
+          <span class="mem-tier-stats">80–120 MB/s · bem lento</span>
+        </div>
+      </div>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">⚡</span>
+        <div class="aula-callout-text">
+          <strong>Na prática:</strong>
+          Um computador com HD pode levar 60 segundos para iniciar o Windows.
+          O mesmo computador com SSD SATA inicia em 10 segundos.
+          Com NVMe, menos de 5 segundos. Para um desenvolvedor que reinicia a máquina e
+          compila projetos dezenas de vezes por dia, isso somado é horas por semana.
+        </div>
+      </div>
+    </section>
+
+    <!-- NVME E M.2 -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">NVMe e M.2: os SSDs mais rápidos</h2>
+
+      <p class="aula-text">
+        SSDs mais antigos usam a mesma interface que HDs (SATA), o que limita a velocidade.
+        SSDs modernos usam o padrão <strong>NVMe</strong> (Non-Volatile Memory Express), conectado
+        diretamente ao barramento PCIe da placa-mãe — muito mais rápido.
+      </p>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Formato M.2</div>
+          <h4>O cartão pequeno</h4>
+          <p>M.2 é o formato físico — um stick pequeno (como um chiclete) que encaixa diretamente na placa-mãe. Pode ser SATA ou NVMe. O formato M.2 NVMe é o padrão em laptops modernos.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">PCIe Gen 4/5</div>
+          <h4>Gerações de velocidade</h4>
+          <p>Assim como a RAM tem DDR4, DDR5, o NVMe tem gerações. Gen 4 chega a ~7 GB/s; Gen 5 ultrapassa 12 GB/s. Números difíceis de imaginar — mas a diferença no uso real é perceptível.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SISTEMA DE ARQUIVOS -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">Sistema de arquivos: como os dados são organizados</h2>
+
+      <p class="aula-text">
+        O armazenamento físico é apenas uma sequência de bits. Para que isso vire "pastas e arquivos",
+        existe o <strong>sistema de arquivos</strong> — uma camada de software que organiza e gerencia
+        onde cada arquivo começa e termina no disco.
+      </p>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Windows</div>
+          <h4>NTFS</h4>
+          <p>New Technology File System. Suporta arquivos grandes, permissões, criptografia e journaling (registro de operações para recuperação após falhas).</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Linux</div>
+          <h4>ext4 / Btrfs</h4>
+          <p>ext4 é o sistema padrão da maioria das distros Linux. Robusto, eficiente e com journaling. Btrfs é mais moderno, com snapshots e compressão nativa.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">macOS</div>
+          <h4>APFS</h4>
+          <p>Apple File System. Otimizado para SSDs, com suporte a snapshots e criptografia nativa. Substituiu o HFS+ a partir de 2017.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Pen drives / SD cards</div>
+          <h4>FAT32 / exFAT</h4>
+          <p>Simples e compatível com todos os sistemas operacionais. FAT32 limita arquivos a 4 GB; exFAT não tem esse limite. Usado em dispositivos removíveis por compatibilidade universal.</p>
+        </div>
+      </div>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🧠</span>
+        <div class="aula-callout-text">
+          <strong>Por que isso importa na prática:</strong>
+          Quando você usa o terminal para criar pastas, copiar arquivos ou configurar permissões,
+          você está interagindo com o sistema de arquivos. O comando <code style="background:var(--bg);padding:1px 6px;border-radius:4px;font-size:12px;">ls -la</code> no Linux/Mac
+          mostra exatamente as permissões que o sistema de arquivos controla para cada arquivo.
+        </div>
+      </div>
+    </section>
+
+    <!-- POR QUE IMPORTA -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">Por que isso importa para você, programador?</h2>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Build time</div>
+          <h4>Compilar é I/O intensivo</h4>
+          <p>Compilar um projeto grande envolve ler e escrever milhares de arquivos. Em um SSD NVMe, isso pode ser 5x mais rápido do que num HD — horas economizadas por semana.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Banco de dados</div>
+          <h4>Discos são o gargalo</h4>
+          <p>A maioria dos sistemas de banco de dados é limitada pela velocidade do disco. Em produção, usar SSDs em vez de HDs pode multiplicar o desempenho por 10 ou mais.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Docker e VMs</div>
+          <h4>Imagens pesadas</h4>
+          <p>Imagens Docker e máquinas virtuais são arquivos grandes que precisam ser lidos rapidamente na inicialização. SSD faz enorme diferença aqui.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Caminhos de arquivo</div>
+          <h4>Fundação da programação</h4>
+          <p>Todo código que lê ou escreve arquivos (<code style="font-size:12px;">open()</code> em Python) está interagindo com o sistema de arquivos. Entender sua estrutura evita bugs de caminho.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="aula-divider">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Termos-chave desta aula</h2>
+      <div class="aula-terms">
+        <div class="aula-term">
+          <span class="aula-term-word">HD</span>
+          <span class="aula-term-def">Hard Disk Drive. Armazenamento mecânico com pratos magnéticos. Mais lento, mas barato por GB.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">SSD</span>
+          <span class="aula-term-def">Solid State Drive. Armazenamento em memória flash, sem partes móveis. Muito mais rápido que HD.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">NVMe</span>
+          <span class="aula-term-def">Protocolo de alta velocidade para SSDs via PCIe. Muito mais rápido que SATA. Padrão atual em laptops modernos.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Não-volátil</span>
+          <span class="aula-term-def">Mantém os dados sem energia elétrica. Oposto da RAM (volátil).</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Seek time</span>
+          <span class="aula-term-def">Tempo para a cabeça do HD se mover até a posição correta. SSDs não têm seek time.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Sistema de arquivos</span>
+          <span class="aula-term-def">Camada de software que organiza arquivos e pastas no disco (NTFS, ext4, APFS, FAT32).</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Memória flash</span>
+          <span class="aula-term-def">Tecnologia de armazenamento sem partes móveis usada em SSDs, pen drives e cartões SD.</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="aula-nav" aria-label="Navegação da aula">
+      <a href="fase1-ram.html" class="fase-nav-btn">← Memória RAM</a>
+      <a href="fase1-gpu-placa-mae.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">Próxima: GPU e Placa-mãe →</a>
+    </nav>
+
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 1 · Hardware & Componentes</span>
+      <div class="footer-phases">
+        <a href="../fase1.html" style="border-color:var(--fase-color);color:var(--fase-color);">F1</a>
+        <a href="../fase2.html">F2</a>
+        <a href="../fase3.html">F3</a>
+        <a href="../fase4.html">F4</a>
+        <a href="../fase5.html">F5</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/nav.js"></script>
+</body>
+</html>

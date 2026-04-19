@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atividade Prática — Mapa da Máquina | Fase 1 | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/style.css">
+  <style>
+    :root { --fase-color: #9B8FFF; }
+
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: 8px; margin: 1.25rem 0; }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 0.9rem 1.25rem;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      color: var(--text-2);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    .checklist-item::before {
+      content: '○';
+      color: var(--fase-color);
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .checklist-item strong { color: var(--text); font-weight: 500; }
+
+    .option-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: color-mix(in srgb, var(--fase-color) 15%, var(--bg3));
+      color: var(--fase-color);
+      border: 1px solid color-mix(in srgb, var(--fase-color) 25%, transparent);
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 0.75rem;
+      display: block;
+      width: fit-content;
+    }
+
+    .deliverable-full {
+      padding: 1.5rem;
+      background: color-mix(in srgb, var(--fase-color) 8%, var(--bg2));
+      border: 1px solid color-mix(in srgb, var(--fase-color) 25%, transparent);
+      border-radius: var(--radius);
+      margin: 1.5rem 0;
+    }
+
+    .deliverable-full-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link">Plano</a>
+      <a href="../fase1.html" class="nav-link active">Fase 1</a>
+      <a href="../fase2.html" class="nav-link">Fase 2</a>
+      <a href="../fase3.html" class="nav-link">Fase 3</a>
+      <a href="../fase4.html" class="nav-link">Fase 4</a>
+      <a href="../fase5.html" class="nav-link">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html">Plano de Ensino</a>
+    <a href="../fase1.html">Fase 1 — Fundamentos</a>
+    <a href="../fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="../fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="../fase4.html">Fase 4 — Python</a>
+    <a href="../fase5.html">Fase 5 — Especialização</a>
+  </div>
+
+  <nav class="breadcrumb" aria-label="Navegação">
+    <a href="../../index.html">Plano</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Fase 1</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Hardware & Componentes</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">Atividade Prática</span>
+  </nav>
+
+  <header class="aula-hero">
+    <div class="fase-badge">Fase 1 · Atividade Prática</div>
+    <h1 class="aula-title">Mapa da Máquina:<br>conhecer de verdade</h1>
+    <p class="aula-intro">
+      Ler sobre os componentes é o primeiro passo. Identificá-los de verdade é o que fixa o
+      conhecimento. Nesta atividade você vai explorar o hardware do seu próprio computador —
+      ou usar um simulador — e criar um mapa completo da máquina.
+    </p>
+    <div class="aula-meta">
+      <div class="meta-pill"><strong>⏱</strong> ~45–60 min</div>
+      <div class="meta-pill"><strong>🛠️</strong> Prática</div>
+      <div class="meta-pill">Módulo 1 de 5 — Entregável</div>
+    </div>
+  </header>
+
+  <article class="aula-body">
+
+    <!-- O QUE VOCÊ VAI FAZER -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">O que você vai fazer</h2>
+
+      <p class="aula-text">
+        Esta atividade tem dois objetivos: <strong>descobrir as especificações reais do seu computador</strong>
+        e <strong>criar um diagrama visual</strong> mapeando cada componente, sua função e como ele
+        se conecta aos outros. O produto final é o seu entregável do Módulo 1.
+      </p>
+
+      <p class="aula-text">
+        Você pode realizar a atividade de três formas — escolha a que fizer mais sentido para
+        sua situação:
+      </p>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Opção A</div>
+          <h4>Ferramentas do sistema operacional</h4>
+          <p>Use os programas já instalados no seu computador para descobrir as specs. Funciona em qualquer máquina, sem instalar nada. Recomendado para quem não quer abrir o computador.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Opção B</div>
+          <h4>Simulador virtual (PC Building Simulator)</h4>
+          <p>Se não tiver acesso a um PC desktop para abrir, use um simulador online ou o game PC Building Simulator para montar e identificar componentes virtualmente.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Opção C</div>
+          <h4>Desmontagem física</h4>
+          <p>Se tiver acesso a um PC antigo ou de torre (não laptop), abrir e identificar fisicamente os componentes é a experiência mais impactante. Requer cuidado com eletrostática.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPÇÃO A: FERRAMENTAS DO SO -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">Opção A — Descobrindo suas specs pelo sistema</h2>
+
+      <p class="aula-text">
+        Vamos extrair o máximo de informações do seu computador sem abrir uma única parafuso.
+        Siga os passos abaixo de acordo com seu sistema operacional:
+      </p>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🪟</span>
+        <div class="aula-callout-text">
+          <strong>Windows — Gerenciador de Tarefas (Ctrl + Shift + Esc)</strong>
+          Vá na aba <strong>Desempenho</strong>. Clique em cada item (CPU, Memória, Disco, GPU) e anote:
+          nome do componente, uso atual, velocidade, quantidade. Veja os gráficos em tempo real enquanto
+          abre programas.
+        </div>
+      </div>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🪟</span>
+        <div class="aula-callout-text">
+          <strong>Windows — dxdiag</strong>
+          Pressione <strong>Win + R</strong>, digite <code style="background:var(--bg);padding:1px 6px;border-radius:4px;font-size:12px;">dxdiag</code> e Enter.
+          Você verá um relatório completo com fabricante da placa-mãe, modelo da CPU, RAM total,
+          versão do Windows e informações sobre a GPU. Uma mina de ouro de informações técnicas.
+        </div>
+      </div>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🍎</span>
+        <div class="aula-callout-text">
+          <strong>macOS — Sobre este Mac</strong>
+          Clique no  (Apple) no canto superior esquerdo → <strong>Sobre este Mac</strong>.
+          Veja chip (CPU/GPU), memória (RAM), e capacidade de armazenamento. Para mais detalhes,
+          clique em "Relatório do Sistema".
+        </div>
+      </div>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🐧</span>
+        <div class="aula-callout-text">
+          <strong>Linux — Terminal</strong>
+          Abra o terminal e rode esses comandos, um por vez:
+          <br><br>
+          <code style="background:var(--bg);padding:2px 8px;border-radius:4px;font-size:12px;display:block;margin-top:4px;">lscpu</code> — detalhes da CPU
+          <br>
+          <code style="background:var(--bg);padding:2px 8px;border-radius:4px;font-size:12px;display:block;margin-top:4px;">free -h</code> — RAM disponível e em uso
+          <br>
+          <code style="background:var(--bg);padding:2px 8px;border-radius:4px;font-size:12px;display:block;margin-top:4px;">df -h</code> — espaço em disco por partição
+          <br>
+          <code style="background:var(--bg);padding:2px 8px;border-radius:4px;font-size:12px;display:block;margin-top:4px;">lspci | grep VGA</code> — modelo da GPU
+          <br>
+          <code style="background:var(--bg);padding:2px 8px;border-radius:4px;font-size:12px;display:block;margin-top:4px;">sudo dmidecode -t baseboard</code> — modelo da placa-mãe
+        </div>
+      </div>
+
+      <p class="aula-text">
+        Anote tudo que encontrar. Você vai usar essas informações para preencher seu diagrama.
+      </p>
+    </section>
+
+    <!-- OPÇÃO B: SIMULADOR -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">Opção B — Simulador virtual de montagem</h2>
+
+      <p class="aula-text">
+        Se você não tem um PC desktop para abrir fisicamente, um simulador é uma excelente alternativa.
+        O objetivo não é montar um PC do zero, mas identificar e entender cada peça.
+      </p>
+
+      <ol class="aula-steps">
+        <li class="aula-step">
+          <span class="aula-step-num">1</span>
+          <div class="aula-step-content">
+            <strong>PC Building Simulator (Steam)</strong>
+            Se você tem acesso, este jogo simula a montagem e manutenção de PCs com componentes reais. Você aprende encaixar cada peça no lugar certo, conectar cabos e entender a função de cada componente.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">2</span>
+          <div class="aula-step-content">
+            <strong>PCPartPicker (pcpartpicker.com)</strong>
+            Site gratuito para montar uma build virtual. Escolha componentes reais de fabricantes reais e veja como eles se conectam. Mostra compatibilidade, preços e specs lado a lado.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">3</span>
+          <div class="aula-step-content">
+            <strong>YouTube — Vídeos de desmontagem</strong>
+            Busque "PC teardown" ou "desmontagem computador desktop" no YouTube. Vídeos técnicos mostram cada componente sendo removido e explicado. Assista e pause para anotar cada peça.
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- OPÇÃO C: DESMONTAGEM FÍSICA -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">Opção C — Desmontagem física</h2>
+
+      <p class="aula-text">
+        Abrir um computador desktop é a experiência mais impactante. Se você tiver acesso a um PC
+        antigo ou à sua própria máquina torre, siga estas precauções e passos:
+      </p>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">⚠️</span>
+        <div class="aula-callout-text">
+          <strong>Antes de abrir — precauções importantes:</strong>
+          Desligue o computador e desconecte o cabo de energia da tomada. Espere 30 segundos.
+          Toque numa superfície metálica aterrada (como a estrutura do gabinete) antes de tocar
+          qualquer componente — isso descarrega eletricidade estática do seu corpo, que pode danificar
+          peças sensíveis. Nunca abra um notebook — os componentes são muito frágeis e a garantia pode ser perdida.
+        </div>
+      </div>
+
+      <ol class="aula-steps">
+        <li class="aula-step">
+          <span class="aula-step-num">1</span>
+          <div class="aula-step-content">
+            <strong>Remova o painel lateral do gabinete</strong>
+            Normalmente há dois parafusos na parte traseira. Com o painel removido, você verá a placa-mãe
+            e os componentes conectados a ela.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">2</span>
+          <div class="aula-step-content">
+            <strong>Identifique a placa-mãe</strong>
+            A placa verde/marrom grande no fundo é a placa-mãe. Observe os slots, conectores e o chipset.
+            Anote o modelo impresso nela.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">3</span>
+          <div class="aula-step-content">
+            <strong>Localize a CPU</strong>
+            Está coberta pelo dissipador de calor (heatsink) com ventoinha. O cooler protege a CPU do calor.
+            Você pode ver o soquete se remover o cooler, mas isso não é necessário — apenas identifique a localização.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">4</span>
+          <div class="aula-step-content">
+            <strong>Identifique os pentes de RAM</strong>
+            São as barras compridas nos slots verticais ao lado da CPU. Anote quantos pentes há e o modelo (está escrito na etiqueta).
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">5</span>
+          <div class="aula-step-content">
+            <strong>Encontre o armazenamento</strong>
+            HDs ficam em baias metálicas com cabos SATA. SSDs M.2 ficam encaixados direto na placa-mãe (bem menores). SSDs SATA parecem HDs menores.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">6</span>
+          <div class="aula-step-content">
+            <strong>Identifique a GPU (se houver)</strong>
+            A placa de vídeo fica no slot PCIe mais próximo da CPU, normalmente a mais comprida. Tem sua própria ventoinha e conectores de alimentação.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">7</span>
+          <div class="aula-step-content">
+            <strong>Fotografe tudo</strong>
+            Tire fotos de cada componente identificado. Você vai usar essas fotos para construir seu diagrama.
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- CRIANDO O MAPA -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">Criando o Mapa da Máquina</h2>
+
+      <p class="aula-text">
+        Com as informações coletadas (pela Opção A, B ou C), crie seu mapa. Pode ser desenhado à mão
+        em papel, feito no PowerPoint, Google Slides, Figma, ou qualquer ferramenta que preferir.
+        O que importa é o conteúdo, não a beleza.
+      </p>
+
+      <p class="aula-text">O mapa deve conter, para cada componente:</p>
+
+      <ul class="aula-steps">
+        <li class="aula-step">
+          <span class="aula-step-num">📌</span>
+          <div class="aula-step-content">
+            <strong>Nome e modelo real</strong>
+            Não só "CPU" — mas "CPU: Intel Core i5-12400, 6 núcleos, 2,5 GHz base / 4,4 GHz turbo, 18 MB cache".
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">📌</span>
+          <div class="aula-step-content">
+            <strong>Função resumida</strong>
+            Em suas próprias palavras: o que esse componente faz? Uma frase que você conseguiria explicar para alguém que não estudou isso.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">📌</span>
+          <div class="aula-step-content">
+            <strong>Conexões com outros componentes</strong>
+            A CPU se conecta à placa-mãe, que se conecta à RAM, que… Mostre essas relações com setas ou linhas.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">📌</span>
+          <div class="aula-step-content">
+            <strong>Uma curiosidade ou fato</strong>
+            Algo que você aprendeu sobre aquele componente que achou interessante. Isso mostra que você não só copiou as specs — você pensou sobre elas.
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- CHECKLIST DO ENTREGÁVEL -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">Checklist do entregável</h2>
+
+      <p class="aula-text">
+        Antes de considerar a atividade concluída, verifique cada item:
+      </p>
+
+      <ul class="checklist">
+        <li class="checklist-item"><strong>CPU:</strong> modelo, número de núcleos, clock, quantidade de cache L3</li>
+        <li class="checklist-item"><strong>RAM:</strong> quantidade total (GB), geração (DDR4/DDR5), frequência (MHz)</li>
+        <li class="checklist-item"><strong>Armazenamento:</strong> tipo (HD/SSD/NVMe), capacidade total, velocidade se disponível</li>
+        <li class="checklist-item"><strong>GPU:</strong> modelo (integrada ou dedicada), VRAM se dedicada</li>
+        <li class="checklist-item"><strong>Placa-mãe:</strong> fabricante e modelo (se conseguir encontrar)</li>
+        <li class="checklist-item"><strong>Periféricos listados:</strong> ao menos 3 de entrada e 2 de saída conectados à sua máquina</li>
+        <li class="checklist-item"><strong>Diagrama de conexões:</strong> mostrando como os componentes se comunicam</li>
+        <li class="checklist-item"><strong>Função de cada componente:</strong> descrita com suas próprias palavras</li>
+      </ul>
+    </section>
+
+    <!-- APRESENTAÇÃO VERBAL -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">A apresentação verbal</h2>
+
+      <p class="aula-text">
+        O diagrama é a evidência escrita. A apresentação verbal é a prova de que você realmente
+        internalizou o conteúdo — não só copiou especificações.
+      </p>
+
+      <p class="aula-text">
+        Treine explicar cada componente em voz alta, sem olhar para o diagrama. Faça a si mesmo
+        estas perguntas e responda sem consultar:
+      </p>
+
+      <ol class="aula-steps">
+        <li class="aula-step">
+          <span class="aula-step-num">?</span>
+          <div class="aula-step-content">
+            <strong>"O que acontece quando abro o VS Code?"</strong>
+            Descreva o caminho completo: SSD → RAM → CPU → tela. Quais componentes estão envolvidos?
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">?</span>
+          <div class="aula-step-content">
+            <strong>"Por que reiniciar o computador resolve muita coisa?"</strong>
+            Pense: o que é perdido quando você reinicia? Por que isso pode "resolver" problemas?
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">?</span>
+          <div class="aula-step-content">
+            <strong>"Seu computador é melhor ou pior para programar que o de um colega?"</strong>
+            Com as specs que você encontrou, justifique. Qual componente seria o gargalo?
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">?</span>
+          <div class="aula-step-content">
+            <strong>"Se você pudesse melhorar um único componente, qual seria e por quê?"</strong>
+            Não há resposta certa — mas a justificativa precisa fazer sentido técnico.
+          </div>
+        </li>
+      </ol>
+
+      <div class="deliverable-full">
+        <div class="deliverable-full-title">🎯 Entregável do Módulo 1</div>
+        <p class="aula-text" style="margin-bottom:0.75rem;">
+          Um diagrama (digital ou em papel) com todos os componentes do seu computador, suas especificações reais,
+          funções e conexões. Você deve conseguir explicar verbalmente qualquer componente do diagrama sem consultar o material.
+        </p>
+        <p class="aula-text" style="margin-bottom:0;">
+          <strong>Critério principal:</strong> se alguém apontar para qualquer parte do diagrama e perguntar
+          "o que isso faz?", você responde de imediato, com suas próprias palavras, com um exemplo concreto.
+        </p>
+      </div>
+    </section>
+
+    <hr class="aula-divider">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Componentes para o diagrama — referência rápida</h2>
+      <div class="aula-terms">
+        <div class="aula-term">
+          <span class="aula-term-word">CPU</span>
+          <span class="aula-term-def">Executa instruções. Anote: modelo, núcleos, clock base e turbo, cache L3.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">RAM</span>
+          <span class="aula-term-def">Memória rápida e temporária. Anote: total em GB, geração DDR, frequência em MHz.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">SSD / HD</span>
+          <span class="aula-term-def">Armazenamento permanente. Anote: tipo (SSD NVMe / SATA / HD), capacidade, velocidade.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">GPU</span>
+          <span class="aula-term-def">Processa gráficos em paralelo. Anote: modelo, VRAM (se dedicada), integrada ou dedicada.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Placa-mãe</span>
+          <span class="aula-term-def">Conecta tudo. Anote: fabricante, modelo, soquete da CPU, geração de RAM suportada.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Periféricos</span>
+          <span class="aula-term-def">Liste os seus: teclado, mouse, monitor, webcam, fones. Classifique cada um como Input, Output ou I/O.</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="aula-nav" aria-label="Navegação da aula">
+      <a href="fase1-perifericos.html" class="fase-nav-btn">← Periféricos I/O</a>
+      <a href="../fase1.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">Ir para o Módulo 2 →</a>
+    </nav>
+
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 1 · Hardware & Componentes</span>
+      <div class="footer-phases">
+        <a href="../fase1.html" style="border-color:var(--fase-color);color:var(--fase-color);">F1</a>
+        <a href="../fase2.html">F2</a>
+        <a href="../fase3.html">F3</a>
+        <a href="../fase4.html">F4</a>
+        <a href="../fase5.html">F5</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GPU e Placa-mãe | Fase 1 | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/style.css">
+  <style>
+    :root { --fase-color: #9B8FFF; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link">Plano</a>
+      <a href="../fase1.html" class="nav-link active">Fase 1</a>
+      <a href="../fase2.html" class="nav-link">Fase 2</a>
+      <a href="../fase3.html" class="nav-link">Fase 3</a>
+      <a href="../fase4.html" class="nav-link">Fase 4</a>
+      <a href="../fase5.html" class="nav-link">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html">Plano de Ensino</a>
+    <a href="../fase1.html">Fase 1 — Fundamentos</a>
+    <a href="../fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="../fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="../fase4.html">Fase 4 — Python</a>
+    <a href="../fase5.html">Fase 5 — Especialização</a>
+  </div>
+
+  <nav class="breadcrumb" aria-label="Navegação">
+    <a href="../../index.html">Plano</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Fase 1</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Hardware & Componentes</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">GPU e Placa-mãe</span>
+  </nav>
+
+  <header class="aula-hero">
+    <div class="fase-badge">Fase 1 · Hardware & Componentes</div>
+    <h1 class="aula-title">GPU e Placa-mãe:<br>paralelismo e o esqueleto</h1>
+    <p class="aula-intro">
+      A GPU é o processador especializado em fazer milhares de coisas ao mesmo tempo — por isso
+      domina gráficos e inteligência artificial. A placa-mãe é o esqueleto que conecta todos os
+      componentes. Entenda o que cada uma faz e por que elas importam para quem programa.
+    </p>
+    <div class="aula-meta">
+      <div class="meta-pill"><strong>⏱</strong> ~20 min</div>
+      <div class="meta-pill"><strong>📶</strong> Iniciante</div>
+      <div class="meta-pill">Módulo 1 de 5</div>
+    </div>
+  </header>
+
+  <article class="aula-body">
+
+    <!-- O QUE É A GPU -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">O que é a GPU?</h2>
+
+      <p class="aula-text">
+        <strong>GPU</strong> significa <em>Graphics Processing Unit</em> — Unidade de Processamento Gráfico.
+        Ela nasceu para renderizar gráficos em jogos e aplicações visuais, mas hoje é usada em muito
+        mais do que isso: inteligência artificial, machine learning, simulações científicas, criptomoedas e vídeo.
+      </p>
+
+      <p class="aula-text">
+        A GPU é um processador como a CPU, mas com uma filosofia completamente diferente.
+        Enquanto a CPU tem poucos núcleos extremamente poderosos (otimizados para executar
+        tarefas complexas em sequência), a GPU tem <strong>milhares de núcleos menores</strong>
+        (otimizados para executar a mesma tarefa em muitos dados ao mesmo tempo).
+      </p>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🔢</span>
+        <div class="aula-callout-text">
+          <strong>Números reais:</strong>
+          Uma CPU moderna de alto desempenho tem entre 8 e 24 núcleos.
+          Uma GPU de médio porte como a NVIDIA RTX 4060 tem <strong>3.072 núcleos CUDA</strong>.
+          A RTX 4090 tem 16.384 núcleos. São ordens de magnitude diferentes.
+        </div>
+      </div>
+    </section>
+
+    <!-- CPU vs GPU -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">CPU vs GPU: serial vs paralelo</h2>
+
+      <p class="aula-text">
+        A diferença entre CPU e GPU é uma diferença de filosofia de design:
+      </p>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">CPU — sequencial</div>
+          <h4>Poucos núcleos, muito poder</h4>
+          <p>Ótima para tarefas que dependem do resultado anterior: lógica de negócio, condicionais complexos, código com muitas dependências entre passos. Um chef Michelin — faz poucas coisas, mas com maestria.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">GPU — paralelo</div>
+          <h4>Milhares de núcleos simples</h4>
+          <p>Ótima para tarefas independentes e repetitivas: calcular a cor de cada pixel, aplicar a mesma operação a um array de milhões de números. Mil funcionários de fast food — simples, mas em massa.</p>
+        </div>
+      </div>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🎮</span>
+        <div class="aula-callout-text">
+          <strong>Por que jogos usam GPU?</strong>
+          Uma tela Full HD tem 1.920 × 1.080 = <strong>2.073.600 pixels</strong>.
+          A cada frame (60 vezes por segundo em um jogo), a GPU precisa calcular a cor de cada
+          um desses pixels, considerando iluminação, sombras, reflexos e texturas.
+          São mais de 124 milhões de cálculos por segundo — e todos eles são independentes
+          entre si. Isso é exatamente o que a GPU faz melhor.
+        </div>
+      </div>
+    </section>
+
+    <!-- GPU E IA -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">Por que a IA adora GPUs?</h2>
+
+      <p class="aula-text">
+        Quando você ouve que treinar um modelo de IA leva horas em GPU e meses em CPU, a razão é matemática.
+        O coração do machine learning é a <strong>multiplicação de matrizes</strong> — operações onde
+        você multiplica tabelas gigantescas de números.
+      </p>
+
+      <p class="aula-text">
+        Uma matriz de 1000×1000 multiplicada por outra de 1000×1000 requer 1 bilhão de multiplicações.
+        Uma CPU faz isso em sequência — núcleo por núcleo. Uma GPU pode fazer milhares dessas
+        multiplicações em paralelo, reduzindo o tempo dramaticamente.
+      </p>
+
+      <ol class="aula-steps">
+        <li class="aula-step">
+          <span class="aula-step-num">→</span>
+          <div class="aula-step-content">
+            <strong>Treinamento de redes neurais</strong>
+            É basicamente multiplicar matrizes bilhões de vezes, ajustando parâmetros a cada rodada.
+            GPUs fazem isso em horas; CPUs levariam meses.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">→</span>
+          <div class="aula-step-content">
+            <strong>Inferência (usar o modelo)</strong>
+            Quando você usa o ChatGPT, a resposta é gerada por GPUs em data centers — aplicando
+            o modelo treinado ao seu texto em tempo real.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">→</span>
+          <div class="aula-step-content">
+            <strong>CUDA e ROCm</strong>
+            NVIDIA criou o CUDA — uma plataforma que permite programar GPUs para tarefas gerais,
+            não só gráficos. É por isso que NVIDIA domina o mercado de IA hoje.
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- GPU DEDICADA vs INTEGRADA -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">GPU dedicada vs. integrada</h2>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">GPU integrada</div>
+          <h4>Dentro do mesmo chip da CPU</h4>
+          <p>A maioria dos processadores modernos (Intel Core, AMD Ryzen, Apple M3) tem uma GPU integrada. Usa a RAM do sistema. Suficiente para uso cotidiano, mas fraca para jogos pesados ou IA.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">GPU dedicada</div>
+          <h4>Placa de vídeo separada</h4>
+          <p>Um componente à parte com sua própria memória (VRAM). NVIDIA RTX ou AMD Radeon. Necessária para jogos modernos, edição de vídeo profissional, machine learning.</p>
+        </div>
+      </div>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">💡</span>
+        <div class="aula-callout-text">
+          <strong>Para o curso:</strong>
+          Você não precisa de GPU dedicada para aprender a programar — nem para as 5 fases deste curso.
+          GPU dedicada começa a importar quando você chegar em machine learning ou desenvolvimento de jogos 3D.
+          GPU integrada é mais do que suficiente para Python, web, algoritmos e projetos autorais.
+        </div>
+      </div>
+    </section>
+
+    <!-- PLACA-MÃE -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">Placa-mãe: o esqueleto do computador</h2>
+
+      <p class="aula-text">
+        A <strong>placa-mãe</strong> (motherboard) é o componente que conecta tudo. Ela é uma placa
+        de circuito impresso com slots, conectores e chips que permitem que a CPU, RAM, SSD, GPU
+        e periféricos se comuniquem entre si.
+      </p>
+
+      <p class="aula-text">
+        Sem a placa-mãe, os componentes são apenas peças isoladas. É ela que define o barramento
+        (os "corredores" por onde os dados trafegam), os slots disponíveis e a compatibilidade entre componentes.
+      </p>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Soquete da CPU</div>
+          <h4>Onde a CPU encaixa</h4>
+          <p>Cada geração de CPU tem um soquete diferente. LGA1700 (Intel 12ª/13ª gen), AM5 (AMD Ryzen 7000). Você não pode colocar uma CPU numa placa com soquete incompatível.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Slots de RAM</div>
+          <h4>Onde os pentes encaixam</h4>
+          <p>Normalmente 2 ou 4 slots. A maioria das placas suporta até 64 GB ou 128 GB. O tipo de RAM (DDR4 ou DDR5) precisa ser compatível com a placa-mãe.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Slots PCIe</div>
+          <h4>Para GPU e SSDs NVMe</h4>
+          <p>PCIe x16 é onde a GPU encaixa. Slots M.2 (para SSDs NVMe) também usam PCIe. A geração (PCIe 4.0, 5.0) determina a largura de banda disponível.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Chipset</div>
+          <h4>O gerente do tráfego</h4>
+          <p>O chipset é um chip na placa-mãe que gerencia a comunicação entre CPU, memória e periféricos. Determina quantas USBs, quantos slots M.2 e quais recursos estão disponíveis.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BIOS / UEFI -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">BIOS / UEFI: o primeiro software</h2>
+
+      <p class="aula-text">
+        Antes do sistema operacional carregar, quem está no controle é o <strong>BIOS</strong> (Basic Input/Output System)
+        ou seu sucessor moderno, o <strong>UEFI</strong> (Unified Extensible Firmware Interface).
+        É um firmware gravado num chip na placa-mãe que inicializa todos os componentes
+        de hardware e passa o controle para o sistema operacional.
+      </p>
+
+      <p class="aula-text">
+        É no BIOS/UEFI que você configura a ordem de boot (de qual dispositivo o computador tenta
+        iniciar primeiro), ativa ou desativa componentes, e pode ver as temperaturas dos componentes.
+        Todo desenvolvedor deveria saber acessar o BIOS ao menos uma vez — geralmente pressionando
+        Delete, F2 ou F10 logo ao ligar o computador.
+      </p>
+    </section>
+
+    <hr class="aula-divider">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Termos-chave desta aula</h2>
+      <div class="aula-terms">
+        <div class="aula-term">
+          <span class="aula-term-word">GPU</span>
+          <span class="aula-term-def">Graphics Processing Unit. Processador com milhares de núcleos para operações paralelas. Essencial para gráficos e IA.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">CUDA</span>
+          <span class="aula-term-def">Plataforma da NVIDIA para programar GPUs em tarefas gerais (não só gráficos). Dominante em machine learning.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">VRAM</span>
+          <span class="aula-term-def">Video RAM. Memória exclusiva da GPU dedicada. Mais VRAM = texturas maiores, modelos de IA maiores.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">GPU integrada</span>
+          <span class="aula-term-def">GPU embutida no mesmo chip da CPU. Usa a RAM do sistema. Suficiente para uso geral e programação.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Placa-mãe</span>
+          <span class="aula-term-def">Placa de circuito que conecta todos os componentes. Define compatibilidade e recursos disponíveis.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Chipset</span>
+          <span class="aula-term-def">Chip da placa-mãe que gerencia comunicação entre componentes. Determina número de portas e slots.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">PCIe</span>
+          <span class="aula-term-def">Peripheral Component Interconnect Express. Barramento de alta velocidade para GPU, SSDs NVMe e placas de expansão.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">BIOS / UEFI</span>
+          <span class="aula-term-def">Firmware da placa-mãe. Inicializa o hardware antes do sistema operacional e permite configurações de baixo nível.</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="aula-nav" aria-label="Navegação da aula">
+      <a href="fase1-armazenamento.html" class="fase-nav-btn">← HD e SSD</a>
+      <a href="fase1-perifericos.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">Próxima: Periféricos I/O →</a>
+    </nav>
+
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 1 · Hardware & Componentes</span>
+      <div class="footer-phases">
+        <a href="../fase1.html" style="border-color:var(--fase-color);color:var(--fase-color);">F1</a>
+        <a href="../fase2.html">F2</a>
+        <a href="../fase3.html">F3</a>
+        <a href="../fase4.html">F4</a>
+        <a href="../fase5.html">F5</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/nav.js"></script>
+</body>
+</html>

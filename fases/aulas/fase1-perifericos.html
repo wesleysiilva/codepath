@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Periféricos I/O | Fase 1 | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/style.css">
+  <style>
+    :root { --fase-color: #9B8FFF; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link">Plano</a>
+      <a href="../fase1.html" class="nav-link active">Fase 1</a>
+      <a href="../fase2.html" class="nav-link">Fase 2</a>
+      <a href="../fase3.html" class="nav-link">Fase 3</a>
+      <a href="../fase4.html" class="nav-link">Fase 4</a>
+      <a href="../fase5.html" class="nav-link">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html">Plano de Ensino</a>
+    <a href="../fase1.html">Fase 1 — Fundamentos</a>
+    <a href="../fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="../fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="../fase4.html">Fase 4 — Python</a>
+    <a href="../fase5.html">Fase 5 — Especialização</a>
+  </div>
+
+  <nav class="breadcrumb" aria-label="Navegação">
+    <a href="../../index.html">Plano</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Fase 1</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Hardware & Componentes</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">Periféricos I/O</span>
+  </nav>
+
+  <header class="aula-hero">
+    <div class="fase-badge">Fase 1 · Hardware & Componentes</div>
+    <h1 class="aula-title">Periféricos I/O:<br>a ponte entre você e o computador</h1>
+    <p class="aula-intro">
+      Teclado, mouse, monitor, câmera, caixas de som — todos são periféricos. Eles são a interface
+      entre o mundo humano e o mundo digital. Entenda o que são dispositivos de entrada e saída,
+      como eles se comunicam com o computador e o que acontece a cada tecla que você pressiona.
+    </p>
+    <div class="aula-meta">
+      <div class="meta-pill"><strong>⏱</strong> ~15 min</div>
+      <div class="meta-pill"><strong>📶</strong> Iniciante</div>
+      <div class="meta-pill">Módulo 1 de 5</div>
+    </div>
+  </header>
+
+  <article class="aula-body">
+
+    <!-- O QUE SÃO PERIFÉRICOS -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">O que são periféricos?</h2>
+
+      <p class="aula-text">
+        <strong>Periféricos</strong> são todos os dispositivos externos ao núcleo do computador
+        (CPU + RAM + placa-mãe) que permitem a comunicação com o mundo externo.
+        O nome vem de "periferia" — estão na borda do sistema, não no centro.
+      </p>
+
+      <p class="aula-text">
+        I/O significa <strong>Input/Output</strong> — Entrada e Saída. Todo periférico faz uma
+        dessas duas coisas (ou as duas):
+      </p>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Input (Entrada)</div>
+          <h4>Do mundo para o computador</h4>
+          <p>Capturam informações do mundo real e as enviam para o computador processar. Teclado, mouse, microfone, câmera, scanner, joystick, touchpad.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Output (Saída)</div>
+          <h4>Do computador para o mundo</h4>
+          <p>Recebem dados processados e os apresentam ao usuário ou ao ambiente. Monitor, caixas de som, fones de ouvido, impressora, projetor.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">I/O (Entrada e Saída)</div>
+          <h4>Os dois sentidos</h4>
+          <p>Comunicam em ambas as direções. Pen drive (lê e escreve), touchscreen (toca = entrada, exibe = saída), placa de rede (envia e recebe dados).</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Armazenamento</div>
+          <h4>Tecnicamente também é I/O</h4>
+          <p>HDs e SSDs são dispositivos de armazenamento, mas também se enquadram como I/O — o computador lê e escreve neles constantemente.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DISPOSITIVOS DE ENTRADA -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">Dispositivos de entrada em detalhe</h2>
+
+      <p class="aula-text">
+        Vamos entender o que acontece por dentro quando você usa os periféricos mais comuns:
+      </p>
+
+      <ol class="aula-steps">
+        <li class="aula-step">
+          <span class="aula-step-num">⌨️</span>
+          <div class="aula-step-content">
+            <strong>Teclado</strong>
+            Cada tecla é um interruptor (switch). Quando você pressiona uma tecla, um circuito fecha, gerando um sinal elétrico. O controlador do teclado converte isso num <em>scan code</em> — um número que identifica qual tecla foi pressionada. Esse código vai para o sistema operacional via USB (ou Bluetooth), que o converte no caractere correspondente considerando o idioma e o layout configurado.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">🖱️</span>
+          <div class="aula-step-content">
+            <strong>Mouse óptico</strong>
+            Um LED ilumina a superfície abaixo do mouse. Um sensor CMOS captura fotos minúsculas dessa superfície centenas de vezes por segundo e compara os frames para detectar movimento. O controlador calcula a direção e velocidade do movimento e envia as coordenadas delta (quanto moveu em X e Y) para o sistema operacional.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">🎙️</span>
+          <div class="aula-step-content">
+            <strong>Microfone</strong>
+            Ondas de pressão sonora movem uma membrana. Esse movimento mecânico é convertido em sinal elétrico analógico. O conversor ADC (Analog-to-Digital Converter) digitaliza esse sinal — transforma as variações de tensão em amostras numéricas dezenas de milhares de vezes por segundo (44.100 Hz para qualidade de CD).
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">📷</span>
+          <div class="aula-step-content">
+            <strong>Câmera / Webcam</strong>
+            A lente foca a luz em um sensor CMOS ou CCD. Cada ponto do sensor mede a intensidade da luz vermelha, verde e azul. Esses valores RGB são digitalizados e montados no frame da imagem. Uma webcam 1080p captura 1.920 × 1.080 = ~2 milhões de pixels, 30 vezes por segundo.
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- DISPOSITIVOS DE SAÍDA -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">Dispositivos de saída em detalhe</h2>
+
+      <ol class="aula-steps">
+        <li class="aula-step">
+          <span class="aula-step-num">🖥️</span>
+          <div class="aula-step-content">
+            <strong>Monitor</strong>
+            A GPU calcula a cor de cada pixel e armazena num buffer de frame (framebuffer) na VRAM.
+            O monitor lê esse buffer e acende os subpixels RGB correspondentes. Em 60 Hz, isso acontece
+            60 vezes por segundo. Em 144 Hz, 144 vezes. Mais Hz = imagem mais fluida, menos rastro em movimento.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">🔊</span>
+          <div class="aula-step-content">
+            <strong>Caixas de som / fones</strong>
+            O processo inverso do microfone: dados digitais são convertidos em sinal analógico pelo DAC
+            (Digital-to-Analog Converter). Esse sinal elétrico faz vibrar um eletroímã, que move uma
+            membrana, que cria ondas de pressão no ar — o som que você ouve.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">🖨️</span>
+          <div class="aula-step-content">
+            <strong>Impressora</strong>
+            O computador envia dados da página para a impressora via USB ou rede. A impressora processa
+            esse arquivo (muitas vezes em formato PDF ou PostScript) e usa jatos de tinta ou laser
+            para reproduzir a imagem no papel, ponto a ponto.
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- A CADEIA COMPLETA -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">A cadeia completa: do teclado à tela</h2>
+
+      <p class="aula-text">
+        Vamos rastrear o que acontece desde o momento em que você pressiona a tecla "A" no teclado
+        até o momento em que o caractere aparece na tela do editor de código:
+      </p>
+
+      <ol class="aula-steps">
+        <li class="aula-step">
+          <span class="aula-step-num">1</span>
+          <div class="aula-step-content">
+            <strong>Pressionar a tecla</strong>
+            O switch da tecla "A" fecha o circuito. O controlador do teclado detecta e gera o scan code correspondente.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">2</span>
+          <div class="aula-step-content">
+            <strong>USB envia o evento</strong>
+            O teclado envia o evento via USB para o controlador USB da placa-mãe.
+            O protocolo USB define pacotes de dados com tipo de evento, scan code e estado das teclas modificadoras (Shift, Ctrl...).
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">3</span>
+          <div class="aula-step-content">
+            <strong>Interrupção de hardware</strong>
+            O controlador USB gera uma <em>interrupção</em> — um sinal para a CPU parando o que ela está
+            fazendo e atendendo o evento do teclado. O sistema operacional recebe e processa o scan code.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">4</span>
+          <div class="aula-step-content">
+            <strong>Tradução e entrega ao aplicativo</strong>
+            O SO converte o scan code em um keycode virtual ("tecla A"), considerando idioma e modificadores.
+            Esse evento é colocado na fila de mensagens do aplicativo com foco (o editor de código).
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">5</span>
+          <div class="aula-step-content">
+            <strong>O editor processa</strong>
+            O editor de código recebe o evento, insere o caractere "a" (ou "A" com Shift) no documento,
+            atualiza o estado interno e marca a tela para ser redesenhada.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">6</span>
+          <div class="aula-step-content">
+            <strong>A GPU renderiza</strong>
+            O editor pede ao sistema de renderização (via DirectX, Metal ou OpenGL) para desenhar o
+            cursor e o novo caractere. A GPU renderiza os pixels e o monitor exibe o resultado.
+          </div>
+        </li>
+      </ol>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">⚡</span>
+        <div class="aula-callout-text">
+          <strong>Tudo isso em menos de 16 ms.</strong>
+          Em um sistema bem otimizado, desde o toque na tecla até o pixel aparecer na tela demora
+          menos de um frame de 60 Hz (16,6 ms). É por isso que monitores de alta taxa de atualização
+          (144 Hz, 240 Hz) fazem diferença em jogos competitivos — menos tempo entre ação e feedback visual.
+        </div>
+      </div>
+    </section>
+
+    <!-- PROTOCOLOS DE COMUNICAÇÃO -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">Como periféricos se conectam: USB, HDMI e afins</h2>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">USB</div>
+          <h4>Universal Serial Bus</h4>
+          <p>O conector mais comum para periféricos. USB-A (o retangular de sempre), USB-C (oval, reversível). USB 3.0 transfere até 5 Gbps; USB 3.2 até 20 Gbps; Thunderbolt 4 até 40 Gbps.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">HDMI / DisplayPort</div>
+          <h4>Vídeo e áudio</h4>
+          <p>HDMI é o padrão em TVs e monitores de consumo. DisplayPort é preferido em monitores para PC, suporta taxas de atualização maiores. Ambos transmitem vídeo + áudio num único cabo.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Bluetooth</div>
+          <h4>Sem fio de curto alcance</h4>
+          <p>Protocolo de rádio de curto alcance (~10 m). Usado em mouses, teclados, fones e gamepads sem fio. Consome menos energia que Wi-Fi — ideal para dispositivos com bateria.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Placa de rede</div>
+          <h4>I/O para a internet</h4>
+          <p>Também é um periférico de I/O — envia e recebe dados pela rede. Ethernet (cabo RJ45) para conexões cabeadas; Wi-Fi para sem fio. A placa de rede é a porta de entrada da internet no seu computador.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- POR QUE IMPORTA -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">Por que isso importa para você, programador?</h2>
+
+      <p class="aula-text">
+        Quando você programa, você está criando software que, em algum momento, vai receber entrada
+        do usuário e produzir alguma saída. Entender I/O em nível de hardware ajuda a entender
+        por que certas operações são lentas e como estruturar programas melhores.
+      </p>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">input() em Python</div>
+          <h4>Espera do teclado</h4>
+          <p>Quando seu programa chama <code style="font-size:12px;">input()</code>, ele fica parado esperando o usuário digitar. Esse bloqueio vem diretamente do mecanismo de I/O do sistema operacional.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">print() em Python</div>
+          <h4>Escrita na saída padrão</h4>
+          <p><code style="font-size:12px;">print()</code> escreve na <em>stdout</em> — a saída padrão, que normalmente é o terminal. Isso é I/O de saída. Em sistemas embarcados, pode ir para um display físico.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Leitura de arquivos</div>
+          <h4>I/O de disco</h4>
+          <p>Abrir e ler um arquivo é uma operação de I/O. É por isso que leitura de arquivo é mais lenta que ler uma variável na RAM — envolve o controlador do SSD/HD.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">I/O assíncrono</div>
+          <h4>Não bloquear enquanto espera</h4>
+          <p>Programas modernos não ficam parados enquanto esperam I/O. Usam técnicas assíncronas (async/await) para continuar processando outras coisas. Você vai aprender isso em fases mais avançadas.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="aula-divider">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Termos-chave desta aula</h2>
+      <div class="aula-terms">
+        <div class="aula-term">
+          <span class="aula-term-word">Periférico</span>
+          <span class="aula-term-def">Dispositivo externo ao núcleo (CPU/RAM) que comunica o computador com o mundo externo.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">I/O</span>
+          <span class="aula-term-def">Input/Output — Entrada e Saída. Todo dado que entra ou sai do processamento central.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Scan code</span>
+          <span class="aula-term-def">Código numérico enviado pelo teclado identificando qual tecla foi pressionada (antes da tradução para caractere).</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Interrupção (IRQ)</span>
+          <span class="aula-term-def">Sinal que um periférico envia para a CPU pedindo atenção imediata. Faz a CPU pausar e atender o evento.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">ADC / DAC</span>
+          <span class="aula-term-def">Analog-to-Digital Converter / Digital-to-Analog Converter. Converte entre sinais analógicos (som, luz) e digitais.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Framebuffer</span>
+          <span class="aula-term-def">Área na VRAM onde a GPU armazena os pixels do frame atual antes de enviá-los ao monitor.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Taxa de atualização (Hz)</span>
+          <span class="aula-term-def">Quantas vezes por segundo o monitor exibe um novo frame. 60 Hz = 60 frames/s. Mais Hz = mais fluido.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">stdout / stdin</span>
+          <span class="aula-term-def">Saída padrão e entrada padrão no terminal. São as abstrações de I/O mais básicas que um programa usa.</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="aula-nav" aria-label="Navegação da aula">
+      <a href="fase1-gpu-placa-mae.html" class="fase-nav-btn">← GPU e Placa-mãe</a>
+      <a href="fase1-atividade-hardware.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">Próxima: Atividade prática →</a>
+    </nav>
+
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 1 · Hardware & Componentes</span>
+      <div class="footer-phases">
+        <a href="../fase1.html" style="border-color:var(--fase-color);color:var(--fase-color);">F1</a>
+        <a href="../fase2.html">F2</a>
+        <a href="../fase3.html">F3</a>
+        <a href="../fase4.html">F4</a>
+        <a href="../fase5.html">F5</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/nav.js"></script>
+</body>
+</html>

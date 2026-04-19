@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memória RAM | Fase 1 | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/style.css">
+  <style>
+    :root { --fase-color: #9B8FFF; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link">Plano</a>
+      <a href="../fase1.html" class="nav-link active">Fase 1</a>
+      <a href="../fase2.html" class="nav-link">Fase 2</a>
+      <a href="../fase3.html" class="nav-link">Fase 3</a>
+      <a href="../fase4.html" class="nav-link">Fase 4</a>
+      <a href="../fase5.html" class="nav-link">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html">Plano de Ensino</a>
+    <a href="../fase1.html">Fase 1 — Fundamentos</a>
+    <a href="../fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="../fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="../fase4.html">Fase 4 — Python</a>
+    <a href="../fase5.html">Fase 5 — Especialização</a>
+  </div>
+
+  <nav class="breadcrumb" aria-label="Navegação">
+    <a href="../../index.html">Plano</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Fase 1</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Hardware & Componentes</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">Memória RAM</span>
+  </nav>
+
+  <header class="aula-hero">
+    <div class="fase-badge">Fase 1 · Hardware & Componentes</div>
+    <h1 class="aula-title">Memória RAM:<br>a bancada de trabalho</h1>
+    <p class="aula-intro">
+      A RAM é onde o computador "pensa". Tudo que está aberto agora — o navegador, o editor de código,
+      a música tocando — vive na RAM. Entenda o que ela é, por que ela é volátil e por que isso
+      importa para qualquer programador.
+    </p>
+    <div class="aula-meta">
+      <div class="meta-pill"><strong>⏱</strong> ~15 min</div>
+      <div class="meta-pill"><strong>📶</strong> Iniciante</div>
+      <div class="meta-pill">Módulo 1 de 5</div>
+    </div>
+  </header>
+
+  <article class="aula-body">
+
+    <!-- O QUE É A RAM -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">O que é a RAM?</h2>
+
+      <p class="aula-text">
+        <strong>RAM</strong> significa <em>Random Access Memory</em> — Memória de Acesso Aleatório.
+        É a memória principal do computador: rápida, temporária, e diretamente acessada pela CPU a cada ciclo de execução.
+      </p>
+
+      <p class="aula-text">
+        Pense assim: se o HD/SSD é o arquivo morto de uma empresa (onde tudo fica guardado permanentemente),
+        a RAM é a mesa do funcionário — onde ele coloca apenas o que está usando agora. Você não leva
+        tudo do arquivo morto para a mesa; traz só o que precisa naquele momento.
+      </p>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🖥️</span>
+        <div class="aula-callout-text">
+          <strong>Exemplo prático:</strong>
+          Quando você abre o VS Code, o sistema operacional copia os arquivos do programa (que estavam no SSD)
+          para a RAM. A partir daí, a CPU lê e escreve na RAM para executar o programa. O SSD não é consultado
+          o tempo todo — isso seria lento demais.
+        </div>
+      </div>
+    </section>
+
+    <!-- POR QUE É VOLÁTIL -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">Por que a RAM é "volátil"?</h2>
+
+      <p class="aula-text">
+        A RAM é <strong>volátil</strong>: ela precisa de energia elétrica contínua para manter os dados.
+        Desligue o computador — ou ele trave e você force um desligamento — e tudo que estava na RAM some.
+        Permanentemente. É por isso que você perde o rascunho que não salvou, o jogo que não gravou, a aba
+        com o formulário que não enviou.
+      </p>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">RAM (volátil)</div>
+          <h4>Energia = dados</h4>
+          <p>Enquanto houver corrente elétrica, os capacitores mantêm os bits. Corte a energia e os capacitores se descarregam — tudo se perde em milissegundos.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">SSD/HD (não volátil)</div>
+          <h4>Dados sem energia</h4>
+          <p>Usam mecanismos físicos (magnetismo ou carga em células flash) que mantêm os dados mesmo sem energia. Por isso arquivos sobrevivem ao desligamento.</p>
+        </div>
+      </div>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">💡</span>
+        <div class="aula-callout-text">
+          <strong>Por que não fazemos tudo com RAM?</strong>
+          RAM é cara, consome energia e perde dados sem energia. SSDs são mais baratos, guardam dados sem energia,
+          mas são muito mais lentos. Cada um serve a um propósito diferente — e o computador usa os dois em conjunto.
+        </div>
+      </div>
+    </section>
+
+    <!-- ACESSO ALEATÓRIO -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">O que significa "acesso aleatório"?</h2>
+
+      <p class="aula-text">
+        O "Random" de RAM não significa "aleatório" no sentido de sorte. Significa que qualquer
+        endereço de memória pode ser acessado diretamente, em tempo constante, independente de onde
+        ele esteja fisicamente.
+      </p>
+
+      <p class="aula-text">
+        Imagine uma estante de livros numerados. Se você quer o livro 500, vai direto na posição 500 —
+        não precisa percorrer os 499 anteriores. Isso é acesso aleatório: <strong>O(1)</strong>,
+        tempo constante, qualquer posição.
+      </p>
+
+      <p class="aula-text">
+        Cada posição na RAM tem um <strong>endereço</strong> único — um número que identifica aquele
+        byte específico. A CPU usa esses endereços para ler e escrever dados. Quando você declara uma
+        variável em Python, o interpretador reserva um endereço na RAM para guardar aquele valor.
+      </p>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🧠</span>
+        <div class="aula-callout-text">
+          <strong>Conexão com programação:</strong>
+          Em linguagens como C, você pode ver diretamente os endereços de memória — são aqueles números
+          hexadecimais como <code style="background:var(--bg);padding:1px 6px;border-radius:4px;font-size:12px;">0x7ffd5e8a4b20</code>.
+          Em Python isso é abstraído, mas acontece da mesma forma por baixo dos panos.
+          A função <code style="background:var(--bg);padding:1px 6px;border-radius:4px;font-size:12px;">id(x)</code> do Python retorna o endereço de memória de uma variável.
+        </div>
+      </div>
+    </section>
+
+    <!-- QUANTO DE RAM -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">Quanto de RAM você precisa?</h2>
+
+      <p class="aula-text">
+        Pouca RAM é um dos limitadores de desempenho mais comuns. Quando a RAM enche, o sistema
+        operacional começa a usar o disco (SSD/HD) como RAM extra — isso se chama <strong>memória swap</strong>
+        ou arquivo de paginação. O problema: o disco é dezenas de vezes mais lento que a RAM.
+        O resultado: o computador trava, fica lento, o ventilador dispara.
+      </p>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">4 GB</div>
+          <h4>Mínimo absoluto</h4>
+          <p>Navegar na web com poucas abas, tarefas básicas. Para programar hoje em dia, vai ser apertado — o VS Code sozinho usa ~300 MB.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">8 GB</div>
+          <h4>Confortável para estudar</h4>
+          <p>Programar com VS Code, rodar Python, ter algumas abas abertas. Funciona bem para as fases 1 a 4 deste curso.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">16 GB</div>
+          <h4>Desenvolvedor intermediário</h4>
+          <p>Rodar bancos de dados, containers Docker, VMs, projetos web com frontend e backend ao mesmo tempo. Confortável para a maioria dos trabalhos.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">32 GB+</div>
+          <h4>Trabalho pesado</h4>
+          <p>Machine learning, edição de vídeo 4K, múltiplas VMs. O território de data scientists, engenheiros de ML e editores profissionais.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GERAÇÕES DE RAM -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">Gerações de RAM: DDR3, DDR4, DDR5</h2>
+
+      <p class="aula-text">
+        RAM evoluiu ao longo do tempo. A letra <strong>DDR</strong> significa <em>Double Data Rate</em> —
+        a memória transfere dados duas vezes por ciclo de clock. O número depois indica a geração:
+        quanto maior, mais rápida e mais eficiente.
+      </p>
+
+      <div class="memory-hierarchy">
+        <div class="mem-tier" style="--tier-color:#666">
+          <span class="mem-tier-name">DDR3</span>
+          <div class="mem-tier-bar"><div class="mem-tier-fill" style="width:30%"></div></div>
+          <span class="mem-tier-stats">800–2133 MHz · computadores antigos</span>
+        </div>
+        <div class="mem-tier" style="--tier-color:#9B8FFF">
+          <span class="mem-tier-name">DDR4</span>
+          <div class="mem-tier-bar"><div class="mem-tier-fill" style="width:65%"></div></div>
+          <span class="mem-tier-stats">2133–3200 MHz · padrão atual</span>
+        </div>
+        <div class="mem-tier" style="--tier-color:#FF7A6B">
+          <span class="mem-tier-name">DDR5</span>
+          <div class="mem-tier-bar"><div class="mem-tier-fill" style="width:100%"></div></div>
+          <span class="mem-tier-stats">4800–6400 MHz · geração atual / topo</span>
+        </div>
+      </div>
+
+      <p class="aula-text">
+        Na prática, para quem está aprendendo programação, a geração da RAM raramente é o gargalo.
+        O que importa mais é ter quantidade suficiente. Mas saber identificar "DDR4 8GB" numa spec
+        de computador já mostra que você entende o que está lendo.
+      </p>
+    </section>
+
+    <!-- POR QUE IMPORTA -->
+    <section class="aula-section">
+      <h2 class="aula-section-title">Por que a RAM importa para você, programador?</h2>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Variáveis e objetos</div>
+          <h4>Tudo vive na RAM</h4>
+          <p>Cada variável que você declara, cada lista, cada objeto — tudo ocupa espaço na RAM durante a execução. Criar um milhão de objetos desnecessários esgota a memória.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Memory leaks</div>
+          <h4>Memória que nunca é liberada</h4>
+          <p>Quando um programa reserva memória e nunca a devolve ao sistema, a RAM vai enchendo gradualmente. Programas com memory leak ficam mais lentos com o tempo até travar.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Garbage collection</div>
+          <h4>Python limpa para você</h4>
+          <p>Python tem um "coletor de lixo" que monitora quais objetos não são mais usados e libera a RAM automaticamente. Nem toda linguagem faz isso — em C, você gerencia manualmente.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Swap</div>
+          <h4>Quando a RAM acaba</h4>
+          <p>Se seu programa consume mais RAM do que existe fisicamente, o SO usa o disco. Isso é dezenas de vezes mais lento — um bom sinal de que seu algoritmo precisa ser otimizado.</p>
+        </div>
+      </div>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🔍</span>
+        <div class="aula-callout-text">
+          <strong>Teste agora:</strong>
+          No Windows: Gerenciador de Tarefas → Desempenho → Memória. No Mac: Monitor de Atividade → Memória.
+          Veja quanto de RAM está sendo usado agora, quais processos consomem mais e o que acontece quando
+          você abre um jogo ou um programa pesado. Observe se aparece "memória comprimida" ou swap.
+        </div>
+      </div>
+    </section>
+
+    <hr class="aula-divider">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Termos-chave desta aula</h2>
+      <div class="aula-terms">
+        <div class="aula-term">
+          <span class="aula-term-word">RAM</span>
+          <span class="aula-term-def">Random Access Memory. Memória rápida e temporária onde programas são executados.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Volátil</span>
+          <span class="aula-term-def">Perde os dados sem energia elétrica. Oposto de não-volátil (SSD/HD).</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Acesso aleatório</span>
+          <span class="aula-term-def">Qualquer endereço de memória é acessado em tempo constante, diretamente.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Endereço de memória</span>
+          <span class="aula-term-def">Número único que identifica cada byte na RAM. A CPU usa endereços para ler e escrever dados.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Swap / Paginação</span>
+          <span class="aula-term-def">Uso do disco como RAM extra quando a memória física acaba. Muito mais lento que RAM real.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">DDR4 / DDR5</span>
+          <span class="aula-term-def">Gerações de RAM. Número maior = mais rápida. DDR4 é o padrão atual, DDR5 é o mais novo.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Memory leak</span>
+          <span class="aula-term-def">Bug onde um programa reserva RAM e nunca libera. Causa lentidão progressiva até travar.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Garbage collection</span>
+          <span class="aula-term-def">Mecanismo automático (Python, Java, etc.) que libera memória de objetos não usados.</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="aula-nav" aria-label="Navegação da aula">
+      <a href="fase1-cpu.html" class="fase-nav-btn">← CPU — o cérebro</a>
+      <a href="fase1-armazenamento.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">Próxima: HD e SSD →</a>
+    </nav>
+
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 1 · Hardware & Componentes</span>
+      <div class="footer-phases">
+        <a href="../fase1.html" style="border-color:var(--fase-color);color:var(--fase-color);">F1</a>
+        <a href="../fase2.html">F2</a>
+        <a href="../fase3.html">F3</a>
+        <a href="../fase4.html">F4</a>
+        <a href="../fase5.html">F5</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/nav.js"></script>
+</body>
+</html>
