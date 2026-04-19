@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ULA — Unidade Lógica e Aritmética | Von Neumann | Fase 1 | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/style.css">
+  <style>
+    :root { --fase-color: #9B8FFF; }
+
+    .truth-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      margin: 1rem 0;
+    }
+    .truth-table th {
+      background: var(--bg3);
+      color: var(--text);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 8px 16px;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+    .truth-table td {
+      padding: 7px 16px;
+      text-align: center;
+      border: 1px solid var(--border-light);
+      color: var(--text-2);
+      font-weight: 300;
+    }
+    .truth-table tr:nth-child(even) td { background: var(--bg2); }
+    .truth-table td.result { color: var(--fase-color); font-weight: 500; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link">Plano</a>
+      <a href="../fase1.html" class="nav-link active">Fase 1</a>
+      <a href="../fase2.html" class="nav-link">Fase 2</a>
+      <a href="../fase3.html" class="nav-link">Fase 3</a>
+      <a href="../fase4.html" class="nav-link">Fase 4</a>
+      <a href="../fase5.html" class="nav-link">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html">Plano de Ensino</a>
+    <a href="../fase1.html">Fase 1 — Fundamentos</a>
+    <a href="../fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="../fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="../fase4.html">Fase 4 — Python</a>
+    <a href="../fase5.html">Fase 5 — Especialização</a>
+  </div>
+
+  <nav class="breadcrumb" aria-label="Navegação">
+    <a href="../../index.html">Plano</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Fase 1</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Arquitetura de Von Neumann</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">ULA</span>
+  </nav>
+
+  <header class="aula-hero">
+    <div class="fase-badge">Fase 1 · Arquitetura de Von Neumann</div>
+    <h1 class="aula-title">ULA: a calculadora<br>do processador</h1>
+    <p class="aula-intro">
+      Toda operação que o computador realiza — somar, comparar, verificar condições — passa pela
+      Unidade Lógica e Aritmética. Entenda como ela funciona, o que são operações lógicas e
+      por que o <code style="background:var(--bg3);padding:2px 8px;border-radius:4px;font-size:0.9rem;">if</code> do seu código vira uma comparação em hardware.
+    </p>
+    <div class="aula-meta">
+      <div class="meta-pill"><strong>⏱</strong> ~20 min</div>
+      <div class="meta-pill"><strong>📶</strong> Iniciante</div>
+      <div class="meta-pill">Módulo 1 de 5</div>
+    </div>
+  </header>
+
+  <article class="aula-body">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">O que é a ULA?</h2>
+
+      <p class="aula-text">
+        A <strong>ULA</strong> (Unidade Lógica e Aritmética — em inglês, ALU: Arithmetic Logic Unit)
+        é o componente da CPU que executa de fato as operações. Enquanto a Unidade de Controle
+        interpreta e coordena, a ULA <em>calcula</em>.
+      </p>
+
+      <p class="aula-text">
+        Ela recebe dois operandos (valores de entrada) e um sinal de controle (que operação fazer),
+        executa a operação e produz um resultado — que vai para um registrador — e atualiza flags
+        que indicam propriedades do resultado (foi zero? Houve overflow? O resultado foi negativo?).
+      </p>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🔢</span>
+        <div class="aula-callout-text">
+          <strong>Tudo passa pela ULA.</strong>
+          Quando você escreve <code style="background:var(--bg);padding:1px 6px;border-radius:4px;font-size:12px;">resultado = a + b</code> em Python,
+          em algum ponto da execução dois valores chegam como operandos na ULA com o sinal
+          de controle "soma", e o resultado sai. A ULA faz isso bilhões de vezes por segundo.
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Operações aritméticas</h2>
+
+      <p class="aula-text">
+        O lado "aritmético" da ULA executa operações matemáticas com números. As fundamentais são:
+      </p>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Adição</div>
+          <h4>A + B</h4>
+          <p>A operação mais fundamental. Em binário: <code style="font-size:12px;">0101 + 0011 = 1000</code> (5 + 3 = 8). Subtração é implementada como soma com número negativo (complemento de dois).</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Subtração</div>
+          <h4>A − B</h4>
+          <p>Implementada como <code style="font-size:12px;">A + (−B)</code>. O número negativo é representado em complemento de dois — um truque binário que permite subtrair usando o mesmo circuito de adição.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Multiplicação / Divisão</div>
+          <h4>A × B / A ÷ B</h4>
+          <p>CPUs modernas têm circuitos dedicados para multiplicação e divisão inteira. Internamente, multiplicação é implementada como somas repetidas e divisão como subtrações repetidas — mas aceleradas por hardware.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Deslocamento de bits</div>
+          <h4>Shift left / right</h4>
+          <p>Mover todos os bits para esquerda ou direita. Deslocar 1 bit à esquerda equivale a multiplicar por 2; à direita, dividir por 2. Muito mais rápido que multiplicação — compiladores usam isso automaticamente.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Operações lógicas</h2>
+
+      <p class="aula-text">
+        O lado "lógico" da ULA opera bit a bit, usando as regras da lógica booleana.
+        Cada operação compara os bits dos dois operandos posição por posição:
+      </p>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">AND</span>
+        <div class="aula-callout-text">
+          <strong>AND — E lógico:</strong> resultado é 1 somente se <em>ambos</em> os bits forem 1.<br>
+          <code style="background:var(--bg);padding:1px 6px;border-radius:4px;font-size:12px;">1100 AND 1010 = 1000</code><br>
+          Uso: mascarar bits, verificar se um flag está ativo.
+        </div>
+      </div>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">OR</span>
+        <div class="aula-callout-text">
+          <strong>OR — OU lógico:</strong> resultado é 1 se <em>pelo menos um</em> dos bits for 1.<br>
+          <code style="background:var(--bg);padding:1px 6px;border-radius:4px;font-size:12px;">1100 OR 1010 = 1110</code><br>
+          Uso: ativar flags, combinar permissões.
+        </div>
+      </div>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">XOR</span>
+        <div class="aula-callout-text">
+          <strong>XOR — OU exclusivo:</strong> resultado é 1 se os bits forem <em>diferentes</em>.<br>
+          <code style="background:var(--bg);padding:1px 6px;border-radius:4px;font-size:12px;">1100 XOR 1010 = 0110</code><br>
+          Uso: criptografia, detectar diferenças, trocar valores sem variável auxiliar.
+        </div>
+      </div>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">NOT</span>
+        <div class="aula-callout-text">
+          <strong>NOT — inversão:</strong> inverte todos os bits (0→1, 1→0).<br>
+          <code style="background:var(--bg);padding:1px 6px;border-radius:4px;font-size:12px;">NOT 1100 = 0011</code><br>
+          Uso: negar condições, criar complemento de dois para números negativos.
+        </div>
+      </div>
+
+      <p class="aula-text">Veja as tabelas verdade das principais operações com 1 bit:</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1rem 0;">
+        <div>
+          <p class="aula-text" style="margin-bottom:0.5rem;font-size:0.85rem;font-weight:500;color:var(--text);">AND</p>
+          <table class="truth-table">
+            <tr><th>A</th><th>B</th><th>A AND B</th></tr>
+            <tr><td>0</td><td>0</td><td class="result">0</td></tr>
+            <tr><td>0</td><td>1</td><td class="result">0</td></tr>
+            <tr><td>1</td><td>0</td><td class="result">0</td></tr>
+            <tr><td>1</td><td>1</td><td class="result">1</td></tr>
+          </table>
+        </div>
+        <div>
+          <p class="aula-text" style="margin-bottom:0.5rem;font-size:0.85rem;font-weight:500;color:var(--text);">OR</p>
+          <table class="truth-table">
+            <tr><th>A</th><th>B</th><th>A OR B</th></tr>
+            <tr><td>0</td><td>0</td><td class="result">0</td></tr>
+            <tr><td>0</td><td>1</td><td class="result">1</td></tr>
+            <tr><td>1</td><td>0</td><td class="result">1</td></tr>
+            <tr><td>1</td><td>1</td><td class="result">1</td></tr>
+          </table>
+        </div>
+        <div>
+          <p class="aula-text" style="margin-bottom:0.5rem;font-size:0.85rem;font-weight:500;color:var(--text);">XOR</p>
+          <table class="truth-table">
+            <tr><th>A</th><th>B</th><th>A XOR B</th></tr>
+            <tr><td>0</td><td>0</td><td class="result">0</td></tr>
+            <tr><td>0</td><td>1</td><td class="result">1</td></tr>
+            <tr><td>1</td><td>0</td><td class="result">1</td></tr>
+            <tr><td>1</td><td>1</td><td class="result">0</td></tr>
+          </table>
+        </div>
+        <div>
+          <p class="aula-text" style="margin-bottom:0.5rem;font-size:0.85rem;font-weight:500;color:var(--text);">NOT</p>
+          <table class="truth-table">
+            <tr><th>A</th><th>NOT A</th></tr>
+            <tr><td>0</td><td class="result">1</td></tr>
+            <tr><td>1</td><td class="result">0</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Comparações e o registrador de flags</h2>
+
+      <p class="aula-text">
+        A ULA também realiza <strong>comparações</strong>. Quando você escreve
+        <code style="background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:13px;">if x > 10</code>,
+        em algum momento a ULA compara dois valores e o resultado não vai para um registrador de dados —
+        vai para o <strong>registrador de flags</strong> (também chamado de registrador de status).
+      </p>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Zero Flag (ZF)</div>
+          <h4>O resultado foi zero?</h4>
+          <p>Ativado quando o resultado de uma operação é zero. Usado para verificar igualdade: <code style="font-size:12px;">a - b == 0</code> significa <code style="font-size:12px;">a == b</code>.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Carry Flag (CF)</div>
+          <h4>Houve "vai um"?</h4>
+          <p>Ativado quando uma soma gera um bit de carry (vai um) além da largura do registrador. Indica overflow em números sem sinal.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Sign Flag (SF)</div>
+          <h4>O resultado é negativo?</h4>
+          <p>Ativado quando o bit mais significativo do resultado é 1 — que em complemento de dois representa um número negativo.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Overflow Flag (OF)</div>
+          <h4>O resultado transbordou?</h4>
+          <p>Ativado quando uma operação aritmética produz um resultado fora do intervalo representável (ex: somar dois números positivos e obter um negativo).</p>
+        </div>
+      </div>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🔗</span>
+        <div class="aula-callout-text">
+          <strong>Conexão com o if:</strong>
+          Quando a UC encontra uma instrução de desvio condicional (equivalente ao seu <code style="background:var(--bg);padding:1px 6px;border-radius:4px;font-size:12px;">if</code>),
+          ela verifica os flags para decidir se vai ou não alterar o Program Counter.
+          <code style="background:var(--bg);padding:1px 6px;border-radius:4px;font-size:12px;">if a == b</code> → subtrai a de b → verifica Zero Flag → se ZF=1, pula para o bloco if.
+          <strong>Todo condicional do seu código é, no fundo, uma comparação na ULA seguida de
+          uma verificação de flag.</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Por que isso importa para você, programador?</h2>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Operadores do Python</div>
+          <h4>+, -, *, //, %, &, |, ^</h4>
+          <p><code style="font-size:12px;">a & b</code>, <code style="font-size:12px;">a | b</code>, <code style="font-size:12px;">a ^ b</code> em Python são diretamente as operações AND, OR e XOR da ULA. Quando você usa <code style="font-size:12px;">a % 2 == 0</code> para verificar paridade, você está usando a mesma lógica que a ULA usa.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Overflow em outras linguagens</div>
+          <h4>Quando os números "giram"</h4>
+          <p>Em C e Java, <code style="font-size:12px;">int</code> tem 32 bits. Se você somar 2.147.483.647 + 1, o resultado é −2.147.483.648 por causa do Overflow Flag. Python evita isso com inteiros de precisão arbitrária — mas custa mais memória.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Operações bit a bit na prática</div>
+          <h4>Flags, permissões, cores</h4>
+          <p>Permissões de arquivo Unix (<code style="font-size:12px;">chmod 755</code>) são bits. Cores em hex (<code style="font-size:12px;">#FF5733</code>) são três bytes. Redes usam máscaras de bits. Entender AND/OR/XOR abre um mundo de código eficiente.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Desempenho</div>
+          <h4>Shift é mais rápido que multiplicar</h4>
+          <p>Compiladores inteligentes substituem <code style="font-size:12px;">x * 2</code> por <code style="font-size:12px;">x &lt;&lt; 1</code> (shift left) automaticamente porque a ULA executa deslocamento mais rápido que multiplicação completa.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="aula-divider">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Termos-chave desta aula</h2>
+      <div class="aula-terms">
+        <div class="aula-term">
+          <span class="aula-term-word">ULA / ALU</span>
+          <span class="aula-term-def">Unidade Lógica e Aritmética. Executa todas as operações matemáticas e lógicas da CPU.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Operandos</span>
+          <span class="aula-term-def">Os valores de entrada de uma operação. A + B → A e B são os operandos.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">AND / OR / XOR / NOT</span>
+          <span class="aula-term-def">Operações lógicas bit a bit. Base da álgebra booleana e de toda lógica digital.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Registrador de flags</span>
+          <span class="aula-term-def">Registrador que armazena propriedades do último resultado (zero, negativo, overflow, carry).</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Complemento de dois</span>
+          <span class="aula-term-def">Representação de números negativos em binário que permite usar o mesmo circuito de soma para subtração.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Bit shift</span>
+          <span class="aula-term-def">Deslocar todos os bits para esquerda (×2) ou direita (÷2). Mais rápido que multiplicação na ULA.</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="aula-nav" aria-label="Navegação da aula">
+      <a href="fase1-vn-uc.html" class="fase-nav-btn">← Unidade de Controle</a>
+      <a href="fase1-vn-fde.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">Próxima: Ciclo FDE →</a>
+    </nav>
+
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 1 · Von Neumann</span>
+      <div class="footer-phases">
+        <a href="../fase1.html" style="border-color:var(--fase-color);color:var(--fase-color);">F1</a>
+        <a href="../fase2.html">F2</a>
+        <a href="../fase3.html">F3</a>
+        <a href="../fase4.html">F4</a>
+        <a href="../fase5.html">F5</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/nav.js"></script>
+</body>
+</html>

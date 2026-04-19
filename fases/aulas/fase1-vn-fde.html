@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ciclo Fetch-Decode-Execute | Von Neumann | Fase 1 | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/style.css">
+  <style>
+    :root { --fase-color: #9B8FFF; }
+
+    .fde-cycle {
+      display: flex;
+      gap: 0;
+      margin: 1.5rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .fde-step {
+      flex: 1;
+      padding: 1.25rem 1rem;
+      text-align: center;
+      position: relative;
+    }
+    .fde-step::after {
+      content: '→';
+      position: absolute;
+      right: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      color: var(--text2);
+      z-index: 1;
+    }
+    .fde-step:last-child::after { display: none; }
+    .fde-step--fetch { background: color-mix(in srgb, #9B8FFF 12%, var(--bg2)); }
+    .fde-step--decode { background: color-mix(in srgb, #5BC4A0 12%, var(--bg2)); }
+    .fde-step--execute { background: color-mix(in srgb, #F0A050 12%, var(--bg2)); }
+    .fde-step-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.6;
+      margin-bottom: 0.4rem;
+    }
+    .fde-step-name {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .fde-step-desc {
+      font-size: 0.75rem;
+      opacity: 0.75;
+      line-height: 1.4;
+    }
+    .fde-step--fetch .fde-step-name { color: #9B8FFF; }
+    .fde-step--decode .fde-step-name { color: #5BC4A0; }
+    .fde-step--execute .fde-step-name { color: #F0A050; }
+
+    .clock-visual {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin: 1rem 0;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+    }
+    .clock-tick {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .clock-bar {
+      width: 20px;
+      border-radius: 3px 3px 0 0;
+      margin: 0 2px;
+    }
+    .clock-bar--high { height: 32px; background: var(--fase-color); opacity: 0.8; }
+    .clock-bar--low  { height: 12px; background: var(--bg3); border: 1px solid var(--border); }
+    .clock-label {
+      font-size: 0.6rem;
+      opacity: 0.5;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 600px) {
+      .fde-cycle { flex-direction: column; }
+      .fde-step::after { content: '↓'; right: auto; top: auto; bottom: -12px; left: 50%; transform: translateX(-50%); }
+      .fde-step:last-child::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link">Plano</a>
+      <a href="../fase1.html" class="nav-link active">Fase 1</a>
+      <a href="../fase2.html" class="nav-link">Fase 2</a>
+      <a href="../fase3.html" class="nav-link">Fase 3</a>
+      <a href="../fase4.html" class="nav-link">Fase 4</a>
+      <a href="../fase5.html" class="nav-link">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html">Plano de Ensino</a>
+    <a href="../fase1.html">Fase 1 — Fundamentos</a>
+    <a href="../fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="../fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="../fase4.html">Fase 4 — Python</a>
+    <a href="../fase5.html">Fase 5 — Especialização</a>
+  </div>
+
+  <nav class="breadcrumb" aria-label="Navegação">
+    <a href="../../index.html">Plano</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Fase 1</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Arquitetura de Von Neumann</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">Ciclo Fetch-Decode-Execute</span>
+  </nav>
+
+  <header class="aula-hero">
+    <div class="fase-badge">Fase 1 · Arquitetura de Von Neumann</div>
+    <h1 class="aula-title">Ciclo Fetch-Decode-Execute:<br>o batimento cardíaco da CPU</h1>
+    <p class="aula-intro">
+      A CPU não "pensa" — ela repete o mesmo ciclo bilhões de vezes por segundo: busca uma instrução,
+      decodifica o que ela significa e a executa. Tudo que um computador faz, desde abrir um app até
+      renderizar um jogo, é esse ciclo se repetindo em alta velocidade.
+    </p>
+    <div class="aula-meta">
+      <div class="meta-pill"><strong>⏱</strong> ~15 min</div>
+      <div class="meta-pill"><strong>📶</strong> Iniciante</div>
+      <div class="meta-pill">Módulo 1 de 5</div>
+    </div>
+  </header>
+
+  <article class="aula-body">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">O ciclo em três etapas</h2>
+
+      <p class="aula-text">
+        O <strong>Ciclo Fetch-Decode-Execute</strong> (FDE) é o processo fundamental pelo qual a CPU
+        executa qualquer programa. Cada instrução — somar dois números, comparar valores, mover dados —
+        passa por essas três fases antes de produzir qualquer efeito:
+      </p>
+
+      <div class="fde-cycle">
+        <div class="fde-step fde-step--fetch">
+          <div class="fde-step-label">Fase 1</div>
+          <div class="fde-step-name">Fetch</div>
+          <div class="fde-step-desc">Buscar a instrução na memória usando o Program Counter</div>
+        </div>
+        <div class="fde-step fde-step--decode">
+          <div class="fde-step-label">Fase 2</div>
+          <div class="fde-step-name">Decode</div>
+          <div class="fde-step-desc">A UC interpreta o opcode e identifica operandos</div>
+        </div>
+        <div class="fde-step fde-step--execute">
+          <div class="fde-step-label">Fase 3</div>
+          <div class="fde-step-name">Execute</div>
+          <div class="fde-step-desc">A ULA ou outro componente realiza a operação</div>
+        </div>
+      </div>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">💓</span>
+        <div class="aula-callout-text">
+          <strong>O batimento cardíaco da CPU:</strong>
+          Um processador a 3 GHz completa 3 bilhões desses ciclos por segundo. Cada ciclo pode executar
+          uma instrução diferente. Quando você digita uma tecla, centenas de milhões de ciclos FDE
+          acontecem antes da letra aparecer na tela.
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Fetch: buscar a instrução</h2>
+
+      <p class="aula-text">
+        Tudo começa com o <strong>Program Counter (PC)</strong> — um registrador especial que
+        armazena o endereço de memória da próxima instrução a ser executada.
+      </p>
+
+      <ol class="aula-steps">
+        <li class="aula-step">
+          <span class="aula-step-num">1</span>
+          <div class="aula-step-content">
+            <strong>A UC lê o PC</strong> — por exemplo, o valor <code style="background:var(--bg);padding:1px 6px;border-radius:4px;font-size:12px;">0x1000</code> (endereço 4096).
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">2</span>
+          <div class="aula-step-content">
+            <strong>O endereço vai ao barramento</strong> — a UC coloca o endereço no barramento de endereços e sinaliza "leitura".
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">3</span>
+          <div class="aula-step-content">
+            <strong>A memória responde</strong> — os bits da instrução naquele endereço chegam pelo barramento de dados.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">4</span>
+          <div class="aula-step-content">
+            <strong>A instrução entra no IR</strong> — os bits são armazenados no <em>Instruction Register</em>.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">5</span>
+          <div class="aula-step-content">
+            <strong>O PC é incrementado</strong> — automaticamente avança para o próximo endereço
+            (<code style="background:var(--bg);padding:1px 6px;border-radius:4px;font-size:12px;">0x1000 → 0x1004</code> para instruções de 32 bits), pronto para o próximo fetch.
+          </div>
+        </li>
+      </ol>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">📍</span>
+        <div class="aula-callout-text">
+          <strong>O PC e a execução sequencial:</strong>
+          Normalmente o PC avança de instrução em instrução em sequência. Quando você usa um <code>if</code>,
+          <code>while</code> ou chama uma função, o PC pula para outro endereço — é exatamente isso que
+          a instrução de salto (JMP) faz: sobrescreve o PC com um novo valor.
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Decode: entender a instrução</h2>
+
+      <p class="aula-text">
+        Com a instrução no Instruction Register, a <strong>Unidade de Controle decodifica os bits</strong>.
+        Uma instrução típica tem dois campos principais:
+      </p>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Campo 1</div>
+          <h4>Opcode</h4>
+          <p>Os primeiros bits identificam a <em>operação</em>: é uma soma? Uma comparação? Um desvio? Um acesso à memória? A UC consulta uma tabela interna de opcodes para saber o que fazer.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Campo 2</div>
+          <h4>Operandos</h4>
+          <p>Os bits restantes especificam <em>com o que operar</em>: quais registradores usar, qual endereço de memória acessar, ou um valor imediato (constante embutida na instrução).</p>
+        </div>
+      </div>
+
+      <p class="aula-text">
+        Exemplo concreto: em uma arquitetura hipotética de 16 bits, a instrução
+        <code style="background:var(--bg);padding:2px 8px;border-radius:4px;font-size:13px;">0001 0010 0011 0000</code>
+        poderia ser lida como: opcode <code style="background:var(--bg);padding:1px 6px;border-radius:4px;font-size:12px;">0001</code> = ADD,
+        registrador destino = R2, registrador fonte = R3.
+        A UC determina: "preciso ativar a ULA no modo soma, com R2 e R3 como entradas, e guardar o resultado em R2."
+      </p>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Execute: realizar a operação</h2>
+
+      <p class="aula-text">
+        Após decodificar, a UC gera <strong>sinais de controle</strong> que ativam os componentes
+        corretos para realizar a operação. O que acontece aqui depende totalmente da instrução:
+      </p>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Instrução aritmética</div>
+          <h4>ex: ADD R1, R2</h4>
+          <p>A UC ativa a ULA no modo soma. Os valores de R1 e R2 entram na ULA. O resultado vai de volta a R1. Os flags de status (zero, carry, overflow) são atualizados.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Instrução de memória</div>
+          <h4>ex: LOAD R1, [0x2000]</h4>
+          <p>A UC coloca o endereço 0x2000 no barramento de endereços, sinaliza leitura. A memória retorna o valor. A UC carrega esse valor em R1.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Instrução de salto</div>
+          <h4>ex: JMP 0x3000</h4>
+          <p>A UC sobrescreve o Program Counter com o endereço 0x3000. No próximo ciclo, o fetch buscará a instrução nesse novo endereço. O programa "pula".</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Salto condicional</div>
+          <h4>ex: JZ 0x3000</h4>
+          <p>Jump if Zero. A UC verifica o flag ZF nos registradores de status. Se ZF=1, sobrescreve o PC com 0x3000. Se ZF=0, o PC continua normal. Isso é como o <code>if</code> funciona na CPU.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">O clock: o metrônomo do ciclo</h2>
+
+      <p class="aula-text">
+        A CPU possui um <strong>clock</strong> — um oscilador de cristal que gera pulsos elétricos
+        em frequência constante. Cada pulso sincroniza os componentes da CPU. O FDE é cadenciado por esses pulsos.
+      </p>
+
+      <div class="clock-visual">
+        <div class="clock-tick"><div class="clock-bar clock-bar--high"></div><div class="clock-label">F</div></div>
+        <div class="clock-tick"><div class="clock-bar clock-bar--low"></div><div class="clock-label"></div></div>
+        <div class="clock-tick"><div class="clock-bar clock-bar--high"></div><div class="clock-label">D</div></div>
+        <div class="clock-tick"><div class="clock-bar clock-bar--low"></div><div class="clock-label"></div></div>
+        <div class="clock-tick"><div class="clock-bar clock-bar--high"></div><div class="clock-label">E</div></div>
+        <div class="clock-tick"><div class="clock-bar clock-bar--low"></div><div class="clock-label"></div></div>
+        <div class="clock-tick"><div class="clock-bar clock-bar--high"></div><div class="clock-label">F</div></div>
+        <div class="clock-tick"><div class="clock-bar clock-bar--low"></div><div class="clock-label"></div></div>
+        <div class="clock-tick"><div class="clock-bar clock-bar--high"></div><div class="clock-label">D</div></div>
+        <div class="clock-tick"><div class="clock-bar clock-bar--low"></div><div class="clock-label"></div></div>
+        <div class="clock-tick"><div class="clock-bar clock-bar--high"></div><div class="clock-label">E</div></div>
+        <div class="clock-tick"><div class="clock-bar clock-bar--low"></div><div class="clock-label"></div></div>
+      </div>
+      <p class="aula-text" style="font-size:0.8rem;opacity:0.6;margin-top:0;">F = Fetch · D = Decode · E = Execute — cada ciclo FDE se repete com o clock</p>
+
+      <p class="aula-text">
+        A frequência do clock é medida em <strong>GHz</strong> (gigahertz = bilhões de ciclos por segundo).
+        Um processador a 4 GHz pode completar até 4 bilhões de ciclos por segundo. CPUs modernas
+        com <em>pipelining</em> conseguem até sobrepor etapas de ciclos diferentes para maior eficiência.
+      </p>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🔀</span>
+        <div class="aula-callout-text">
+          <strong>Pipeline — executar múltiplas instruções em paralelo:</strong>
+          CPUs modernas não esperam uma instrução completar para começar a próxima. Enquanto a
+          instrução 1 está em Execute, a instrução 2 pode estar em Decode e a instrução 3 em Fetch.
+          É como uma linha de montagem: várias instruções em estágios diferentes ao mesmo tempo.
+          Isso multiplica a taxa de execução sem precisar aumentar o clock.
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Do código Python ao ciclo FDE</h2>
+
+      <p class="aula-text">
+        Quando você escreve <code style="background:var(--bg);padding:2px 8px;border-radius:4px;font-size:13px;">x = 5 + 3</code> em Python,
+        você não vê o FDE — mas ele está lá. Veja a cadeia completa:
+      </p>
+
+      <ol class="aula-steps">
+        <li class="aula-step">
+          <span class="aula-step-num">1</span>
+          <div class="aula-step-content">
+            <strong>Python interpreta o código</strong> — o interpretador Python lê <code>5 + 3</code> e gera instruções de bytecode (código intermediário).
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">2</span>
+          <div class="aula-step-content">
+            <strong>O bytecode é executado</strong> — a máquina virtual do Python executa essas instruções, que por sua vez são código de máquina nativo.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">3</span>
+          <div class="aula-step-content">
+            <strong>Fetch</strong> — a CPU busca a instrução ADD na memória via Program Counter.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">4</span>
+          <div class="aula-step-content">
+            <strong>Decode</strong> — a UC identifica o opcode ADD e os registradores que contêm 5 e 3.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">5</span>
+          <div class="aula-step-content">
+            <strong>Execute</strong> — a ULA soma 5 + 3 = 8. O resultado vai para um registrador e eventualmente para a variável <code>x</code> na memória.
+          </div>
+        </li>
+      </ol>
+
+      <p class="aula-text">
+        Cada linha de código Python pode gerar dezenas ou centenas de instruções de máquina.
+        Cada instrução passa pelo ciclo FDE. O computador não "entende" Python — ele entende apenas bits,
+        endereços e opcodes, repetidos bilhões de vezes por segundo.
+      </p>
+    </section>
+
+    <hr class="aula-divider">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Termos-chave desta aula</h2>
+      <div class="aula-terms">
+        <div class="aula-term">
+          <span class="aula-term-word">Fetch</span>
+          <span class="aula-term-def">Etapa do ciclo FDE onde a CPU busca a instrução na memória usando o Program Counter.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Decode</span>
+          <span class="aula-term-def">Etapa onde a Unidade de Controle interpreta o opcode e identifica os operandos da instrução.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Execute</span>
+          <span class="aula-term-def">Etapa onde a operação é realizada — pela ULA, memória ou outros componentes, conforme os sinais de controle da UC.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Program Counter (PC)</span>
+          <span class="aula-term-def">Registrador que aponta para o endereço da próxima instrução. Incrementado automaticamente após cada fetch; sobrescrito em saltos.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Instruction Register (IR)</span>
+          <span class="aula-term-def">Registrador que armazena a instrução atual enquanto ela é decodificada e executada.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Clock</span>
+          <span class="aula-term-def">Oscilador que gera pulsos em frequência constante (ex: 3 GHz = 3 bilhões de pulsos/s), sincronizando todos os componentes da CPU.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Pipeline</span>
+          <span class="aula-term-def">Técnica onde múltiplas instruções em estágios diferentes do FDE são executadas em paralelo, como uma linha de montagem.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Salto condicional</span>
+          <span class="aula-term-def">Instrução que sobrescreve o PC somente se uma condição (flag) for verdadeira. É como o <code>if</code> é implementado em hardware.</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="aula-nav" aria-label="Navegação da aula">
+      <a href="fase1-vn-ula.html" class="fase-nav-btn">← ULA</a>
+      <a href="fase1-vn-registradores.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">Próxima: Registradores →</a>
+    </nav>
+
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 1 · Von Neumann</span>
+      <div class="footer-phases">
+        <a href="../fase1.html" style="border-color:var(--fase-color);color:var(--fase-color);">F1</a>
+        <a href="../fase2.html">F2</a>
+        <a href="../fase3.html">F3</a>
+        <a href="../fase4.html">F4</a>
+        <a href="../fase5.html">F5</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/nav.js"></script>
+</body>
+</html>

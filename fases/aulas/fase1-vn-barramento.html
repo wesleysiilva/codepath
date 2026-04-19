@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barramento | Von Neumann | Fase 1 | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/style.css">
+  <style>
+    :root { --fase-color: #9B8FFF; }
+
+    .bus-diagram {
+      margin: 1.5rem 0;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .bus-component-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 1rem 1.25rem;
+      background: var(--bg2);
+    }
+    .bus-component {
+      flex: 1;
+      text-align: center;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.6rem 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .bus-component--cpu {
+      border-color: color-mix(in srgb, var(--fase-color) 40%, transparent);
+      background: color-mix(in srgb, var(--fase-color) 10%, var(--bg3));
+      color: var(--fase-color);
+    }
+    .bus-component--mem {
+      border-color: color-mix(in srgb, #5BC4A0 40%, transparent);
+      background: color-mix(in srgb, #5BC4A0 10%, var(--bg3));
+      color: #5BC4A0;
+    }
+    .bus-component--io {
+      border-color: color-mix(in srgb, #F0A050 40%, transparent);
+      background: color-mix(in srgb, #F0A050 10%, var(--bg3));
+      color: #F0A050;
+    }
+    .bus-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .bus-line {
+      display: flex;
+      align-items: center;
+      padding: 0.55rem 1.25rem;
+      border-top: 1px solid var(--border);
+      gap: 0.75rem;
+    }
+    .bus-line-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      width: 110px;
+      flex-shrink: 0;
+    }
+    .bus-line-track {
+      flex: 1;
+      height: 8px;
+      border-radius: 4px;
+      position: relative;
+    }
+    .bus-line-track::before {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      border-radius: 3px;
+      animation: pulse-bus 2s ease-in-out infinite;
+    }
+    .bus-line--addr .bus-line-label { color: var(--fase-color); }
+    .bus-line--addr .bus-line-track { background: color-mix(in srgb, var(--fase-color) 20%, var(--bg3)); }
+    .bus-line--addr .bus-line-track::before { background: color-mix(in srgb, var(--fase-color) 60%, transparent); }
+    .bus-line--data .bus-line-label { color: #5BC4A0; }
+    .bus-line--data .bus-line-track { background: color-mix(in srgb, #5BC4A0 20%, var(--bg3)); }
+    .bus-line--data .bus-line-track::before { background: color-mix(in srgb, #5BC4A0 60%, transparent); animation-delay: 0.7s; }
+    .bus-line--ctrl .bus-line-label { color: #F0A050; }
+    .bus-line--ctrl .bus-line-track { background: color-mix(in srgb, #F0A050 20%, var(--bg3)); }
+    .bus-line--ctrl .bus-line-track::before { background: color-mix(in srgb, #F0A050 60%, transparent); animation-delay: 1.4s; }
+    .bus-line-desc {
+      font-size: 0.72rem;
+      opacity: 0.6;
+      width: 180px;
+      flex-shrink: 0;
+    }
+    @keyframes pulse-bus {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    @media (max-width: 600px) {
+      .bus-line { flex-wrap: wrap; }
+      .bus-line-desc { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link">Plano</a>
+      <a href="../fase1.html" class="nav-link active">Fase 1</a>
+      <a href="../fase2.html" class="nav-link">Fase 2</a>
+      <a href="../fase3.html" class="nav-link">Fase 3</a>
+      <a href="../fase4.html" class="nav-link">Fase 4</a>
+      <a href="../fase5.html" class="nav-link">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html">Plano de Ensino</a>
+    <a href="../fase1.html">Fase 1 — Fundamentos</a>
+    <a href="../fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="../fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="../fase4.html">Fase 4 — Python</a>
+    <a href="../fase5.html">Fase 5 — Especialização</a>
+  </div>
+
+  <nav class="breadcrumb" aria-label="Navegação">
+    <a href="../../index.html">Plano</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Fase 1</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Arquitetura de Von Neumann</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">Barramento</span>
+  </nav>
+
+  <header class="aula-hero">
+    <div class="fase-badge">Fase 1 · Arquitetura de Von Neumann</div>
+    <h1 class="aula-title">Barramento:<br>a rodovia do computador</h1>
+    <p class="aula-intro">
+      O barramento é o conjunto de fios que conecta CPU, memória e dispositivos de I/O.
+      Todo dado que flui dentro do computador — uma instrução buscada, um pixel renderizado,
+      um arquivo lido — trafega por algum barramento.
+    </p>
+    <div class="aula-meta">
+      <div class="meta-pill"><strong>⏱</strong> ~12 min</div>
+      <div class="meta-pill"><strong>📶</strong> Iniciante</div>
+      <div class="meta-pill">Módulo 1 de 5</div>
+    </div>
+  </header>
+
+  <article class="aula-body">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">O que é um barramento?</h2>
+
+      <p class="aula-text">
+        Na arquitetura de Von Neumann, CPU, memória e dispositivos de I/O são componentes separados.
+        Para que eles troquem informação, precisam de um canal de comunicação.
+        Esse canal é o <strong>barramento (bus)</strong> — um conjunto de trilhas condutoras
+        (fisicamente, trilhas de cobre na placa-mãe) por onde os sinais elétricos trafegam.
+      </p>
+
+      <div class="bus-diagram">
+        <div class="bus-component-row">
+          <div class="bus-component bus-component--cpu">CPU</div>
+          <div class="bus-component bus-component--mem">Memória</div>
+          <div class="bus-component bus-component--io">I/O (disco, GPU...)</div>
+        </div>
+        <div class="bus-lines">
+          <div class="bus-line bus-line--addr">
+            <span class="bus-line-label">Endereços</span>
+            <div class="bus-line-track"></div>
+            <span class="bus-line-desc">Onde ler ou escrever</span>
+          </div>
+          <div class="bus-line bus-line--data">
+            <span class="bus-line-label">Dados</span>
+            <div class="bus-line-track"></div>
+            <span class="bus-line-desc">O conteúdo transferido</span>
+          </div>
+          <div class="bus-line bus-line--ctrl">
+            <span class="bus-line-label">Controle</span>
+            <div class="bus-line-track"></div>
+            <span class="bus-line-desc">Ler, escrever, clock, interrupções</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🛣️</span>
+        <div class="aula-callout-text">
+          <strong>Analogia da rodovia:</strong>
+          Pense nos três barramentos como três rodovias paralelas: uma para dizer o
+          <em>destino</em> (endereço), outra para transportar a <em>carga</em> (dados),
+          e uma terceira para os <em>sinais de trânsito</em> (controle: semáforo, sentido, velocidade).
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Os três barramentos clássicos</h2>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label" style="color:var(--fase-color);">Barramento de Endereços</div>
+          <h4>Onde?</h4>
+          <p>Trafega o <em>endereço</em> do local de memória (ou dispositivo) a ser acessado.
+          É <strong>unidirecional</strong> — somente a CPU envia endereços.
+          A largura define o espaço endereçável: 32 bits = até 4 GB de RAM; 64 bits = 16 exabytes.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label" style="color:#5BC4A0;">Barramento de Dados</div>
+          <h4>O quê?</h4>
+          <p>Trafega os <em>dados reais</em>: bytes lidos da memória, valores escritos em registradores,
+          pixels enviados à GPU. É <strong>bidirecional</strong>. A largura (8, 16, 32, 64 bits)
+          define quantos bits são transferidos por ciclo.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label" style="color:#F0A050;">Barramento de Controle</div>
+          <h4>Como?</h4>
+          <p>Trafega os sinais que <em>coordenam</em> a operação: clock, leitura/escrita, confirmação
+          de recebimento (ACK), requisições de interrupção (IRQ). A UC usa este barramento
+          para orquestrar toda comunicação.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">O gargalo de Von Neumann</h2>
+
+      <p class="aula-text">
+        A arquitetura de Von Neumann tem uma limitação fundamental: <strong>dados e instruções
+        compartilham o mesmo barramento</strong>. Enquanto uma instrução está sendo buscada
+        (fetch), dados não podem ser transferidos — e vice-versa. Isso cria um gargalo.
+      </p>
+
+      <p class="aula-text">
+        Esse problema é tão clássico que ganhou nome próprio: <strong>Von Neumann bottleneck</strong>.
+        Ele é uma das principais razões pelas quais a CPU frequentemente fica esperando por dados
+        enquanto poderia estar processando — um estado chamado de <em>memory stall</em>.
+      </p>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🚧</span>
+        <div class="aula-callout-text">
+          <strong>Como a indústria mitiga isso:</strong>
+          Cache L1 separado por instrução e dado (arquitetura Harvard modificada), múltiplos
+          canais de memória (dual-channel DDR aumenta largura de banda), prefetching preditivo
+          (a CPU busca dados antes de precisar deles), e barramentos especializados para I/O
+          de alta velocidade (PCIe para GPU e NVMe).
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Evolução: dos barramentos compartilhados ao PCIe</h2>
+
+      <p class="aula-text">
+        Nos primeiros PCs, todos os dispositivos compartilhavam um único barramento lento (ISA, PCI).
+        Com o tempo, a arquitetura evoluiu para barramentos ponto-a-ponto dedicados:
+      </p>
+
+      <ol class="aula-steps">
+        <li class="aula-step">
+          <span class="aula-step-num">ISA</span>
+          <div class="aula-step-content">
+            <strong>Industry Standard Architecture (anos 80–90)</strong> — barramento de 8 ou 16 bits, compartilhado por todos os dispositivos. Lento e com conflitos frequentes.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">PCI</span>
+          <div class="aula-step-content">
+            <strong>Peripheral Component Interconnect (anos 90–2000)</strong> — 32 ou 64 bits, mais rápido, ainda compartilhado. Todos os dispositivos "disputavam" a mesma via.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">AGP</span>
+          <div class="aula-step-content">
+            <strong>Accelerated Graphics Port (final dos 90)</strong> — barramento dedicado para GPU. Primeiro passo para conexões ponto-a-ponto especializadas.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">PCIe</span>
+          <div class="aula-step-content">
+            <strong>PCI Express (2003–hoje)</strong> — cada dispositivo tem sua própria via serial de alta velocidade. PCIe 5.0 × 16 (para GPU) transfere até 64 GB/s. É o padrão moderno.
+          </div>
+        </li>
+      </ol>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Memória RAM</div>
+          <h4>DDR via IMC</h4>
+          <p>A RAM moderna se conecta diretamente ao <em>Memory Controller</em> integrado na CPU (IMC). DDR5 em dual-channel oferece até ~100 GB/s de largura de banda. Sem passar pela placa-mãe.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">SSD NVMe</div>
+          <h4>PCIe direto</h4>
+          <p>SSDs NVMe modernos usam PCIe × 4 e atingem até 7 GB/s de leitura sequencial. Comparado aos 550 MB/s máximos do SATA, é 12× mais rápido — graças ao barramento dedicado.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">USB / Thunderbolt</div>
+          <h4>I/O externo</h4>
+          <p>Periféricos externos usam protocolos como USB 3.2 (20 Gbps) ou Thunderbolt 4 (40 Gbps). Internamente, esses controladores se conectam à CPU via PCIe ou diretamente no SoC.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Chipset / PCH</div>
+          <h4>O hub dos barramentos</h4>
+          <p>O Platform Controller Hub (PCH) gerencia dispositivos de menor velocidade (USB, SATA, áudio). Conecta-se à CPU por uma via DMI dedicada, liberando o processador para os dispositivos de alta velocidade.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Por que isso importa para você, programador?</h2>
+
+      <p class="aula-text">
+        A maioria dos programadores nunca manipula barramentos diretamente. Mas entender sua
+        existência explica comportamentos que você vai encontrar:
+      </p>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Largura de banda vs. latência</div>
+          <h4>São coisas diferentes</h4>
+          <p>Um SSD NVMe tem alta largura de banda (GB/s) mas ainda tem latência (~100 µs vs. ~100 ns da RAM). Ler um arquivo pequeno é "caro" não pela velocidade do barramento, mas pelo tempo de resposta. Isso explica por que I/O em disco é mais lento que RAM mesmo em SSDs rápidos.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Cache e localidade</div>
+          <h4>Acessar dados próximos é mais rápido</h4>
+          <p>Quando a CPU precisa de dados, ela busca um bloco de ~64 bytes (cache line) do barramento. Acessar elementos sequencialmente (arrays) é muito mais eficiente do que acessos aleatórios (linked lists) — você aproveita o dado que já veio pelo barramento.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">I/O bound vs. CPU bound</div>
+          <h4>Onde está o gargalo?</h4>
+          <p>Programas que passam mais tempo esperando dados (disco, rede, RAM) são <em>I/O bound</em>. Os que passam mais tempo calculando são <em>CPU bound</em>. Essa distinção determina se usar mais threads vai ajudar ou não. E sua origem é o barramento.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Gargalos de hardware</div>
+          <h4>Diagnóstico de performance</h4>
+          <p>Ferramentas como perf, vtune ou o Task Manager mostram uso de CPU, memória e disco separadamente. Se a CPU está ociosa mas o disco está 100%, o gargalo é no barramento de I/O — não no processador.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="aula-divider">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Termos-chave desta aula</h2>
+      <div class="aula-terms">
+        <div class="aula-term">
+          <span class="aula-term-word">Barramento (Bus)</span>
+          <span class="aula-term-def">Conjunto de trilhas elétricas que conecta CPU, memória e dispositivos de I/O, permitindo transferência de dados.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Barramento de endereços</span>
+          <span class="aula-term-def">Via unidirecional (CPU → memória) que carrega o endereço do local a ser lido ou escrito. Sua largura define o máximo de RAM endereçável.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Barramento de dados</span>
+          <span class="aula-term-def">Via bidirecional que trafega os dados reais entre CPU, memória e I/O. Largura típica: 64 bits.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Barramento de controle</span>
+          <span class="aula-term-def">Via que trafega sinais de coordenação: clock, leitura/escrita, interrupções (IRQ), confirmações (ACK).</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Von Neumann bottleneck</span>
+          <span class="aula-term-def">Gargalo causado pelo barramento compartilhado entre dados e instruções, que impede a CPU de buscar instruções e dados simultaneamente.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">PCIe</span>
+          <span class="aula-term-def">PCI Express. Barramento serial ponto-a-ponto moderno. Usado por GPUs, SSDs NVMe e placas de rede de alta velocidade.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Largura de banda</span>
+          <span class="aula-term-def">Quantidade máxima de dados transferidos por segundo (GB/s). Diferente de latência, que mede o tempo de resposta de uma requisição.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Cache line</span>
+          <span class="aula-term-def">Bloco de ~64 bytes transferido do barramento para o cache de uma vez. Acessos sequenciais aproveitam a cache line inteira; acessos aleatórios desperdiçam.</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="aula-nav" aria-label="Navegação da aula">
+      <a href="fase1-vn-registradores.html" class="fase-nav-btn">← Registradores</a>
+      <a href="../fase1.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">Concluir módulo →</a>
+    </nav>
+
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 1 · Von Neumann</span>
+      <div class="footer-phases">
+        <a href="../fase1.html" style="border-color:var(--fase-color);color:var(--fase-color);">F1</a>
+        <a href="../fase2.html">F2</a>
+        <a href="../fase3.html">F3</a>
+        <a href="../fase4.html">F4</a>
+        <a href="../fase5.html">F5</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/nav.js"></script>
+</body>
+</html>

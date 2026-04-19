@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registradores | Von Neumann | Fase 1 | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/style.css">
+  <style>
+    :root { --fase-color: #9B8FFF; }
+
+    .reg-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.75rem;
+      margin: 1.25rem 0;
+    }
+    .reg-box {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.9rem 0.75rem;
+      text-align: center;
+    }
+    .reg-box--special {
+      border-color: color-mix(in srgb, var(--fase-color) 35%, transparent);
+      background: color-mix(in srgb, var(--fase-color) 8%, var(--bg2));
+    }
+    .reg-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--fase-color);
+      margin-bottom: 0.3rem;
+    }
+    .reg-full {
+      font-size: 0.7rem;
+      font-weight: 600;
+      opacity: 0.6;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+    }
+    .reg-desc {
+      font-size: 0.75rem;
+      opacity: 0.75;
+      line-height: 1.4;
+    }
+
+    .storage-comparison {
+      display: flex;
+      gap: 0.75rem;
+      margin: 1.25rem 0;
+      flex-wrap: wrap;
+    }
+    .storage-row {
+      flex: 1;
+      min-width: 200px;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+    }
+    .storage-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .storage-info { flex: 1; }
+    .storage-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.15rem;
+    }
+    .storage-speed {
+      font-size: 0.75rem;
+      opacity: 0.6;
+    }
+    .storage-bar-wrap {
+      height: 6px;
+      background: var(--bg3);
+      border-radius: 3px;
+      margin-top: 0.3rem;
+      overflow: hidden;
+    }
+    .storage-bar {
+      height: 100%;
+      border-radius: 3px;
+      background: var(--fase-color);
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link">Plano</a>
+      <a href="../fase1.html" class="nav-link active">Fase 1</a>
+      <a href="../fase2.html" class="nav-link">Fase 2</a>
+      <a href="../fase3.html" class="nav-link">Fase 3</a>
+      <a href="../fase4.html" class="nav-link">Fase 4</a>
+      <a href="../fase5.html" class="nav-link">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html">Plano de Ensino</a>
+    <a href="../fase1.html">Fase 1 — Fundamentos</a>
+    <a href="../fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="../fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="../fase4.html">Fase 4 — Python</a>
+    <a href="../fase5.html">Fase 5 — Especialização</a>
+  </div>
+
+  <nav class="breadcrumb" aria-label="Navegação">
+    <a href="../../index.html">Plano</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Fase 1</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Arquitetura de Von Neumann</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">Registradores</span>
+  </nav>
+
+  <header class="aula-hero">
+    <div class="fase-badge">Fase 1 · Arquitetura de Von Neumann</div>
+    <h1 class="aula-title">Registradores:<br>a memória dentro da CPU</h1>
+    <p class="aula-intro">
+      Registradores são pequenos espaços de armazenamento dentro do próprio chip da CPU.
+      São poucos, minúsculos e incrivelmente rápidos — centenas de vezes mais rápidos que a RAM.
+      Qualquer dado que a CPU processa passa por eles.
+    </p>
+    <div class="aula-meta">
+      <div class="meta-pill"><strong>⏱</strong> ~12 min</div>
+      <div class="meta-pill"><strong>📶</strong> Iniciante</div>
+      <div class="meta-pill">Módulo 1 de 5</div>
+    </div>
+  </header>
+
+  <article class="aula-body">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">O que são registradores?</h2>
+
+      <p class="aula-text">
+        Imagine que a CPU é uma calculadora avançada. Para somar dois números, ela precisa tê-los
+        "em mãos" — não na gaveta (RAM), não no armário (SSD). <strong>Registradores são o equivalente
+        a segurar valores nas mãos</strong>: acesso imediato, sem espera, sem deslocamento.
+      </p>
+
+      <p class="aula-text">
+        Eles ficam fisicamente dentro do chip da CPU, fabricados com os transistores mais rápidos
+        disponíveis. Uma CPU moderna x86-64 tem dezenas de registradores visíveis ao programador —
+        mais centenas de registradores internos usados pelo próprio processador.
+      </p>
+
+      <div class="storage-comparison">
+        <div class="storage-row">
+          <div class="storage-icon">⚡</div>
+          <div class="storage-info">
+            <div class="storage-name">Registradores</div>
+            <div class="storage-speed">~1 ciclo de clock · &lt;1 ns</div>
+            <div class="storage-bar-wrap"><div class="storage-bar" style="width:100%"></div></div>
+          </div>
+        </div>
+        <div class="storage-row">
+          <div class="storage-icon">🧠</div>
+          <div class="storage-info">
+            <div class="storage-name">Cache L1</div>
+            <div class="storage-speed">~4 ciclos · ~1–2 ns</div>
+            <div class="storage-bar-wrap"><div class="storage-bar" style="width:75%;opacity:0.7"></div></div>
+          </div>
+        </div>
+        <div class="storage-row">
+          <div class="storage-icon">💾</div>
+          <div class="storage-info">
+            <div class="storage-name">RAM</div>
+            <div class="storage-speed">~100 ciclos · ~60–100 ns</div>
+            <div class="storage-bar-wrap"><div class="storage-bar" style="width:20%;opacity:0.4"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">⚡</span>
+        <div class="aula-callout-text">
+          <strong>Velocidade em perspectiva:</strong>
+          Acessar um registrador leva 1 ciclo de clock. Acessar a RAM leva ~100 ciclos.
+          Se você esperasse a RAM toda vez, a CPU ficaria 99% do tempo ociosa.
+          Por isso a CPU trabalha sempre com registradores — e busca dados da RAM
+          para dentro deles antes de operar.
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Registradores de uso geral (x86-64)</h2>
+
+      <p class="aula-text">
+        Na arquitetura x86-64 (usada nos PCs), há 16 registradores de uso geral, cada um com 64 bits.
+        Historicamente, alguns tinham papéis específicos, mas hoje são amplamente intercambiáveis.
+        Os mais conhecidos:
+      </p>
+
+      <div class="reg-grid">
+        <div class="reg-box">
+          <div class="reg-name">RAX</div>
+          <div class="reg-full">Accumulator</div>
+          <div class="reg-desc">Usado para resultados de operações e retorno de funções</div>
+        </div>
+        <div class="reg-box">
+          <div class="reg-name">RBX</div>
+          <div class="reg-full">Base</div>
+          <div class="reg-desc">Registrador de uso geral, preservado entre chamadas</div>
+        </div>
+        <div class="reg-box">
+          <div class="reg-name">RCX</div>
+          <div class="reg-full">Counter</div>
+          <div class="reg-desc">Contador em loops e operações de repetição</div>
+        </div>
+        <div class="reg-box">
+          <div class="reg-name">RDX</div>
+          <div class="reg-full">Data</div>
+          <div class="reg-desc">Dados em operações de I/O e multiplicação/divisão</div>
+        </div>
+        <div class="reg-box">
+          <div class="reg-name">RSP</div>
+          <div class="reg-full">Stack Pointer</div>
+          <div class="reg-desc">Aponta para o topo da pilha de execução</div>
+        </div>
+        <div class="reg-box">
+          <div class="reg-name">RBP</div>
+          <div class="reg-full">Base Pointer</div>
+          <div class="reg-desc">Referência à base do frame atual da pilha</div>
+        </div>
+        <div class="reg-box">
+          <div class="reg-name">RSI</div>
+          <div class="reg-full">Source Index</div>
+          <div class="reg-desc">Ponteiro de origem em operações de cópia</div>
+        </div>
+        <div class="reg-box">
+          <div class="reg-name">RDI</div>
+          <div class="reg-full">Dest. Index</div>
+          <div class="reg-desc">Ponteiro de destino em operações de cópia</div>
+        </div>
+      </div>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">📏</span>
+        <div class="aula-callout-text">
+          <strong>64, 32, 16 e 8 bits no mesmo registrador:</strong>
+          RAX é de 64 bits. Mas você pode acessar os 32 bits inferiores como EAX,
+          os 16 bits inferiores como AX, e até os 8 bits inferiores como AL.
+          Isso é herança da evolução do x86 desde os anos 70 — mantida para compatibilidade.
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Registradores especiais</h2>
+
+      <p class="aula-text">
+        Além dos registradores de uso geral, existem registradores com funções fixas que a CPU
+        usa para controlar a execução:
+      </p>
+
+      <div class="reg-grid">
+        <div class="reg-box reg-box--special">
+          <div class="reg-name">RIP</div>
+          <div class="reg-full">Instruction Pointer</div>
+          <div class="reg-desc">O Program Counter do x86-64. Aponta para a próxima instrução a ser executada.</div>
+        </div>
+        <div class="reg-box reg-box--special">
+          <div class="reg-name">RFLAGS</div>
+          <div class="reg-full">Flags Register</div>
+          <div class="reg-desc">Bits de status: ZF (zero), CF (carry), SF (sinal), OF (overflow). Controlam saltos condicionais.</div>
+        </div>
+        <div class="reg-box reg-box--special">
+          <div class="reg-name">IR</div>
+          <div class="reg-full">Instruction Register</div>
+          <div class="reg-desc">Guarda a instrução atual sendo decodificada pela Unidade de Controle.</div>
+        </div>
+        <div class="reg-box reg-box--special">
+          <div class="reg-name">MAR</div>
+          <div class="reg-full">Mem. Address Register</div>
+          <div class="reg-desc">Armazena o endereço de memória a ser acessado antes de colocá-lo no barramento.</div>
+        </div>
+        <div class="reg-box reg-box--special">
+          <div class="reg-name">MDR</div>
+          <div class="reg-full">Mem. Data Register</div>
+          <div class="reg-desc">Armazena o dado lido ou a ser escrito na memória durante uma operação de acesso.</div>
+        </div>
+        <div class="reg-box reg-box--special">
+          <div class="reg-name">XMM0–15</div>
+          <div class="reg-full">SIMD Registers</div>
+          <div class="reg-desc">128 bits cada. Operam com múltiplos números ao mesmo tempo — usados em gráficos, áudio e IA.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Registradores e variáveis: a ligação invisível</h2>
+
+      <p class="aula-text">
+        Quando você declara uma variável em Python — <code style="background:var(--bg);padding:2px 8px;border-radius:4px;font-size:13px;">x = 42</code> —
+        o interpretador ou o compilador precisa decidir onde guardar esse valor durante a execução.
+        A resposta quase sempre envolve registradores.
+      </p>
+
+      <ol class="aula-steps">
+        <li class="aula-step">
+          <span class="aula-step-num">1</span>
+          <div class="aula-step-content">
+            <strong>Declaração:</strong> o valor 42 está no código-fonte como constante.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">2</span>
+          <div class="aula-step-content">
+            <strong>Carregamento:</strong> a instrução MOV carrega 42 em um registrador (ex: RAX ← 42).
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">3</span>
+          <div class="aula-step-content">
+            <strong>Uso:</strong> qualquer operação com <code>x</code> usa diretamente o registrador — sem ir à RAM.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">4</span>
+          <div class="aula-step-content">
+            <strong>Derrame (spill):</strong> se ficarem sem registradores disponíveis, o compilador "derrama" um valor de volta para a RAM temporariamente.
+          </div>
+        </li>
+      </ol>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🏎️</span>
+        <div class="aula-callout-text">
+          <strong>Register allocation — a arte do compilador:</strong>
+          Compiladores como o do C++ passam uma fase inteira chamada <em>register allocation</em>:
+          decidir quais variáveis ficam em registradores e quais vão para a RAM.
+          Isso é um dos fatores que faz <code>gcc -O2</code> produzir código 2–5× mais rápido —
+          o otimizador mantém valores quentes nos registradores em vez de ir e voltar à memória.
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Por que isso importa para você, programador?</h2>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Pilha de execução</div>
+          <h4>RSP e o stack frame</h4>
+          <p>Toda vez que você chama uma função, a CPU usa RSP para criar um "stack frame" — um espaço na memória para os parâmetros e variáveis locais daquela chamada. Entender isso explica recursão infinita (stack overflow) e por que funções têm escopo próprio.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Debugging de baixo nível</div>
+          <h4>Ver registradores no debugger</h4>
+          <p>Ferramentas como GDB ou o debugger do VS Code podem mostrar o estado dos registradores durante a execução. Saber que RAX contém o valor de retorno de uma função ajuda a entender crashes e comportamentos inesperados.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Performance</div>
+          <h4>Variáveis locais vs. globais</h4>
+          <p>Variáveis locais têm mais chance de ficar em registradores (mais rápido). Variáveis globais e acessos a atributos de objetos costumam exigir mais acessos à memória. Não é motivo para refatorar prematuramente, mas explica diferenças de performance.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Assembly e segurança</div>
+          <h4>A base das vulnerabilidades</h4>
+          <p>Buffer overflows, ROP chains e muitos exploits clássicos manipulam diretamente registradores como RSP e RIP para redirecionar a execução do programa. Entender registradores é o primeiro passo para entender segurança de baixo nível.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="aula-divider">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Termos-chave desta aula</h2>
+      <div class="aula-terms">
+        <div class="aula-term">
+          <span class="aula-term-word">Registrador</span>
+          <span class="aula-term-def">Pequeno espaço de armazenamento dentro da CPU, acessível em 1 ciclo. Toda operação aritmética ou lógica passa por registradores.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">RAX / RBX / RCX...</span>
+          <span class="aula-term-def">Registradores de uso geral de 64 bits na arquitetura x86-64. "R" = 64 bits, "E" = 32 bits inferiores, sem prefixo = 16 bits.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">RIP (Instruction Pointer)</span>
+          <span class="aula-term-def">O Program Counter do x86-64. Aponta para o endereço da próxima instrução a ser buscada no ciclo FDE.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">RFLAGS</span>
+          <span class="aula-term-def">Registrador de status. Contém bits (ZF, CF, SF, OF) que refletem o resultado da última operação e controlam os saltos condicionais.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">RSP (Stack Pointer)</span>
+          <span class="aula-term-def">Aponta para o topo da pilha de execução. Manipulado automaticamente ao chamar e retornar de funções.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Register allocation</span>
+          <span class="aula-term-def">Fase de otimização do compilador que decide quais variáveis ficam em registradores para maximizar velocidade.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Spill</span>
+          <span class="aula-term-def">Quando o compilador não tem registradores suficientes e precisa mover um valor temporariamente para a RAM.</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="aula-nav" aria-label="Navegação da aula">
+      <a href="fase1-vn-fde.html" class="fase-nav-btn">← Ciclo FDE</a>
+      <a href="fase1-vn-barramento.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">Próxima: Barramento →</a>
+    </nav>
+
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 1 · Von Neumann</span>
+      <div class="footer-phases">
+        <a href="../fase1.html" style="border-color:var(--fase-color);color:var(--fase-color);">F1</a>
+        <a href="../fase2.html">F2</a>
+        <a href="../fase3.html">F3</a>
+        <a href="../fase4.html">F4</a>
+        <a href="../fase5.html">F5</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/nav.js"></script>
+</body>
+</html>
