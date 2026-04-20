@@ -47,31 +47,6 @@ curso_programador/
 | Fase 4 | Python | — | — |
 | Fase 5 | Especialização | — | — |
 
-## Deploy na Vercel
-
-### Opção 1 — Via GitHub (recomendado)
-1. Suba esta pasta para um repositório GitHub
-2. Acesse [vercel.com](https://vercel.com) e faça login
-3. Clique em "Add New Project"
-4. Importe o repositório
-5. Clique em Deploy — pronto!
-
-### Opção 2 — Via Vercel CLI
-```bash
-npm i -g vercel
-vercel
-```
-
-### Opção 3 — Drag & Drop
-1. Acesse [vercel.com/new](https://vercel.com/new)
-2. Arraste a pasta do projeto para a área de upload
-
-## Outras opções de hosting gratuito
-
-- **GitHub Pages**: suba para um repositório e ative Pages nas configurações
-- **Netlify**: drag & drop da pasta em [app.netlify.com](https://app.netlify.com)
-- **Cloudflare Pages**: similar à Vercel
-
 ## Tecnologias
 
 - HTML5 semântico
