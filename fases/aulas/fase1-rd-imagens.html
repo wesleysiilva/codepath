@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Imagens e Pixels | Representação de Dados | Fase 1 | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/style.css">
+  <style>
+    :root { --fase-color: #9B8FFF; }
+
+    .pixel-grid {
+      display: inline-grid;
+      grid-template-columns: repeat(8, 28px);
+      gap: 2px;
+      margin: 1.25rem 0;
+    }
+    .px {
+      width: 28px;
+      height: 28px;
+      border-radius: 3px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .rgb-channels {
+      display: flex;
+      gap: 0.75rem;
+      margin: 1.25rem 0;
+      flex-wrap: wrap;
+    }
+    .channel {
+      flex: 1;
+      min-width: 120px;
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: center;
+    }
+    .channel--r { background: rgba(255,80,60,0.12); border: 1px solid rgba(255,80,60,0.25); }
+    .channel--g { background: rgba(80,200,120,0.12); border: 1px solid rgba(80,200,120,0.25); }
+    .channel--b { background: rgba(80,120,255,0.12); border: 1px solid rgba(80,120,255,0.25); }
+    .channel-letter { font-size: 1.8rem; font-weight: 800; font-family: 'Syne', sans-serif; margin-bottom: 0.3rem; }
+    .channel--r .channel-letter { color: #FF5040; }
+    .channel--g .channel-letter { color: #50C878; }
+    .channel--b .channel-letter { color: #5080FF; }
+    .channel-range { font-size: 0.75rem; opacity: 0.7; }
+    .channel-bits  { font-size: 0.7rem; opacity: 0.5; margin-top: 2px; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link">Plano</a>
+      <a href="../fase1.html" class="nav-link active">Fase 1</a>
+      <a href="../fase2.html" class="nav-link">Fase 2</a>
+      <a href="../fase3.html" class="nav-link">Fase 3</a>
+      <a href="../fase4.html" class="nav-link">Fase 4</a>
+      <a href="../fase5.html" class="nav-link">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html">Plano de Ensino</a>
+    <a href="../fase1.html">Fase 1 — Fundamentos</a>
+    <a href="../fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="../fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="../fase4.html">Fase 4 — Python</a>
+    <a href="../fase5.html">Fase 5 — Especialização</a>
+  </div>
+
+  <nav class="breadcrumb" aria-label="Navegação">
+    <a href="../../index.html">Plano</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Fase 1</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Representação de Dados</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">Imagens e pixels</span>
+  </nav>
+
+  <header class="aula-hero">
+    <div class="fase-badge">Fase 1 · Representação de Dados</div>
+    <h1 class="aula-title">Imagens e pixels:<br>uma grade de números</h1>
+    <p class="aula-intro">
+      Uma foto não é "uma imagem" para o computador — é uma grade de milhões de números.
+      Cada pixel é três bytes: R, G, B. Entender isso explica resolução, tamanho de arquivo,
+      formatos PNG vs JPEG e como o processamento de imagens funciona.
+    </p>
+    <div class="aula-meta">
+      <div class="meta-pill"><strong>⏱</strong> ~12 min</div>
+      <div class="meta-pill"><strong>📶</strong> Iniciante</div>
+      <div class="meta-pill">Módulo 4 de 5</div>
+    </div>
+  </header>
+
+  <article class="aula-body">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">O pixel e o modelo RGB</h2>
+
+      <p class="aula-text">
+        O <strong>pixel</strong> (picture element) é a menor unidade de uma imagem digital.
+        Cada pixel é representado por três valores numéricos, um para cada canal de cor primária:
+      </p>
+
+      <div class="rgb-channels">
+        <div class="channel channel--r">
+          <div class="channel-letter">R</div>
+          <div class="channel-range">0 a 255</div>
+          <div class="channel-bits">8 bits</div>
+        </div>
+        <div class="channel channel--g">
+          <div class="channel-letter">G</div>
+          <div class="channel-range">0 a 255</div>
+          <div class="channel-bits">8 bits</div>
+        </div>
+        <div class="channel channel--b">
+          <div class="channel-letter">B</div>
+          <div class="channel-range">0 a 255</div>
+          <div class="channel-bits">8 bits</div>
+        </div>
+      </div>
+
+      <p class="aula-text">
+        Um pixel RGB ocupa <strong>3 bytes</strong> (24 bits). Com 256 × 256 × 256 = mais de 16 milhões
+        de combinações possíveis, esses três bytes representam qualquer cor visível pelo olho humano.
+        Imagens com canal alpha (transparência) usam RGBA: 4 bytes por pixel.
+      </p>
+
+      <div class="pixel-grid">
+        <div class="px" style="background:rgb(255,80,80)"></div>
+        <div class="px" style="background:rgb(255,140,0)"></div>
+        <div class="px" style="background:rgb(255,220,0)"></div>
+        <div class="px" style="background:rgb(80,200,80)"></div>
+        <div class="px" style="background:rgb(0,180,180)"></div>
+        <div class="px" style="background:rgb(80,100,255)"></div>
+        <div class="px" style="background:rgb(180,80,255)"></div>
+        <div class="px" style="background:rgb(255,80,180)"></div>
+        <div class="px" style="background:rgb(200,120,80)"></div>
+        <div class="px" style="background:rgb(255,255,255)"></div>
+        <div class="px" style="background:rgb(180,180,180)"></div>
+        <div class="px" style="background:rgb(100,100,100)"></div>
+        <div class="px" style="background:rgb(40,40,40)"></div>
+        <div class="px" style="background:rgb(0,0,0)"></div>
+        <div class="px" style="background:rgb(155,143,255)"></div>
+        <div class="px" style="background:rgb(91,196,160)"></div>
+      </div>
+      <p class="aula-text" style="font-size:0.78rem;opacity:0.5;margin-top:0;">Cada quadrado acima é 1 pixel — 3 bytes de dados.</p>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Resolução e tamanho de arquivo</h2>
+
+      <p class="aula-text">
+        <strong>Resolução</strong> é o número de pixels — geralmente expresso como largura × altura.
+        Uma imagem "Full HD" tem 1920 × 1080 = 2.073.600 pixels.
+      </p>
+
+      <ol class="aula-steps">
+        <li class="aula-step">
+          <span class="aula-step-num">ex.</span>
+          <div class="aula-step-content">
+            Foto de smartphone de 12 megapixels: 4032 × 3024 = 12.192.768 pixels<br>
+            Sem compressão (RGB puro): 12.192.768 × 3 bytes = <strong>~36,6 MB</strong>
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">ex.</span>
+          <div class="aula-step-content">
+            Wallpaper 4K (3840 × 2160) PNG sem compressão:<br>
+            3840 × 2160 × 3 bytes = <strong>~23,7 MB</strong> — por isso wallpapers 4K são grandes
+          </div>
+        </li>
+      </ol>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">📐</span>
+        <div class="aula-callout-text">
+          <strong>DPI vs. resolução:</strong>
+          DPI (dots per inch) mede a densidade de pixels na impressão física.
+          Uma imagem de 1000×1000 a 300 DPI mede ~8,5×8,5 cm impressa.
+          A mesma imagem a 72 DPI (tela) ficaria maior. DPI importa para impressão, não para tela.
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Formatos de imagem</h2>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">PNG</div>
+          <h4>Compressão sem perdas</h4>
+          <p>Cada pixel é preservado integralmente — a imagem descomprimida é idêntica ao original. Suporta transparência (canal alpha). Ideal para logos, ícones, capturas de tela e imagens com texto. Arquivos maiores que JPEG.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">JPEG</div>
+          <h4>Compressão com perdas</h4>
+          <p>Descarta informações imperceptíveis ao olho humano para reduzir o arquivo. Uma foto de 36 MB em PNG bruto pode virar 3 MB em JPEG com qualidade 80%. Não suporta transparência. Cada vez que você salva, perde mais qualidade.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">WebP</div>
+          <h4>O melhor dos dois</h4>
+          <p>Formato moderno do Google. Oferece compressão com e sem perdas, suporta transparência e é ~25–35% menor que JPEG na mesma qualidade. Suportado por todos os browsers modernos. Use em projetos web.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">SVG</div>
+          <h4>Vetorial — não é grade de pixels</h4>
+          <p>Descreve formas matemáticas (círculos, curvas, texto) em XML. Escala para qualquer tamanho sem perder qualidade. Arquivos pequenos para logos simples. Não serve para fotos — serve para ícones, gráficos, ilustrações.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Por que isso importa para você, programador?</h2>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Processamento de imagens</div>
+          <h4>Pixels são arrays</h4>
+          <p>Com Pillow (Python), uma imagem é uma grade de números. Filtros, brilho, contraste, detecção de bordas — tudo é operação matemática nos arrays de pixels. Saber que cada pixel é RGB torna a lógica natural.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Machine Learning</div>
+          <h4>Imagens como entrada de IA</h4>
+          <p>Redes neurais não "veem" imagens — recebem arrays de números. Uma foto 224×224 RGB entra como tensor de forma (224, 224, 3). Entender pixels torna a preparação de dados para IA muito mais clara.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Web performance</div>
+          <h4>Escolha o formato certo</h4>
+          <p>Fotos → JPEG ou WebP. Ícones e logos → SVG ou PNG. Screenshots com texto → PNG. Animações simples → SVG ou CSS. Usar PNG para fotos ou JPEG para logos são erros comuns que inflam o tamanho das páginas.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="aula-divider">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Termos-chave desta aula</h2>
+      <div class="aula-terms">
+        <div class="aula-term">
+          <span class="aula-term-word">Pixel</span>
+          <span class="aula-term-def">Picture element. A menor unidade de uma imagem digital. Em RGB, cada pixel é representado por 3 bytes (R, G, B).</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">RGB</span>
+          <span class="aula-term-def">Modelo de cor aditiva com três canais: Red, Green, Blue. Cada canal é um valor de 0 a 255. Combinados, representam mais de 16 milhões de cores.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Resolução</span>
+          <span class="aula-term-def">Número total de pixels de uma imagem, geralmente expresso como largura × altura (ex: 1920×1080). Determina o tamanho bruto de arquivo.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Canal alpha</span>
+          <span class="aula-term-def">Quarto canal de cor (A) que representa transparência. RGBA usa 4 bytes por pixel. Suportado por PNG e WebP, não por JPEG.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">PNG vs. JPEG</span>
+          <span class="aula-term-def">PNG = compressão sem perdas (preserva todos os pixels, arquivo maior). JPEG = compressão com perdas (descarta dados imperceptíveis, arquivo menor, sem transparência).</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="aula-nav" aria-label="Navegação da aula">
+      <a href="fase1-rd-texto.html" class="fase-nav-btn">← Texto e encoding</a>
+      <a href="fase1-rd-compressao.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">Próxima: Compressão →</a>
+    </nav>
+
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 1 · Representação de Dados</span>
+      <div class="footer-phases">
+        <a href="../fase1.html" style="border-color:var(--fase-color);color:var(--fase-color);">F1</a>
+        <a href="../fase2.html">F2</a>
+        <a href="../fase3.html">F3</a>
+        <a href="../fase4.html">F4</a>
+        <a href="../fase5.html">F5</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/nav.js"></script>
+</body>
+</html>

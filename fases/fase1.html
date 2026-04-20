@@ -173,22 +173,26 @@
         <div class="module-body" id="body-m2">
           <p>O sistema operacional é o intermediário entre o hardware e os programas. Sem entendê-lo, você ficará perdido ao instalar ferramentas, resolver permissões ou entender por que um código roda diferente no Windows e no Linux. Esta etapa desmistifica o que acontece "debaixo do capô" do SO.</p>
           <div class="topics-list">
-            <div class="topic-item">
+            <a href="aulas/fase1-so-intro.html" class="topic-item topic-item--link">
               <div class="topic-dot"></div>
               <div class="topic-text"><strong>O que é um SO</strong>A camada de abstração entre o hardware e o usuário. Por que precisamos de um sistema operacional — sem ele, cada programa precisaria falar diretamente com o hardware.</div>
-            </div>
-            <div class="topic-item">
+              <span class="topic-arrow">→</span>
+            </a>
+            <a href="aulas/fase1-so-sistemas.html" class="topic-item topic-item--link">
               <div class="topic-dot"></div>
               <div class="topic-text"><strong>Windows, Linux e macOS</strong>Diferenças filosóficas (licença aberta vs. fechada), mercados de uso (servidores adoram Linux), e por que desenvolvedores frequentemente preferem sistemas baseados em Unix.</div>
-            </div>
-            <div class="topic-item">
+              <span class="topic-arrow">→</span>
+            </a>
+            <a href="aulas/fase1-so-processos.html" class="topic-item topic-item--link">
               <div class="topic-dot"></div>
               <div class="topic-text"><strong>Processos e memória</strong>O que é um processo? Como o SO gerencia vários programas rodando ao mesmo tempo (multitasking). O que acontece quando você abre o Spotify e o Chrome juntos.</div>
-            </div>
-            <div class="topic-item">
+              <span class="topic-arrow">→</span>
+            </a>
+            <a href="aulas/fase1-so-arquivos.html" class="topic-item topic-item--link">
               <div class="topic-dot"></div>
               <div class="topic-text"><strong>Sistema de arquivos</strong>Hierarquia de pastas e arquivos. Permissões (quem pode ler, escrever, executar). Caminhos absolutos e relativos — conceito crucial para programação.</div>
-            </div>
+              <span class="topic-arrow">→</span>
+            </a>
           </div>
           <div class="deliverable">
             <span class="deliverable-icon">🎯</span>
@@ -210,30 +214,36 @@
         <div class="module-body" id="body-m4">
           <p>O computador só conhece dois estados: ligado e desligado, 1 e 0. Mas com isso ele representa números, letras, imagens, sons e vídeos. Entender como essa tradução funciona é fundamental para compreender por que bugs de overflow existem, por que arquivos têm tamanhos, e o que é encoding de texto na prática.</p>
           <div class="topics-list">
-            <div class="topic-item">
+            <a href="aulas/fase1-rd-binario.html" class="topic-item topic-item--link">
               <div class="topic-dot"></div>
               <div class="topic-text"><strong>Sistema binário</strong>Base 2 vs. base 10. Como converter entre decimal e binário. Por que o computador usa binário (estados físicos de transistores). Bit e byte.</div>
-            </div>
-            <div class="topic-item">
+              <span class="topic-arrow">→</span>
+            </a>
+            <a href="aulas/fase1-rd-hex.html" class="topic-item topic-item--link">
               <div class="topic-dot"></div>
               <div class="topic-text"><strong>Hexadecimal</strong>Base 16 como atalho para o binário. Cores no CSS (#FF5733) são hexadecimais. Endereços de memória também. Você aprende a "ler" hex intuitivamente.</div>
-            </div>
-            <div class="topic-item">
+              <span class="topic-arrow">→</span>
+            </a>
+            <a href="aulas/fase1-rd-inteiros.html" class="topic-item topic-item--link">
               <div class="topic-dot"></div>
               <div class="topic-text"><strong>Números inteiros e negativos</strong>Complemento de dois — como representar números negativos em binário. Overflow: o que acontece quando um número ultrapassa o limite de bits disponíveis.</div>
-            </div>
-            <div class="topic-item">
+              <span class="topic-arrow">→</span>
+            </a>
+            <a href="aulas/fase1-rd-texto.html" class="topic-item topic-item--link">
               <div class="topic-dot"></div>
               <div class="topic-text"><strong>Texto: ASCII e Unicode/UTF-8</strong>Como letras viram números. ASCII (128 caracteres) e seus limites. Unicode como solução global. Por que "encoding" importa e o que causa aquele caractere estranho "Ã©" em vez de "é".</div>
-            </div>
-            <div class="topic-item">
+              <span class="topic-arrow">→</span>
+            </a>
+            <a href="aulas/fase1-rd-imagens.html" class="topic-item topic-item--link">
               <div class="topic-dot"></div>
               <div class="topic-text"><strong>Imagens e pixels</strong>RGB como três números (0–255). Uma imagem como uma grade de pixels. O que é resolução. Por que uma foto de 12 megapixels ocupa tanto espaço.</div>
-            </div>
-            <div class="topic-item">
+              <span class="topic-arrow">→</span>
+            </a>
+            <a href="aulas/fase1-rd-compressao.html" class="topic-item topic-item--link">
               <div class="topic-dot"></div>
               <div class="topic-text"><strong>Compressão</strong>Ideia geral de compressão com e sem perdas. Por que um MP3 soa parecido com o WAV original mas ocupa 10x menos. JPEG vs PNG para imagens.</div>
-            </div>
+              <span class="topic-arrow">→</span>
+            </a>
           </div>
           <div class="deliverable">
             <span class="deliverable-icon">🎯</span>
@@ -255,22 +265,26 @@
         <div class="module-body" id="body-m5">
           <p>A interface gráfica é uma camada de conveniência. O terminal é onde o controle de verdade acontece. Todo desenvolvedor usa o terminal diariamente — para rodar programas, instalar pacotes, navegar em pastas, usar Git. Esta etapa tira o medo do terminal e transforma ele numa ferramenta natural.</p>
           <div class="topics-list">
-            <div class="topic-item">
+            <a href="aulas/fase1-cli-intro.html" class="topic-item topic-item--link">
               <div class="topic-dot"></div>
               <div class="topic-text"><strong>O que é o terminal / shell</strong>A diferença entre terminal, shell e prompt. Bash, Zsh, PowerShell. Por que o terminal parece intimidador e por que isso passa rapidamente com prática.</div>
-            </div>
-            <div class="topic-item">
+              <span class="topic-arrow">→</span>
+            </a>
+            <a href="aulas/fase1-cli-navegacao.html" class="topic-item topic-item--link">
               <div class="topic-dot"></div>
               <div class="topic-text"><strong>Comandos essenciais de navegação</strong>pwd, ls/dir, cd, mkdir, rm/del. Criar, mover e apagar pastas e arquivos. Caminhos absolutos vs. relativos no terminal.</div>
-            </div>
-            <div class="topic-item">
+              <span class="topic-arrow">→</span>
+            </a>
+            <a href="aulas/fase1-cli-arquivos.html" class="topic-item topic-item--link">
               <div class="topic-dot"></div>
               <div class="topic-text"><strong>Manipulação de arquivos</strong>cat, echo, cp, mv. Redirecionar saída para um arquivo (> e >>). Pipes (|) — encadear comandos para criar fluxos de processamento.</div>
-            </div>
-            <div class="topic-item">
+              <span class="topic-arrow">→</span>
+            </a>
+            <a href="aulas/fase1-cli-permissoes.html" class="topic-item topic-item--link">
               <div class="topic-dot"></div>
               <div class="topic-text"><strong>Permissões e variáveis de ambiente</strong>chmod (Linux/Mac). PATH: por que digitar python no terminal funciona (ou não). Como adicionar algo ao PATH. sudo e quando usá-lo com cuidado.</div>
-            </div>
+              <span class="topic-arrow">→</span>
+            </a>
           </div>
           <div class="deliverable">
             <span class="deliverable-icon">🎯</span>

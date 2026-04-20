@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Texto: ASCII e Unicode | Representação de Dados | Fase 1 | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/style.css">
+  <style>
+    :root { --fase-color: #9B8FFF; }
+
+    .ascii-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin: 1.25rem 0;
+    }
+    .ascii-table th {
+      background: var(--bg3);
+      padding: 0.5rem 0.75rem;
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      opacity: 0.7;
+      border-bottom: 1px solid var(--border);
+    }
+    .ascii-table td {
+      padding: 0.4rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+      font-family: monospace;
+      text-align: center;
+    }
+    .ascii-table tr:last-child td { border-bottom: none; }
+    .ascii-table tr:hover td { background: var(--bg3); }
+    .td-char { color: var(--fase-color); font-size: 1rem; font-weight: 700; }
+    .td-dec  { color: #5BC4A0; }
+    .td-hex  { color: #F0A050; }
+    .td-bin  { color: var(--text2); font-size: 0.75rem; }
+
+    .encoding-demo {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin: 1.25rem 0;
+      font-family: monospace;
+      font-size: 0.82rem;
+    }
+    .enc-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .enc-row:last-child { margin-bottom: 0; }
+    .enc-label { min-width: 90px; font-weight: 600; opacity: 0.6; font-size: 0.72rem; }
+    .enc-value { color: var(--fase-color); }
+    .enc-bytes { display: flex; gap: 4px; flex-wrap: wrap; }
+    .enc-byte {
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      font-size: 0.75rem;
+    }
+    .enc-byte--ascii { border-color: color-mix(in srgb, #5BC4A0 40%, transparent); color: #5BC4A0; }
+    .enc-byte--multi { border-color: color-mix(in srgb, var(--fase-color) 40%, transparent); color: var(--fase-color); }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link">Plano</a>
+      <a href="../fase1.html" class="nav-link active">Fase 1</a>
+      <a href="../fase2.html" class="nav-link">Fase 2</a>
+      <a href="../fase3.html" class="nav-link">Fase 3</a>
+      <a href="../fase4.html" class="nav-link">Fase 4</a>
+      <a href="../fase5.html" class="nav-link">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html">Plano de Ensino</a>
+    <a href="../fase1.html">Fase 1 — Fundamentos</a>
+    <a href="../fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="../fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="../fase4.html">Fase 4 — Python</a>
+    <a href="../fase5.html">Fase 5 — Especialização</a>
+  </div>
+
+  <nav class="breadcrumb" aria-label="Navegação">
+    <a href="../../index.html">Plano</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Fase 1</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Representação de Dados</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">Texto: ASCII e Unicode</span>
+  </nav>
+
+  <header class="aula-hero">
+    <div class="fase-badge">Fase 1 · Representação de Dados</div>
+    <h1 class="aula-title">Texto: ASCII e Unicode:<br>como letras viram números</h1>
+    <p class="aula-intro">
+      O computador não "conhece" letras — só números. Para representar texto, criaram-se tabelas
+      que mapeiam números a caracteres. O ASCII funcionou por décadas, mas não cabia o mundo.
+      O Unicode resolveu — e o UTF-8 é hoje o encoding mais usado na internet.
+    </p>
+    <div class="aula-meta">
+      <div class="meta-pill"><strong>⏱</strong> ~15 min</div>
+      <div class="meta-pill"><strong>📶</strong> Iniciante</div>
+      <div class="meta-pill">Módulo 4 de 5</div>
+    </div>
+  </header>
+
+  <article class="aula-body">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">ASCII: a tabela original</h2>
+
+      <p class="aula-text">
+        O <strong>ASCII</strong> (American Standard Code for Information Interchange, 1963) mapeou
+        128 caracteres para números de 0 a 127. Com 7 bits era possível representar:
+        letras maiúsculas e minúsculas do inglês, dígitos, pontuação e caracteres de controle.
+      </p>
+
+      <table class="ascii-table">
+        <thead>
+          <tr>
+            <th>Char</th>
+            <th>Decimal</th>
+            <th>Hex</th>
+            <th>Binário</th>
+            <th>Char</th>
+            <th>Decimal</th>
+            <th>Hex</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-char">A</td><td class="td-dec">65</td><td class="td-hex">41</td><td class="td-bin">01000001</td><td class="td-char">a</td><td class="td-dec">97</td><td class="td-hex">61</td></tr>
+          <tr><td class="td-char">B</td><td class="td-dec">66</td><td class="td-hex">42</td><td class="td-bin">01000010</td><td class="td-char">b</td><td class="td-dec">98</td><td class="td-hex">62</td></tr>
+          <tr><td class="td-char">Z</td><td class="td-dec">90</td><td class="td-hex">5A</td><td class="td-bin">01011010</td><td class="td-char">z</td><td class="td-dec">122</td><td class="td-hex">7A</td></tr>
+          <tr><td class="td-char">0</td><td class="td-dec">48</td><td class="td-hex">30</td><td class="td-bin">00110000</td><td class="td-char">9</td><td class="td-dec">57</td><td class="td-hex">39</td></tr>
+          <tr><td class="td-char">!</td><td class="td-dec">33</td><td class="td-hex">21</td><td class="td-bin">00100001</td><td class="td-char">espaço</td><td class="td-dec">32</td><td class="td-hex">20</td></tr>
+        </tbody>
+      </table>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🔤</span>
+        <div class="aula-callout-text">
+          <strong>Truque do ASCII:</strong>
+          Maiúsculas e minúsculas diferem apenas pelo bit 5.
+          'A' = 65 = <code>01<strong>0</strong>00001</code>, 'a' = 97 = <code>01<strong>1</strong>00001</code>.
+          Para converter de maiúscula para minúscula: some 32 (ou ative o bit 5).
+          É por isso que <code>ord('a') - ord('A') == 32</code> em Python.
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">O problema do ASCII: só inglês</h2>
+
+      <p class="aula-text">
+        128 caracteres não cabem "ã", "é", "ç", "漢字", "مرحبا", "🎉". O ASCII foi estendido
+        para 256 caracteres (Latin-1, ISO-8859-1) — o que coube os acentos do português, mas
+        deixou de fora toda a Ásia, o Árabe, o Cirílico e os emojis.
+      </p>
+
+      <p class="aula-text">
+        Cada país criou seu próprio encoding — ISO-8859-1 para Europa Ocidental,
+        Shift-JIS para o japonês, GB2312 para o chinês. Um arquivo criado no Japão aberto
+        em um computador europeu exibia caracteres incompreensíveis.
+      </p>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Unicode: uma tabela para o mundo inteiro</h2>
+
+      <p class="aula-text">
+        O <strong>Unicode</strong> (1991) definiu um espaço com mais de 1 milhão de posições —
+        <em>code points</em> — para representar todos os caracteres de todos os sistemas de escrita
+        humanos conhecidos, mais símbolos matemáticos, emojis, e caracteres históricos.
+      </p>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Code point</div>
+          <h4>U+XXXX</h4>
+          <p>Cada caractere Unicode tem um número único chamado code point. 'A' = U+0041, 'ç' = U+00E7, '漢' = U+6F22, '😀' = U+1F600. O Unicode define o <em>número</em> — não como armazená-lo em bytes.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Encoding</div>
+          <h4>Como representar em bytes</h4>
+          <p>Unicode define os números; o encoding define como salvar esses números em bytes no disco ou na rede. Os encodings principais são: UTF-8, UTF-16 e UTF-32.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">UTF-8: o encoding dominante</h2>
+
+      <p class="aula-text">
+        O <strong>UTF-8</strong> é o encoding mais usado na internet (usada em mais de 98% das páginas web).
+        Sua elegância: caracteres ASCII usam 1 byte (compatível com ASCII!), e caracteres
+        mais raros usam 2, 3 ou 4 bytes conforme necessário.
+      </p>
+
+      <div class="encoding-demo">
+        <div class="enc-row">
+          <span class="enc-label">Texto:</span>
+          <span class="enc-value">"Olá"</span>
+        </div>
+        <div class="enc-row">
+          <span class="enc-label">Code points:</span>
+          <span>U+004F U+006C U+00E1</span>
+        </div>
+        <div class="enc-row">
+          <span class="enc-label">UTF-8 bytes:</span>
+          <div class="enc-bytes">
+            <span class="enc-byte enc-byte--ascii">4F</span>
+            <span class="enc-byte enc-byte--ascii">6C</span>
+            <span class="enc-byte enc-byte--multi">C3</span>
+            <span class="enc-byte enc-byte--multi">A1</span>
+          </div>
+        </div>
+        <div style="margin-top:0.6rem;font-size:0.72rem;opacity:0.55;">
+          Verde = 1 byte (ASCII, U+0000–U+007F) · Roxo = 2 bytes (U+0080–U+07FF)
+        </div>
+      </div>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🔥</span>
+        <div class="aula-callout-text">
+          <strong>Mojibake — o fantasma do encoding errado:</strong>
+          Aquele "Ã©" no lugar de "é" que você já viu? Chama-se <em>mojibake</em> (文字化け, japonês).
+          Acontece quando um texto em UTF-8 é lido como Latin-1. O byte <code>C3 A9</code> (= "é" em UTF-8)
+          é interpretado como dois caracteres Latin-1: "Ã" (0xC3) e "©" (0xA9). Sempre especifique o encoding!
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Por que isso importa para você, programador?</h2>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Python 3</div>
+          <h4>str vs. bytes</h4>
+          <p>Em Python 3, <code>str</code> é Unicode. <code>bytes</code> é sequência de bytes brutos. Para converter: <code>"olá".encode("utf-8")</code> → bytes; <code>b"\xc3\xa1".decode("utf-8")</code> → str. Confundir os dois é erro comum.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Arquivos</div>
+          <h4>Sempre especifique encoding</h4>
+          <p><code>open("arquivo.txt", encoding="utf-8")</code>. Sem especificar, Python usa o encoding do SO — que varia. No Windows pode ser CP1252, no Linux UTF-8. Código que funciona em Linux pode quebrar no Windows.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">len() e caracteres</div>
+          <h4>Cuidado com multibyte</h4>
+          <p><code>len("é")</code> = 1 em Python (conta caracteres). Mas <code>len("é".encode("utf-8"))</code> = 2 (conta bytes). Para sistemas que medem tamanho em bytes (HTTP, banco de dados), use bytes, não len().</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Emojis e len()</div>
+          <h4>Emojis são 1 code point</h4>
+          <p><code>len("😀")</code> = 1 em Python. Mas em bytes UTF-8 ocupa 4 bytes. Alguns emojis compostos (família 👨‍👩‍👧) têm múltiplos code points ligados com ZWJ — <code>len()</code> retorna um número surpreendente.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="aula-divider">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Termos-chave desta aula</h2>
+      <div class="aula-terms">
+        <div class="aula-term">
+          <span class="aula-term-word">ASCII</span>
+          <span class="aula-term-def">Tabela de 128 caracteres (7 bits) criada em 1963. Define o mapeamento número→caractere para o inglês. É um subconjunto do Unicode.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Unicode</span>
+          <span class="aula-term-def">Padrão que define um code point único (U+XXXX) para cada caractere de todos os sistemas de escrita humanos. Mais de 140.000 caracteres definidos.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">UTF-8</span>
+          <span class="aula-term-def">Encoding de comprimento variável para Unicode. ASCII usa 1 byte; caracteres até U+07FF usam 2; até U+FFFF usam 3; restante usa 4. Compatível com ASCII, dominante na web.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Code point</span>
+          <span class="aula-term-def">Número único que identifica um caractere no Unicode. Escrito como U+XXXX. Ex: 'A' = U+0041, '😀' = U+1F600.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Encoding</span>
+          <span class="aula-term-def">Regra que define como representar code points Unicode como sequência de bytes. UTF-8, UTF-16 e Latin-1 são encodings diferentes.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Mojibake</span>
+          <span class="aula-term-def">Caracteres corrompidos exibidos quando um texto é lido com o encoding errado. Ex: "é" vira "Ã©" ao ler UTF-8 como Latin-1.</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="aula-nav" aria-label="Navegação da aula">
+      <a href="fase1-rd-inteiros.html" class="fase-nav-btn">← Inteiros e negativos</a>
+      <a href="fase1-rd-imagens.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">Próxima: Imagens e pixels →</a>
+    </nav>
+
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 1 · Representação de Dados</span>
+      <div class="footer-phases">
+        <a href="../fase1.html" style="border-color:var(--fase-color);color:var(--fase-color);">F1</a>
+        <a href="../fase2.html">F2</a>
+        <a href="../fase3.html">F3</a>
+        <a href="../fase4.html">F4</a>
+        <a href="../fase5.html">F5</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/nav.js"></script>
+</body>
+</html>

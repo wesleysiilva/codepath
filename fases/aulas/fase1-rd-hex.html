@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hexadecimal | Representação de Dados | Fase 1 | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/style.css">
+  <style>
+    :root { --fase-color: #9B8FFF; }
+
+    .hex-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin: 1.25rem 0;
+    }
+    .hex-table th {
+      background: var(--bg3);
+      padding: 0.55rem 0.75rem;
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      opacity: 0.7;
+      border-bottom: 1px solid var(--border);
+    }
+    .hex-table td {
+      padding: 0.45rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+      font-family: monospace;
+      text-align: center;
+    }
+    .hex-table tr:last-child td { border-bottom: none; }
+    .hex-table tr:hover td { background: var(--bg3); }
+    .td-dec { color: #5BC4A0; }
+    .td-bin { color: var(--fase-color); font-size: 0.8rem; }
+    .td-hex { color: #F0A050; font-weight: 700; }
+
+    .color-swatches {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin: 1.25rem 0;
+    }
+    .swatch {
+      flex: 1;
+      min-width: 100px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .swatch-color { height: 48px; }
+    .swatch-info { padding: 0.5rem 0.65rem; background: var(--bg2); }
+    .swatch-hex { font-family: monospace; font-size: 0.8rem; font-weight: 700; }
+    .swatch-rgb { font-size: 0.7rem; opacity: 0.6; margin-top: 2px; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link">Plano</a>
+      <a href="../fase1.html" class="nav-link active">Fase 1</a>
+      <a href="../fase2.html" class="nav-link">Fase 2</a>
+      <a href="../fase3.html" class="nav-link">Fase 3</a>
+      <a href="../fase4.html" class="nav-link">Fase 4</a>
+      <a href="../fase5.html" class="nav-link">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html">Plano de Ensino</a>
+    <a href="../fase1.html">Fase 1 — Fundamentos</a>
+    <a href="../fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="../fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="../fase4.html">Fase 4 — Python</a>
+    <a href="../fase5.html">Fase 5 — Especialização</a>
+  </div>
+
+  <nav class="breadcrumb" aria-label="Navegação">
+    <a href="../../index.html">Plano</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Fase 1</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Representação de Dados</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">Hexadecimal</span>
+  </nav>
+
+  <header class="aula-hero">
+    <div class="fase-badge">Fase 1 · Representação de Dados</div>
+    <h1 class="aula-title">Hexadecimal:<br>o atalho do binário</h1>
+    <p class="aula-intro">
+      Binário é preciso, mas impraticável de ler. Hexadecimal resolve isso: cada dígito hex
+      representa exatamente 4 bits. Cores no CSS, endereços de memória, valores de hash —
+      tudo usa hex porque é muito mais compacto que binário.
+    </p>
+    <div class="aula-meta">
+      <div class="meta-pill"><strong>⏱</strong> ~12 min</div>
+      <div class="meta-pill"><strong>📶</strong> Iniciante</div>
+      <div class="meta-pill">Módulo 4 de 5</div>
+    </div>
+  </header>
+
+  <article class="aula-body">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Base 16: os 16 dígitos</h2>
+
+      <p class="aula-text">
+        O hexadecimal usa base 16. Como só temos 10 algarismos (0–9), usamos as letras A–F para
+        os valores de 10 a 15. Um único dígito hex vai de 0 a 15 — o equivalente a 4 bits.
+      </p>
+
+      <table class="hex-table">
+        <thead>
+          <tr>
+            <th>Decimal</th>
+            <th>Binário</th>
+            <th>Hexadecimal</th>
+            <th>Decimal</th>
+            <th>Binário</th>
+            <th>Hexadecimal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-dec">0</td><td class="td-bin">0000</td><td class="td-hex">0</td><td class="td-dec">8</td><td class="td-bin">1000</td><td class="td-hex">8</td></tr>
+          <tr><td class="td-dec">1</td><td class="td-bin">0001</td><td class="td-hex">1</td><td class="td-dec">9</td><td class="td-bin">1001</td><td class="td-hex">9</td></tr>
+          <tr><td class="td-dec">2</td><td class="td-bin">0010</td><td class="td-hex">2</td><td class="td-dec">10</td><td class="td-bin">1010</td><td class="td-hex">A</td></tr>
+          <tr><td class="td-dec">3</td><td class="td-bin">0011</td><td class="td-hex">3</td><td class="td-dec">11</td><td class="td-bin">1011</td><td class="td-hex">B</td></tr>
+          <tr><td class="td-dec">4</td><td class="td-bin">0100</td><td class="td-hex">4</td><td class="td-dec">12</td><td class="td-bin">1100</td><td class="td-hex">C</td></tr>
+          <tr><td class="td-dec">5</td><td class="td-bin">0101</td><td class="td-hex">5</td><td class="td-dec">13</td><td class="td-bin">1101</td><td class="td-hex">D</td></tr>
+          <tr><td class="td-dec">6</td><td class="td-bin">0110</td><td class="td-hex">6</td><td class="td-dec">14</td><td class="td-bin">1110</td><td class="td-hex">E</td></tr>
+          <tr><td class="td-dec">7</td><td class="td-bin">0111</td><td class="td-hex">7</td><td class="td-dec">15</td><td class="td-bin">1111</td><td class="td-hex">F</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Por que hex é tão prático?</h2>
+
+      <p class="aula-text">
+        A beleza do hexadecimal é que <strong>1 dígito hex = 4 bits exatos</strong>.
+        Isso torna a conversão binário ↔ hex trivial: agrupe os bits em grupos de 4.
+      </p>
+
+      <ol class="aula-steps">
+        <li class="aula-step">
+          <span class="aula-step-num">ex.</span>
+          <div class="aula-step-content">
+            Binário: <code style="background:var(--bg);padding:1px 6px;border-radius:4px;">1010 1111 0011 1100</code><br>
+            Grupo a grupo: <code style="background:var(--bg);padding:1px 6px;border-radius:4px;">A</code> + <code style="background:var(--bg);padding:1px 6px;border-radius:4px;">F</code> + <code style="background:var(--bg);padding:1px 6px;border-radius:4px;">3</code> + <code style="background:var(--bg);padding:1px 6px;border-radius:4px;">C</code> = <strong>0xAF3C</strong>
+          </div>
+        </li>
+      </ol>
+
+      <p class="aula-text">
+        Sem hex, um endereço de memória de 64 bits seria 64 dígitos binários.
+        Em hex, são apenas 16 dígitos. Isso explica por que todo endereço que você vê em
+        debuggers e dumps de memória está em hex.
+      </p>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🔖</span>
+        <div class="aula-callout-text">
+          <strong>Prefixos de notação:</strong>
+          Para distinguir hex de decimal, usa-se o prefixo <code>0x</code> em código (<code>0xFF</code>, <code>0x1A3C</code>)
+          ou o sufixo <code>h</code> em assembly (<code>FFh</code>).
+          Em CSS, usa-se o símbolo <code>#</code> (<code>#FF5733</code>).
+          Todos representam hexadecimal.
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Cores em hexadecimal (CSS)</h2>
+
+      <p class="aula-text">
+        Uma cor no CSS como <code style="background:var(--bg);padding:2px 8px;border-radius:4px;font-size:13px;">#FF5733</code>
+        é formada por três bytes em hex — um para cada canal de cor:
+      </p>
+
+      <div class="color-swatches">
+        <div class="swatch">
+          <div class="swatch-color" style="background:#FF5733;"></div>
+          <div class="swatch-info">
+            <div class="swatch-hex">#FF5733</div>
+            <div class="swatch-rgb">R=255 G=87 B=51</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#9B8FFF;"></div>
+          <div class="swatch-info">
+            <div class="swatch-hex">#9B8FFF</div>
+            <div class="swatch-rgb">R=155 G=143 B=255</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#5BC4A0;"></div>
+          <div class="swatch-info">
+            <div class="swatch-hex">#5BC4A0</div>
+            <div class="swatch-rgb">R=91 G=196 B=160</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:#F0A050;"></div>
+          <div class="swatch-info">
+            <div class="swatch-hex">#F0A050</div>
+            <div class="swatch-rgb">R=240 G=160 B=80</div>
+          </div>
+        </div>
+      </div>
+
+      <p class="aula-text">
+        <code>FF</code> em hex = 255 em decimal = máximo do canal. <code>00</code> = 0 = desligado.
+        <code>#FF0000</code> é vermelho puro. <code>#FFFFFF</code> é branco (todos os canais no máximo).
+        <code>#000000</code> é preto. Agora você lê cores hex diretamente.
+      </p>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Hex no dia a dia do desenvolvedor</h2>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Endereços de memória</div>
+          <h4>0x00007fff5fbff000</h4>
+          <p>Debuggers, mensagens de erro de segmentation fault e dumps de memória mostram endereços em hex. Saber ler <code>0x7F</code> = 127 transforma símbolos em informação.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Hashes criptográficos</div>
+          <h4>SHA-256 em hex</h4>
+          <p>Um hash SHA-256 tem 256 bits = 32 bytes = 64 dígitos hex. É por isso que hashes sempre parecem longas strings de letras e números — elas <em>são</em> números em hex.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Código em Python</div>
+          <h4>0xFF, 0b1010, 0o17</h4>
+          <p>Python aceita literais em hex (<code>0xFF</code>), binário (<code>0b1010</code>) e octal (<code>0o17</code>). <code>hex(255)</code> retorna <code>'0xff'</code>. Útil para trabalhar com bits, cores e protocolos de rede.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Arquivos binários</div>
+          <h4>Hex editors</h4>
+          <p>Para inspecionar arquivos binários (imagens, executáveis, bancos de dados), usa-se um hex editor que mostra os bytes como pares de dígitos hex. Saber ler hex é essencial para debugging de baixo nível.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="aula-divider">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Termos-chave desta aula</h2>
+      <div class="aula-terms">
+        <div class="aula-term">
+          <span class="aula-term-word">Hexadecimal (base 16)</span>
+          <span class="aula-term-def">Sistema numérico com 16 símbolos: 0–9 e A–F. Cada dígito representa 4 bits exatos, tornando a conversão com binário trivial.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Prefixo 0x</span>
+          <span class="aula-term-def">Notação em código para indicar que o valor é hexadecimal. Ex: <code>0xFF</code> = 255 em decimal.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Nibble</span>
+          <span class="aula-term-def">Grupo de 4 bits. Um byte tem 2 nibbles. Cada nibble corresponde exatamente a um dígito hexadecimal.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Cor hexadecimal</span>
+          <span class="aula-term-def">Representação de cores em CSS como 3 bytes hex (RRGGBB). #FF5733 = R:255, G:87, B:51.</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="aula-nav" aria-label="Navegação da aula">
+      <a href="fase1-rd-binario.html" class="fase-nav-btn">← Sistema binário</a>
+      <a href="fase1-rd-inteiros.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">Próxima: Inteiros e negativos →</a>
+    </nav>
+
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 1 · Representação de Dados</span>
+      <div class="footer-phases">
+        <a href="../fase1.html" style="border-color:var(--fase-color);color:var(--fase-color);">F1</a>
+        <a href="../fase2.html">F2</a>
+        <a href="../fase3.html">F3</a>
+        <a href="../fase4.html">F4</a>
+        <a href="../fase5.html">F5</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/nav.js"></script>
+</body>
+</html>

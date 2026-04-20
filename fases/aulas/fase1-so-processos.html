@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Processos e Memória | Sistemas Operacionais | Fase 1 | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/style.css">
+  <style>
+    :root { --fase-color: #9B8FFF; }
+
+    .process-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin: 1.25rem 0;
+    }
+    .process-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.6rem 0.9rem;
+      font-size: 0.82rem;
+    }
+    .process-name { font-weight: 600; min-width: 130px; }
+    .process-pid { font-size: 0.7rem; opacity: 0.5; font-family: monospace; min-width: 50px; }
+    .process-bar-wrap { flex: 1; height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+    .process-bar { height: 100%; border-radius: 3px; background: var(--fase-color); opacity: 0.7; }
+    .process-mem { font-size: 0.72rem; opacity: 0.6; min-width: 55px; text-align: right; }
+
+    .state-diagram {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+    .state-box {
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-align: center;
+      min-width: 90px;
+    }
+    .state-box--new     { background: color-mix(in srgb, #5BC4A0 12%, var(--bg2)); border: 1px solid color-mix(in srgb, #5BC4A0 30%, transparent); color: #5BC4A0; }
+    .state-box--ready   { background: color-mix(in srgb, var(--fase-color) 12%, var(--bg2)); border: 1px solid color-mix(in srgb, var(--fase-color) 30%, transparent); color: var(--fase-color); }
+    .state-box--running { background: color-mix(in srgb, #F0A050 12%, var(--bg2)); border: 1px solid color-mix(in srgb, #F0A050 30%, transparent); color: #F0A050; }
+    .state-box--waiting { background: color-mix(in srgb, #E06060 12%, var(--bg2)); border: 1px solid color-mix(in srgb, #E06060 30%, transparent); color: #E06060; }
+    .state-box--done    { background: var(--bg3); border: 1px solid var(--border); opacity: 0.6; }
+    .state-arrow { font-size: 0.9rem; opacity: 0.5; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link">Plano</a>
+      <a href="../fase1.html" class="nav-link active">Fase 1</a>
+      <a href="../fase2.html" class="nav-link">Fase 2</a>
+      <a href="../fase3.html" class="nav-link">Fase 3</a>
+      <a href="../fase4.html" class="nav-link">Fase 4</a>
+      <a href="../fase5.html" class="nav-link">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html">Plano de Ensino</a>
+    <a href="../fase1.html">Fase 1 — Fundamentos</a>
+    <a href="../fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="../fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="../fase4.html">Fase 4 — Python</a>
+    <a href="../fase5.html">Fase 5 — Especialização</a>
+  </div>
+
+  <nav class="breadcrumb" aria-label="Navegação">
+    <a href="../../index.html">Plano</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Fase 1</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Sistemas Operacionais</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">Processos e memória</span>
+  </nav>
+
+  <header class="aula-hero">
+    <div class="fase-badge">Fase 1 · Sistemas Operacionais</div>
+    <h1 class="aula-title">Processos e memória:<br>malabarismo do SO</h1>
+    <p class="aula-intro">
+      Você tem 20 abas no Chrome, música no Spotify e o VS Code aberto ao mesmo tempo.
+      Uma única CPU. Como isso é possível? O sistema operacional faz um malabarismo sofisticado
+      de processos, threads e memória — e esta aula explica como.
+    </p>
+    <div class="aula-meta">
+      <div class="meta-pill"><strong>⏱</strong> ~15 min</div>
+      <div class="meta-pill"><strong>📶</strong> Iniciante</div>
+      <div class="meta-pill">Módulo 3 de 5</div>
+    </div>
+  </header>
+
+  <article class="aula-body">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">O que é um processo?</h2>
+
+      <p class="aula-text">
+        Um <strong>processo</strong> é um programa em execução. Não o arquivo do programa no disco —
+        o programa <em>rodando</em>: com memória alocada, arquivos abertos, estado atual.
+        Cada processo tem um identificador único chamado <strong>PID</strong> (Process ID).
+      </p>
+
+      <p class="aula-text">
+        Abrir o Chrome cria um processo. Abrir uma segunda janela pode criar outro. Executar
+        <code style="background:var(--bg);padding:2px 8px;border-radius:4px;font-size:13px;">python script.py</code>
+        cria um processo Python. Cada um tem sua própria área de memória — isolada dos outros.
+      </p>
+
+      <div class="process-list">
+        <div class="process-row">
+          <span class="process-name">chrome.exe</span>
+          <span class="process-pid">PID 4312</span>
+          <div class="process-bar-wrap"><div class="process-bar" style="width:65%"></div></div>
+          <span class="process-mem">1.2 GB</span>
+        </div>
+        <div class="process-row">
+          <span class="process-name">spotify.exe</span>
+          <span class="process-pid">PID 2891</span>
+          <div class="process-bar-wrap"><div class="process-bar" style="width:18%"></div></div>
+          <span class="process-mem">340 MB</span>
+        </div>
+        <div class="process-row">
+          <span class="process-name">Code.exe</span>
+          <span class="process-pid">PID 7043</span>
+          <div class="process-bar-wrap"><div class="process-bar" style="width:22%"></div></div>
+          <span class="process-mem">410 MB</span>
+        </div>
+        <div class="process-row">
+          <span class="process-name">python.exe</span>
+          <span class="process-pid">PID 9120</span>
+          <div class="process-bar-wrap"><div class="process-bar" style="width:5%"></div></div>
+          <span class="process-mem">90 MB</span>
+        </div>
+      </div>
+      <p class="aula-text" style="font-size:0.8rem;opacity:0.6;margin-top:0;">Representação simplificada do Gerenciador de Tarefas</p>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Estados de um processo</h2>
+
+      <p class="aula-text">
+        Um processo não está sempre usando a CPU. Ele transita entre estados ao longo da execução:
+      </p>
+
+      <div class="state-diagram">
+        <div class="state-box state-box--new">Novo</div>
+        <span class="state-arrow">→</span>
+        <div class="state-box state-box--ready">Pronto</div>
+        <span class="state-arrow">⇄</span>
+        <div class="state-box state-box--running">Rodando</div>
+        <span class="state-arrow">→</span>
+        <div class="state-box state-box--waiting">Esperando</div>
+        <span class="state-arrow">→</span>
+        <div class="state-box state-box--done">Encerrado</div>
+      </div>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Pronto (Ready)</div>
+          <h4>Na fila, aguardando a CPU</h4>
+          <p>O processo está carregado na memória e pronto para executar — mas a CPU está ocupada com outro processo. O escalonador (scheduler) decide quem roda a seguir.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Rodando (Running)</div>
+          <h4>Usando a CPU agora</h4>
+          <p>O processo está ativamente usando um núcleo da CPU. Em um processador com 8 núcleos, até 8 processos podem estar rodando simultaneamente (um por núcleo).</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Esperando (Waiting)</div>
+          <h4>Bloqueado aguardando I/O</h4>
+          <p>O processo pediu uma operação lenta — ler um arquivo, esperar resposta da rede — e ficou bloqueado. Libera a CPU para outros processos enquanto espera. É aqui que o multitasking ganha eficiência real.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Scheduling: como o SO divide a CPU</h2>
+
+      <p class="aula-text">
+        Com dezenas de processos querendo usar a CPU, o <strong>escalonador</strong> (scheduler)
+        do kernel decide quem roda e por quanto tempo. A técnica principal é o
+        <strong>time slicing</strong>: cada processo recebe uma fatia de tempo (tipicamente 10–20ms)
+        antes de ser pausado e o próximo assumir.
+      </p>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🎰</span>
+        <div class="aula-callout-text">
+          <strong>Concorrência vs. paralelismo:</strong>
+          Com 1 núcleo, o SO cria a <em>ilusão</em> de múltiplos programas simultâneos alternando muito rápido (concorrência).
+          Com múltiplos núcleos, processos realmente rodam ao mesmo tempo (paralelismo).
+          Seu computador provavelmente tem ambos: paralelismo real entre núcleos e concorrência dentro de cada núcleo.
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Threads: divisão dentro do processo</h2>
+
+      <p class="aula-text">
+        Um processo pode ter múltiplas <strong>threads</strong> — fluxos de execução que compartilham
+        a memória do mesmo processo. Se um processo é uma fábrica, threads são os trabalhadores dentro dela.
+      </p>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Processo</div>
+          <h4>Unidade de isolamento</h4>
+          <p>Memória própria, arquivos próprios, PID próprio. Processos diferentes não veem a memória um do outro. Criar um processo é caro (copia toda a memória).</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Thread</div>
+          <h4>Unidade de execução</h4>
+          <p>Compartilha a memória do processo. Criar uma thread é barato. Threads do mesmo processo podem se comunicar diretamente — mas isso exige cuidado para evitar condições de corrida (race conditions).</p>
+        </div>
+      </div>
+
+      <p class="aula-text">
+        O Chrome usa múltiplos processos (uma aba travada não derruba as outras) e múltiplas threads
+        por processo (renderização, JavaScript e I/O em paralelo). Quando você usa
+        <code style="background:var(--bg);padding:2px 8px;border-radius:4px;font-size:13px;">threading</code>
+        ou <code style="background:var(--bg);padding:2px 8px;border-radius:4px;font-size:13px;">asyncio</code>
+        em Python, está trabalhando diretamente com esse modelo.
+      </p>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Memória virtual: a ilusão da memória infinita</h2>
+
+      <p class="aula-text">
+        Cada processo acredita que tem acesso exclusivo a um grande espaço de memória —
+        como se fosse o único programa rodando. Isso é a <strong>memória virtual</strong>.
+        O kernel mapeia esses endereços virtuais para a RAM física real (e para o disco quando necessário).
+      </p>
+
+      <ol class="aula-steps">
+        <li class="aula-step">
+          <span class="aula-step-num">1</span>
+          <div class="aula-step-content">
+            <strong>Isolamento:</strong> o processo A não consegue acessar a memória do processo B — o kernel garante isso. Um programa com bug não pode corromper outro.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">2</span>
+          <div class="aula-step-content">
+            <strong>Swap:</strong> quando a RAM enche, o kernel move páginas de memória menos usadas para o disco (arquivo de paginação). O processo não sabe — mas fica lento. É por isso que o PC trava quando a memória esgota.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">3</span>
+          <div class="aula-step-content">
+            <strong>Compartilhamento:</strong> código de bibliotecas (como a libc) pode ser mapeado na memória de vários processos ao mesmo tempo — economizando RAM real.
+          </div>
+        </li>
+      </ol>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">💥</span>
+        <div class="aula-callout-text">
+          <strong>Segmentation fault — o erro de memória:</strong>
+          Quando um programa tenta acessar um endereço de memória que não foi alocado para ele
+          (ou que pertence ao kernel), o SO encerra o processo imediatamente com "Segmentation fault".
+          É uma proteção — sem ela, o programa poderia corromper dados de outros processos.
+          Em Python você raramente vê isso; em C e C++, é um erro clássico.
+        </div>
+      </div>
+    </section>
+
+    <hr class="aula-divider">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Termos-chave desta aula</h2>
+      <div class="aula-terms">
+        <div class="aula-term">
+          <span class="aula-term-word">Processo</span>
+          <span class="aula-term-def">Instância de um programa em execução. Tem PID, memória própria, arquivos abertos e estado. Isolado dos outros processos pelo kernel.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">PID</span>
+          <span class="aula-term-def">Process ID. Número único que identifica um processo no sistema. Visível no Gerenciador de Tarefas (Windows) ou com <code>ps</code> / <code>top</code> (Linux/Mac).</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Thread</span>
+          <span class="aula-term-def">Fluxo de execução dentro de um processo. Compartilha a memória do processo. Mais leve de criar que um processo, mas exige sincronização cuidadosa.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Scheduler</span>
+          <span class="aula-term-def">Componente do kernel que decide qual processo/thread usa a CPU em cada momento e por quanto tempo (time slice).</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Memória virtual</span>
+          <span class="aula-term-def">Abstração que dá a cada processo a ilusão de ter um espaço de memória exclusivo e contíguo. Mapeada para RAM real (e swap no disco) pelo kernel.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Swap</span>
+          <span class="aula-term-def">Espaço em disco usado como extensão da RAM quando esta esgota. Muito mais lento — é o que causa lentidão quando o sistema "trava por falta de memória".</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="aula-nav" aria-label="Navegação da aula">
+      <a href="fase1-so-sistemas.html" class="fase-nav-btn">← Windows, Linux e macOS</a>
+      <a href="fase1-so-arquivos.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">Próxima: Sistema de arquivos →</a>
+    </nav>
+
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 1 · Sistemas Operacionais</span>
+      <div class="footer-phases">
+        <a href="../fase1.html" style="border-color:var(--fase-color);color:var(--fase-color);">F1</a>
+        <a href="../fase2.html">F2</a>
+        <a href="../fase3.html">F3</a>
+        <a href="../fase4.html">F4</a>
+        <a href="../fase5.html">F5</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/nav.js"></script>
+</body>
+</html>

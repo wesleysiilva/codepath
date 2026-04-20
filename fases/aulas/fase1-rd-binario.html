@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema Binário | Representação de Dados | Fase 1 | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/style.css">
+  <style>
+    :root { --fase-color: #9B8FFF; }
+
+    .conversion-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin: 1.25rem 0;
+    }
+    .conversion-table th {
+      background: var(--bg3);
+      padding: 0.6rem 1rem;
+      text-align: left;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      opacity: 0.7;
+      border-bottom: 1px solid var(--border);
+    }
+    .conversion-table td {
+      padding: 0.55rem 1rem;
+      border-bottom: 1px solid var(--border);
+      font-family: monospace;
+    }
+    .conversion-table tr:last-child td { border-bottom: none; }
+    .conversion-table tr:hover td { background: var(--bg3); }
+    .td-decimal { color: #5BC4A0; }
+    .td-binary  { color: var(--fase-color); }
+
+    .bit-visual {
+      display: flex;
+      gap: 4px;
+      margin: 1rem 0;
+      flex-wrap: wrap;
+    }
+    .bit-box {
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: monospace;
+      font-size: 1rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .bit-box--1 { background: color-mix(in srgb, var(--fase-color) 20%, var(--bg2)); border: 1px solid color-mix(in srgb, var(--fase-color) 40%, transparent); color: var(--fase-color); }
+    .bit-box--0 { background: var(--bg3); border: 1px solid var(--border); opacity: 0.5; }
+    .bit-label-row {
+      display: flex;
+      gap: 4px;
+      margin-top: 4px;
+      flex-wrap: wrap;
+    }
+    .bit-label {
+      width: 36px;
+      text-align: center;
+      font-size: 0.6rem;
+      opacity: 0.5;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link">Plano</a>
+      <a href="../fase1.html" class="nav-link active">Fase 1</a>
+      <a href="../fase2.html" class="nav-link">Fase 2</a>
+      <a href="../fase3.html" class="nav-link">Fase 3</a>
+      <a href="../fase4.html" class="nav-link">Fase 4</a>
+      <a href="../fase5.html" class="nav-link">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html">Plano de Ensino</a>
+    <a href="../fase1.html">Fase 1 — Fundamentos</a>
+    <a href="../fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="../fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="../fase4.html">Fase 4 — Python</a>
+    <a href="../fase5.html">Fase 5 — Especialização</a>
+  </div>
+
+  <nav class="breadcrumb" aria-label="Navegação">
+    <a href="../../index.html">Plano</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Fase 1</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Representação de Dados</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">Sistema binário</span>
+  </nav>
+
+  <header class="aula-hero">
+    <div class="fase-badge">Fase 1 · Representação de Dados</div>
+    <h1 class="aula-title">Sistema binário:<br>a linguagem do hardware</h1>
+    <p class="aula-intro">
+      O computador só conhece dois estados: ligado e desligado, 1 e 0. Mas com apenas esses dois
+      símbolos ele representa números, texto, imagens, música e código. Entender o binário
+      é entender a base de tudo que acontece dentro da máquina.
+    </p>
+    <div class="aula-meta">
+      <div class="meta-pill"><strong>⏱</strong> ~15 min</div>
+      <div class="meta-pill"><strong>📶</strong> Iniciante</div>
+      <div class="meta-pill">Módulo 4 de 5</div>
+    </div>
+  </header>
+
+  <article class="aula-body">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Por que o computador usa binário?</h2>
+
+      <p class="aula-text">
+        Não é uma escolha arbitrária — é física. Os transistores que formam a CPU são
+        interruptores eletrônicos. Eles têm dois estados estáveis e distinguíveis:
+        <strong>conduzindo corrente</strong> (1) ou <strong>não conduzindo</strong> (0).
+        Qualquer outro estado intermediário seria instável e geraria erros.
+      </p>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">💡</span>
+        <div class="aula-callout-text">
+          <strong>Um transistor = um bit:</strong>
+          Um processador moderno tem dezenas de bilhões de transistores em um chip do tamanho de uma
+          unha. Cada um pode armazenar um bit — 0 ou 1. A combinação desses bits é o que representa
+          toda informação dentro do computador.
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Base 10 vs. base 2</h2>
+
+      <p class="aula-text">
+        Você usa base 10 (decimal) porque tem 10 dedos. O sistema posicional que conhece desde
+        criança funciona assim: cada posição vale 10 vezes a anterior.
+      </p>
+
+      <p class="aula-text">
+        O binário funciona <em>exatamente da mesma forma</em> — mas com base 2.
+        Cada posição vale 2 vezes a anterior:
+      </p>
+
+      <div class="bit-visual">
+        <div class="bit-box bit-box--1">1</div>
+        <div class="bit-box bit-box--0">0</div>
+        <div class="bit-box bit-box--1">1</div>
+        <div class="bit-box bit-box--1">1</div>
+        <div class="bit-box bit-box--0">0</div>
+        <div class="bit-box bit-box--1">1</div>
+        <div class="bit-box bit-box--0">0</div>
+        <div class="bit-box bit-box--1">1</div>
+      </div>
+      <div class="bit-label-row">
+        <div class="bit-label">128</div>
+        <div class="bit-label">64</div>
+        <div class="bit-label">32</div>
+        <div class="bit-label">16</div>
+        <div class="bit-label">8</div>
+        <div class="bit-label">4</div>
+        <div class="bit-label">2</div>
+        <div class="bit-label">1</div>
+      </div>
+      <p class="aula-text" style="font-size:0.8rem;opacity:0.6;margin-top:0.5rem;">
+        <code>10110101</code> = 128 + 32 + 16 + 4 + 1 = <strong>181</strong>
+      </p>
+
+      <p class="aula-text">
+        Para converter binário para decimal: some os valores das posições onde há um <strong>1</strong>.
+        Para converter decimal para binário: divida por 2 repetidamente, anotando os restos.
+      </p>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Tabela de conversão</h2>
+
+      <table class="conversion-table">
+        <thead>
+          <tr>
+            <th>Decimal</th>
+            <th>Binário (4 bits)</th>
+            <th>Significado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-decimal">0</td><td class="td-binary">0000</td><td>zero</td></tr>
+          <tr><td class="td-decimal">1</td><td class="td-binary">0001</td><td>um</td></tr>
+          <tr><td class="td-decimal">2</td><td class="td-binary">0010</td><td>dois</td></tr>
+          <tr><td class="td-decimal">5</td><td class="td-binary">0101</td><td>cinco</td></tr>
+          <tr><td class="td-decimal">8</td><td class="td-binary">1000</td><td>oito</td></tr>
+          <tr><td class="td-decimal">10</td><td class="td-binary">1010</td><td>dez</td></tr>
+          <tr><td class="td-decimal">15</td><td class="td-binary">1111</td><td>quinze (máximo de 4 bits)</td></tr>
+          <tr><td class="td-decimal">255</td><td class="td-binary">11111111</td><td>máximo de 8 bits (1 byte)</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Bits, bytes e potências de 2</h2>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Bit</div>
+          <h4>A unidade mínima</h4>
+          <p>Um único dígito binário: 0 ou 1. Sozinho representa apenas dois estados. O nome vem de <em>binary digit</em>.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Byte</div>
+          <h4>8 bits = 256 possibilidades</h4>
+          <p>A unidade prática. Com 8 bits, você representa 2⁸ = 256 valores diferentes (0 a 255). É suficiente para um caractere ASCII, uma cor em escala de cinza, ou um volume de áudio.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Kilobyte</div>
+          <h4>1 KB = 1.024 bytes</h4>
+          <p>Não 1.000 — são 2¹⁰ = 1.024 bytes. Potências de 2 não batem com potências de 10, por isso 1 GB de RAM é 1.073.741.824 bytes, não exatamente 1 bilhão.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Unidades modernas</div>
+          <h4>KB → MB → GB → TB</h4>
+          <p>Cada nível multiplica por 1.024: 1 KB = 1.024 B, 1 MB = 1.024 KB, 1 GB = 1.024 MB. SSDs e HDs medem em base 10 (1 GB = 1 bilhão) — por isso aparecem menores no SO.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Por que isso importa para você, programador?</h2>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Tipos de dados</div>
+          <h4>int, float, byte...</h4>
+          <p>Em Python, um <code>int</code> pode ser arbitrariamente grande. Em C, um <code>int</code> de 32 bits vai de -2 bilhões a +2 bilhões. Extrapolá-lo causa overflow. O tamanho dos tipos é diretamente o número de bits.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Operadores bitwise</div>
+          <h4>&amp;, |, ^, ~, &lt;&lt;, &gt;&gt;</h4>
+          <p>Python e todas as linguagens têm operadores que manipulam bits diretamente. Muito usados em redes (máscaras IP), criptografia, compressão e sistemas embarcados. Faz sentido só quem entende binário.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Tamanhos de arquivo</div>
+          <h4>Por que importa</h4>
+          <p>Uma imagem PNG de 1920×1080 em RGB puro ocupa 1920 × 1080 × 3 bytes = ~6 MB sem compressão. Entender isso ajuda a estimar tamanhos, escolher formatos e entender por que compressão importa.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Debugging</div>
+          <h4>Ler dumps e logs</h4>
+          <p>Logs de sistema, dumps de memória e saídas de depuradores frequentemente mostram valores em binário ou hexadecimal. Saber decodificar esses valores é uma habilidade que distingue desenvolvedores experientes.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="aula-divider">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Termos-chave desta aula</h2>
+      <div class="aula-terms">
+        <div class="aula-term">
+          <span class="aula-term-word">Bit</span>
+          <span class="aula-term-def">Binary digit. A menor unidade de informação: 0 ou 1. Fisicamente representa o estado de um transistor.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Byte</span>
+          <span class="aula-term-def">Grupo de 8 bits. Representa 2⁸ = 256 valores possíveis (0 a 255). Unidade básica de armazenamento e memória.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Base 2 (binário)</span>
+          <span class="aula-term-def">Sistema posicional onde cada posição vale o dobro da anterior (1, 2, 4, 8, 16...). Usa apenas os dígitos 0 e 1.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Transistor</span>
+          <span class="aula-term-def">Componente eletrônico com dois estados estáveis (conduzindo / não conduzindo). Um transistor armazena um bit. CPUs modernas têm dezenas de bilhões.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Overflow</span>
+          <span class="aula-term-def">Quando um número excede o limite de bits disponíveis. Ex: em 8 bits, 255 + 1 = 0 (o carry é perdido). Causa bugs sérios se não tratado.</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="aula-nav" aria-label="Navegação da aula">
+      <a href="../fase1.html" class="fase-nav-btn">← Representação de Dados</a>
+      <a href="fase1-rd-hex.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">Próxima: Hexadecimal →</a>
+    </nav>
+
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 1 · Representação de Dados</span>
+      <div class="footer-phases">
+        <a href="../fase1.html" style="border-color:var(--fase-color);color:var(--fase-color);">F1</a>
+        <a href="../fase2.html">F2</a>
+        <a href="../fase3.html">F3</a>
+        <a href="../fase4.html">F4</a>
+        <a href="../fase5.html">F5</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/nav.js"></script>
+</body>
+</html>

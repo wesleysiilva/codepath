@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manipulação de Arquivos | Linha de Comando | Fase 1 | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/style.css">
+  <style>
+    :root { --fase-color: #9B8FFF; }
+
+    .terminal-mock {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 1.25rem 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+    }
+    .terminal-header {
+      background: #161b22;
+      padding: 0.6rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid #30363d;
+    }
+    .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .terminal-dot--red { background: #ff5f56; }
+    .terminal-dot--yel { background: #ffbd2e; }
+    .terminal-dot--grn { background: #27c93f; }
+    .terminal-title { font-size: 0.72rem; color: #8b949e; margin-left: 0.5rem; }
+    .terminal-body { padding: 1rem 1.25rem; line-height: 1.8; }
+    .t-prompt  { color: #58a6ff; }
+    .t-cmd     { color: #e6edf3; }
+    .t-out     { color: #8b949e; }
+    .t-hl      { color: #f0a050; }
+    .t-comment { color: #6e7681; font-style: italic; }
+
+    .pipe-diagram {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 1.25rem 0;
+      flex-wrap: wrap;
+    }
+    .pipe-box {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.5rem 0.85rem;
+      font-family: monospace;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--fase-color);
+    }
+    .pipe-sep {
+      font-size: 1.1rem;
+      opacity: 0.5;
+      flex-shrink: 0;
+    }
+    .pipe-desc {
+      font-size: 0.72rem;
+      opacity: 0.6;
+      margin-top: 2px;
+      text-align: center;
+    }
+    .pipe-col { display: flex; flex-direction: column; align-items: center; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link">Plano</a>
+      <a href="../fase1.html" class="nav-link active">Fase 1</a>
+      <a href="../fase2.html" class="nav-link">Fase 2</a>
+      <a href="../fase3.html" class="nav-link">Fase 3</a>
+      <a href="../fase4.html" class="nav-link">Fase 4</a>
+      <a href="../fase5.html" class="nav-link">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html">Plano de Ensino</a>
+    <a href="../fase1.html">Fase 1 — Fundamentos</a>
+    <a href="../fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="../fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="../fase4.html">Fase 4 — Python</a>
+    <a href="../fase5.html">Fase 5 — Especialização</a>
+  </div>
+
+  <nav class="breadcrumb" aria-label="Navegação">
+    <a href="../../index.html">Plano</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Fase 1</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Linha de Comando</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">Manipulação de arquivos</span>
+  </nav>
+
+  <header class="aula-hero">
+    <div class="fase-badge">Fase 1 · Linha de Comando</div>
+    <h1 class="aula-title">Manipulação de arquivos:<br>cat, cp, mv e pipes</h1>
+    <p class="aula-intro">
+      Ler arquivos, copiá-los, movê-los, redirecionar saídas — e encadear comandos com pipes
+      para criar fluxos poderosos. Esta é a base para automatizar tarefas no terminal.
+    </p>
+    <div class="aula-meta">
+      <div class="meta-pill"><strong>⏱</strong> ~15 min</div>
+      <div class="meta-pill"><strong>📶</strong> Iniciante</div>
+      <div class="meta-pill">Módulo 5 de 5</div>
+    </div>
+  </header>
+
+  <article class="aula-body">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Ler, copiar e mover arquivos</h2>
+
+      <div class="terminal-mock">
+        <div class="terminal-header">
+          <div class="terminal-dot terminal-dot--red"></div>
+          <div class="terminal-dot terminal-dot--yel"></div>
+          <div class="terminal-dot terminal-dot--grn"></div>
+          <span class="terminal-title">bash — operações com arquivos</span>
+        </div>
+        <div class="terminal-body">
+          <span class="t-comment"># Criar arquivo com texto</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">echo "Olá, mundo" > ola.txt</span><br>
+          <br>
+          <span class="t-comment"># Ler conteúdo de arquivo</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">cat ola.txt</span><br>
+          <span class="t-out">Olá, mundo</span><br>
+          <br>
+          <span class="t-comment"># Copiar arquivo</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">cp ola.txt copia.txt</span><br>
+          <br>
+          <span class="t-comment"># Mover / renomear arquivo</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">mv copia.txt backup/ola-backup.txt</span><br>
+          <br>
+          <span class="t-comment"># Ver as primeiras/últimas linhas de um arquivo grande</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">head -5 log.txt</span><span class="t-comment">  # primeiras 5 linhas</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">tail -20 log.txt</span><span class="t-comment"> # últimas 20 linhas</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">tail -f log.txt</span><span class="t-comment">  # acompanha em tempo real</span>
+        </div>
+      </div>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">cat</div>
+          <h4>Con<strong>cat</strong>enate</h4>
+          <p>Lê e exibe o conteúdo de arquivos. <code>cat a.txt b.txt</code> concatena e exibe os dois. Ideal para arquivos pequenos — para grandes, use <code>less</code> (navegável com setas).</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">cp</div>
+          <h4>Copy</h4>
+          <p><code>cp origem destino</code>. Para copiar pasta inteira: <code>cp -r pasta/ destino/</code>. O original permanece intacto.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">mv</div>
+          <h4>Move (e renomear)</h4>
+          <p><code>mv arquivo.txt pasta/</code> move o arquivo. <code>mv nome-antigo.txt nome-novo.txt</code> renomeia. O mv é como cp + rm em um passo.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">grep</div>
+          <h4>Buscar padrões em texto</h4>
+          <p><code>grep "erro" log.txt</code> imprime todas as linhas que contêm "erro". <code>grep -r "def main" src/</code> busca recursivamente em uma pasta. Essencial para analisar logs.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Redirecionamento: >, >> e &lt;</h2>
+
+      <p class="aula-text">
+        Por padrão, a saída de um comando vai para a tela (stdout). Com redirecionamento,
+        você manda essa saída para um arquivo:
+      </p>
+
+      <div class="terminal-mock">
+        <div class="terminal-header">
+          <div class="terminal-dot terminal-dot--red"></div>
+          <div class="terminal-dot terminal-dot--yel"></div>
+          <div class="terminal-dot terminal-dot--grn"></div>
+          <span class="terminal-title">bash — redirecionamento</span>
+        </div>
+        <div class="terminal-body">
+          <span class="t-comment"># > sobrescreve o arquivo</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">echo "Linha 1" <span class="t-hl">></span> arquivo.txt</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">echo "Linha 2" <span class="t-hl">></span> arquivo.txt</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">cat arquivo.txt</span><br>
+          <span class="t-out">Linha 2  </span><span class="t-comment">(Linha 1 foi sobrescrita!)</span><br>
+          <br>
+          <span class="t-comment"># >> acumula (append)</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">echo "Linha 1" <span class="t-hl">>></span> log.txt</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">echo "Linha 2" <span class="t-hl">>></span> log.txt</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">cat log.txt</span><br>
+          <span class="t-out">Linha 1</span><br>
+          <span class="t-out">Linha 2</span><br>
+          <br>
+          <span class="t-comment"># Salvar a lista de arquivos em um arquivo</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">ls -la <span class="t-hl">></span> lista.txt</span>
+        </div>
+      </div>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">⚠️</span>
+        <div class="aula-callout-text">
+          <strong>Cuidado com o <code>&gt;</code>:</strong>
+          <code>comando > arquivo.txt</code> sobrescreve o arquivo sem aviso.
+          Se o arquivo continha dados importantes, eles se foram.
+          Use <code>&gt;&gt;</code> quando quiser acumular (como logs).
+          Use <code>&gt;</code> quando quer criar/substituir limpo.
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Pipes (|): encadeando comandos</h2>
+
+      <p class="aula-text">
+        O <strong>pipe</strong> (<code>|</code>) conecta a saída de um comando à entrada do próximo.
+        É a filosofia Unix em ação: ferramentas pequenas, cada uma fazendo uma coisa, combinadas para resolver problemas complexos.
+      </p>
+
+      <div class="pipe-diagram">
+        <div class="pipe-col">
+          <div class="pipe-box">ls -la</div>
+          <div class="pipe-desc">lista arquivos</div>
+        </div>
+        <span class="pipe-sep">|</span>
+        <div class="pipe-col">
+          <div class="pipe-box">grep ".py"</div>
+          <div class="pipe-desc">filtra .py</div>
+        </div>
+        <span class="pipe-sep">|</span>
+        <div class="pipe-col">
+          <div class="pipe-box">sort</div>
+          <div class="pipe-desc">ordena</div>
+        </div>
+        <span class="pipe-sep">|</span>
+        <div class="pipe-col">
+          <div class="pipe-box">wc -l</div>
+          <div class="pipe-desc">conta linhas</div>
+        </div>
+      </div>
+
+      <div class="terminal-mock">
+        <div class="terminal-header">
+          <div class="terminal-dot terminal-dot--red"></div>
+          <div class="terminal-dot terminal-dot--yel"></div>
+          <div class="terminal-dot terminal-dot--grn"></div>
+          <span class="terminal-title">bash — pipes em ação</span>
+        </div>
+        <div class="terminal-body">
+          <span class="t-comment"># Quantos arquivos .py estão nesta pasta?</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">ls *.py <span class="t-hl">|</span> wc -l</span><br>
+          <span class="t-out">14</span><br>
+          <br>
+          <span class="t-comment"># Buscar "erro" no log e mostrar só as últimas 10 ocorrências</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">grep "erro" app.log <span class="t-hl">|</span> tail -10</span><br>
+          <br>
+          <span class="t-comment"># Processos que consomem mais de 100MB de RAM</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">ps aux <span class="t-hl">|</span> grep -v grep <span class="t-hl">|</span> awk '$6 > 100000'</span><br>
+          <br>
+          <span class="t-comment"># Contar palavras únicas em um arquivo de texto</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">cat texto.txt <span class="t-hl">|</span> tr ' ' '\n' <span class="t-hl">|</span> sort <span class="t-hl">|</span> uniq -c <span class="t-hl">|</span> sort -rn <span class="t-hl">|</span> head -10</span>
+        </div>
+      </div>
+    </section>
+
+    <hr class="aula-divider">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Termos-chave desta aula</h2>
+      <div class="aula-terms">
+        <div class="aula-term">
+          <span class="aula-term-word">cat</span>
+          <span class="aula-term-def">Exibe o conteúdo de um arquivo. <code>cat a.txt b.txt</code> concatena os dois.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">cp / mv</span>
+          <span class="aula-term-def">cp copia arquivo (original fica intacto). mv move ou renomeia (original desaparece da origem).</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">grep</span>
+          <span class="aula-term-def">Filtra linhas de texto por padrão. <code>grep "palavra" arquivo</code>. Com <code>-r</code> busca recursivamente em diretórios.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Redirecionamento (&gt; e &gt;&gt;)</span>
+          <span class="aula-term-def"><code>&gt;</code> envia saída para arquivo (sobrescreve). <code>&gt;&gt;</code> acumula ao final do arquivo (append).</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Pipe (|)</span>
+          <span class="aula-term-def">Conecta a saída de um comando à entrada do próximo. Permite encadear ferramentas simples para resolver problemas complexos.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">tail -f</span>
+          <span class="aula-term-def">Acompanha um arquivo em tempo real, exibindo novas linhas conforme são adicionadas. Essencial para monitorar logs de aplicações.</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="aula-nav" aria-label="Navegação da aula">
+      <a href="fase1-cli-navegacao.html" class="fase-nav-btn">← Navegação</a>
+      <a href="fase1-cli-permissoes.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">Próxima: Permissões e variáveis →</a>
+    </nav>
+
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 1 · Linha de Comando</span>
+      <div class="footer-phases">
+        <a href="../fase1.html" style="border-color:var(--fase-color);color:var(--fase-color);">F1</a>
+        <a href="../fase2.html">F2</a>
+        <a href="../fase3.html">F3</a>
+        <a href="../fase4.html">F4</a>
+        <a href="../fase5.html">F5</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/nav.js"></script>
+</body>
+</html>

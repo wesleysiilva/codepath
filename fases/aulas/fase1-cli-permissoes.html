@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Permissões e Variáveis de Ambiente | Linha de Comando | Fase 1 | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/style.css">
+  <style>
+    :root { --fase-color: #9B8FFF; }
+
+    .terminal-mock {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 1.25rem 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+    }
+    .terminal-header {
+      background: #161b22;
+      padding: 0.6rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid #30363d;
+    }
+    .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .terminal-dot--red { background: #ff5f56; }
+    .terminal-dot--yel { background: #ffbd2e; }
+    .terminal-dot--grn { background: #27c93f; }
+    .terminal-title { font-size: 0.72rem; color: #8b949e; margin-left: 0.5rem; }
+    .terminal-body { padding: 1rem 1.25rem; line-height: 1.8; }
+    .t-prompt  { color: #58a6ff; }
+    .t-cmd     { color: #e6edf3; }
+    .t-out     { color: #8b949e; }
+    .t-hl      { color: #f0a050; }
+    .t-ok      { color: #27c93f; }
+    .t-err     { color: #ff5f56; }
+    .t-comment { color: #6e7681; font-style: italic; }
+
+    .path-visual {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.1rem 1.25rem;
+      margin: 1.25rem 0;
+      font-family: monospace;
+      font-size: 0.82rem;
+    }
+    .path-entry {
+      padding: 0.3rem 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .path-entry:last-child { border-bottom: none; }
+    .path-icon { opacity: 0.5; font-size: 0.9rem; }
+    .path-val  { color: var(--fase-color); flex: 1; }
+    .path-note { font-size: 0.72rem; opacity: 0.5; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link">Plano</a>
+      <a href="../fase1.html" class="nav-link active">Fase 1</a>
+      <a href="../fase2.html" class="nav-link">Fase 2</a>
+      <a href="../fase3.html" class="nav-link">Fase 3</a>
+      <a href="../fase4.html" class="nav-link">Fase 4</a>
+      <a href="../fase5.html" class="nav-link">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html">Plano de Ensino</a>
+    <a href="../fase1.html">Fase 1 — Fundamentos</a>
+    <a href="../fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="../fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="../fase4.html">Fase 4 — Python</a>
+    <a href="../fase5.html">Fase 5 — Especialização</a>
+  </div>
+
+  <nav class="breadcrumb" aria-label="Navegação">
+    <a href="../../index.html">Plano</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Fase 1</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Linha de Comando</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">Permissões e variáveis de ambiente</span>
+  </nav>
+
+  <header class="aula-hero">
+    <div class="fase-badge">Fase 1 · Linha de Comando</div>
+    <h1 class="aula-title">Permissões e variáveis<br>de ambiente</h1>
+    <p class="aula-intro">
+      chmod, sudo, PATH e variáveis de ambiente são conceitos que aparecem cedo para qualquer
+      desenvolvedor — ao instalar ferramentas, rodar scripts ou configurar ambientes de desenvolvimento.
+      Esta aula desmistifica cada um deles.
+    </p>
+    <div class="aula-meta">
+      <div class="meta-pill"><strong>⏱</strong> ~15 min</div>
+      <div class="meta-pill"><strong>📶</strong> Iniciante</div>
+      <div class="meta-pill">Módulo 5 de 5</div>
+    </div>
+  </header>
+
+  <article class="aula-body">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">chmod: mudar permissões de arquivo</h2>
+
+      <p class="aula-text">
+        O comando <code style="background:var(--bg);padding:2px 8px;border-radius:4px;font-size:13px;">chmod</code>
+        (change mode) muda quem pode ler, escrever ou executar um arquivo.
+        Você já aprendeu a teoria das permissões — agora veja como aplicá-las:
+      </p>
+
+      <div class="terminal-mock">
+        <div class="terminal-header">
+          <div class="terminal-dot terminal-dot--red"></div>
+          <div class="terminal-dot terminal-dot--yel"></div>
+          <div class="terminal-dot terminal-dot--grn"></div>
+          <span class="terminal-title">bash — chmod</span>
+        </div>
+        <div class="terminal-body">
+          <span class="t-comment"># Ver permissões atuais</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">ls -l script.py</span><br>
+          <span class="t-out">-rw-r--r-- 1 wesley staff 1024 Apr 19 script.py</span><br>
+          <span class="t-comment"># rw- r-- r-- : dono lê/escreve, outros só leem. Não executa.</span><br>
+          <br>
+          <span class="t-comment"># Tornar executável pelo dono</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">chmod u+x script.py</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">ls -l script.py</span><br>
+          <span class="t-out">-rwxr--r-- 1 wesley staff 1024 Apr 19 script.py</span><br>
+          <br>
+          <span class="t-comment"># Forma numérica: 755 = rwxr-xr-x</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">chmod 755 script.py</span><br>
+          <br>
+          <span class="t-comment"># Executar o script diretamente</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">./script.py</span><br>
+          <span class="t-out">Hello World!</span>
+        </div>
+      </div>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🔢</span>
+        <div class="aula-callout-text">
+          <strong>chmod em octal — os mais usados:</strong><br>
+          <code>755</code> = rwxr-xr-x — scripts, executáveis (todos executam, só dono escreve)<br>
+          <code>644</code> = rw-r--r-- — arquivos normais (dono lê/escreve, outros só leem)<br>
+          <code>600</code> = rw------- — arquivos privados (chaves SSH, .env com senhas)<br>
+          <code>777</code> = rwxrwxrwx — todos têm tudo — <strong>evite em produção!</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">sudo: executar como administrador</h2>
+
+      <p class="aula-text">
+        Algumas operações requerem privilégios de administrador (root no Linux/Mac, Administrador no Windows).
+        O comando <code style="background:var(--bg);padding:2px 8px;border-radius:4px;font-size:13px;">sudo</code>
+        (super user do) executa um comando com privilégios elevados.
+      </p>
+
+      <div class="terminal-mock">
+        <div class="terminal-header">
+          <div class="terminal-dot terminal-dot--red"></div>
+          <div class="terminal-dot terminal-dot--yel"></div>
+          <div class="terminal-dot terminal-dot--grn"></div>
+          <span class="terminal-title">bash — sudo</span>
+        </div>
+        <div class="terminal-body">
+          <span class="t-comment"># Sem sudo: instalar pacote do sistema falha</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">apt install nginx</span><br>
+          <span class="t-err">E: Could not open lock file ... - open (13: Permission denied)</span><br>
+          <br>
+          <span class="t-comment"># Com sudo: solicita senha, depois executa como root</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">sudo apt install nginx</span><br>
+          <span class="t-out">[sudo] password for wesley: </span><br>
+          <span class="t-ok">Reading package lists... Done</span><br>
+          <br>
+          <span class="t-comment"># Ver quem é o usuário atual</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">whoami</span><br>
+          <span class="t-out">wesley</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">sudo whoami</span><br>
+          <span class="t-out">root</span>
+        </div>
+      </div>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">⚠️</span>
+        <div class="aula-callout-text">
+          <strong>Use sudo com cuidado:</strong>
+          Como root, você pode fazer qualquer coisa — incluindo apagar arquivos críticos do sistema.
+          Nunca execute <code>sudo rm -rf /</code> ou comandos que você não entende.
+          Regra prática: use sudo <em>só quando necessário</em> (instalar pacotes do sistema, configurar firewall, acessar logs do sistema).
+          Para instalar pacotes Python (<code>pip install</code>), prefira ambientes virtuais — sem sudo.
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Variáveis de ambiente</h2>
+
+      <p class="aula-text">
+        <strong>Variáveis de ambiente</strong> são pares chave=valor que o SO disponibiliza para todos
+        os processos. Programas as usam para configuração: onde encontrar executáveis, tokens de API,
+        ambiente de execução (desenvolvimento vs. produção).
+      </p>
+
+      <div class="terminal-mock">
+        <div class="terminal-header">
+          <div class="terminal-dot terminal-dot--red"></div>
+          <div class="terminal-dot terminal-dot--yel"></div>
+          <div class="terminal-dot terminal-dot--grn"></div>
+          <span class="terminal-title">bash — variáveis de ambiente</span>
+        </div>
+        <div class="terminal-body">
+          <span class="t-comment"># Ver todas as variáveis de ambiente</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">env</span><br>
+          <span class="t-out">HOME=/home/wesley</span><br>
+          <span class="t-out">USER=wesley</span><br>
+          <span class="t-out">PATH=/usr/local/bin:/usr/bin:/bin:...</span><br>
+          <span class="t-out">LANG=pt_BR.UTF-8</span><br>
+          <br>
+          <span class="t-comment"># Ver uma variável específica</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">echo $HOME</span><br>
+          <span class="t-out">/home/wesley</span><br>
+          <br>
+          <span class="t-comment"># Definir variável temporária (só nesta sessão)</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">export MINHA_VAR="valor_aqui"</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">echo $MINHA_VAR</span><br>
+          <span class="t-out">valor_aqui</span><br>
+          <br>
+          <span class="t-comment"># Acessar em Python</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">python3 -c "import os; print(os.environ['MINHA_VAR'])"</span><br>
+          <span class="t-out">valor_aqui</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">PATH: por que "python" funciona no terminal</h2>
+
+      <p class="aula-text">
+        Quando você digita <code style="background:var(--bg);padding:2px 8px;border-radius:4px;font-size:13px;">python</code>
+        no terminal, como o shell sabe onde está o programa Python?
+        Ele busca nos diretórios listados na variável <strong>PATH</strong>,
+        um por um, até encontrar um executável com esse nome.
+      </p>
+
+      <div class="path-visual">
+        <div style="font-size:0.75rem;opacity:0.6;margin-bottom:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">PATH = lista de diretórios separados por :</div>
+        <div class="path-entry"><span class="path-icon">📁</span><span class="path-val">/usr/local/bin</span><span class="path-note">programas instalados pelo usuário</span></div>
+        <div class="path-entry"><span class="path-icon">📁</span><span class="path-val">/usr/bin</span><span class="path-note">programas do sistema</span></div>
+        <div class="path-entry"><span class="path-icon">📁</span><span class="path-val">/bin</span><span class="path-note">utilitários essenciais (ls, cp, bash...)</span></div>
+        <div class="path-entry"><span class="path-icon">📁</span><span class="path-val">/home/wesley/.local/bin</span><span class="path-note">programas do usuário (pip instala aqui)</span></div>
+      </div>
+
+      <div class="terminal-mock">
+        <div class="terminal-header">
+          <div class="terminal-dot terminal-dot--red"></div>
+          <div class="terminal-dot terminal-dot--yel"></div>
+          <div class="terminal-dot terminal-dot--grn"></div>
+          <span class="terminal-title">bash — PATH</span>
+        </div>
+        <div class="terminal-body">
+          <span class="t-comment"># Ver o PATH atual</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">echo $PATH</span><br>
+          <span class="t-out">/usr/local/bin:/usr/bin:/bin:/home/wesley/.local/bin</span><br>
+          <br>
+          <span class="t-comment"># Onde está o python?</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">which python3</span><br>
+          <span class="t-out">/usr/bin/python3</span><br>
+          <br>
+          <span class="t-comment"># Adicionar pasta ao PATH permanentemente (no ~/.bashrc ou ~/.zshrc)</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">source ~/.bashrc</span><span class="t-comment">  # recarregar configurações</span>
+        </div>
+      </div>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">💡</span>
+        <div class="aula-callout-text">
+          <strong>"command not found" — o diagnóstico:</strong>
+          Quando o terminal diz <code>command not found: python</code>, significa que o executável
+          não está em nenhum diretório do PATH. Soluções: (1) instalar o programa,
+          (2) adicionar o diretório onde ele está ao PATH, ou (3) usar o caminho completo
+          (<code>/usr/bin/python3</code> em vez de só <code>python3</code>).
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Boas práticas com variáveis de ambiente</h2>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Segredos</div>
+          <h4>Nunca no código-fonte</h4>
+          <p>Senhas, tokens de API e chaves de banco de dados nunca devem ficar no código. Use variáveis de ambiente: <code>API_KEY=xxx python app.py</code> ou armazene em arquivos <code>.env</code> (nunca no git).</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Arquivo .env</div>
+          <h4>Padrão para projetos</h4>
+          <p>Crie um arquivo <code>.env</code> com as variáveis do projeto. Use <code>python-dotenv</code> para carregá-las automaticamente. Adicione <code>.env</code> ao <code>.gitignore</code> — jamais suba segredos para o GitHub.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Ambientes</div>
+          <h4>dev vs. produção</h4>
+          <p><code>ENVIRONMENT=development</code> ou <code>ENVIRONMENT=production</code> permite que o mesmo código se comporte diferente. Em dev, exibe logs detalhados e usa banco local. Em prod, mínimo de logs e banco remoto.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="aula-divider">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Termos-chave desta aula</h2>
+      <div class="aula-terms">
+        <div class="aula-term">
+          <span class="aula-term-word">chmod</span>
+          <span class="aula-term-def">Change mode. Modifica as permissões de leitura, escrita e execução de arquivos e diretórios Unix.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">sudo</span>
+          <span class="aula-term-def">Super User DO. Executa um comando com privilégios de root. Necessário para instalar pacotes do sistema, modificar arquivos protegidos.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Variável de ambiente</span>
+          <span class="aula-term-def">Par chave=valor disponível para todos os processos. Usada para configuração, senhas, tokens de API e controle de ambiente (dev/prod).</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">PATH</span>
+          <span class="aula-term-def">Variável de ambiente que lista os diretórios onde o shell busca executáveis. Quando um comando não é encontrado, o PATH é o lugar a inspecionar.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">export</span>
+          <span class="aula-term-def">Torna uma variável disponível para processos filhos do shell atual. Sem export, a variável existe só no shell onde foi criada.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">.bashrc / .zshrc</span>
+          <span class="aula-term-def">Arquivo de configuração do shell executado ao abrir um terminal. Onde se definem aliases, PATH personalizado e variáveis permanentes.</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="aula-nav" aria-label="Navegação da aula">
+      <a href="fase1-cli-arquivos.html" class="fase-nav-btn">← Manipulação de arquivos</a>
+      <a href="../fase1.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">Concluir Fase 1 →</a>
+    </nav>
+
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 1 · Linha de Comando</span>
+      <div class="footer-phases">
+        <a href="../fase1.html" style="border-color:var(--fase-color);color:var(--fase-color);">F1</a>
+        <a href="../fase2.html">F2</a>
+        <a href="../fase3.html">F3</a>
+        <a href="../fase4.html">F4</a>
+        <a href="../fase5.html">F5</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/nav.js"></script>
+</body>
+</html>

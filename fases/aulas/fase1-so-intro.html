@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>O que é um SO | Sistemas Operacionais | Fase 1 | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/style.css">
+  <style>
+    :root { --fase-color: #9B8FFF; }
+
+    .layer-stack {
+      margin: 1.5rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .layer {
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .layer-icon { font-size: 1.1rem; flex-shrink: 0; }
+    .layer-info { flex: 1; }
+    .layer-name { font-weight: 700; }
+    .layer-desc { font-size: 0.75rem; font-weight: 400; opacity: 0.7; margin-top: 1px; }
+    .layer--apps    { background: color-mix(in srgb, #5BC4A0 12%, var(--bg2)); border: 1px solid color-mix(in srgb, #5BC4A0 25%, transparent); }
+    .layer--api     { background: color-mix(in srgb, var(--fase-color) 12%, var(--bg2)); border: 1px solid color-mix(in srgb, var(--fase-color) 25%, transparent); }
+    .layer--kernel  { background: color-mix(in srgb, #F0A050 12%, var(--bg2)); border: 1px solid color-mix(in srgb, #F0A050 25%, transparent); }
+    .layer--drivers { background: color-mix(in srgb, #E06060 12%, var(--bg2)); border: 1px solid color-mix(in srgb, #E06060 25%, transparent); }
+    .layer--hw      { background: var(--bg3); border: 1px solid var(--border); }
+    .layer-arrow { text-align: center; font-size: 0.8rem; opacity: 0.4; margin: -2px 0; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link">Plano</a>
+      <a href="../fase1.html" class="nav-link active">Fase 1</a>
+      <a href="../fase2.html" class="nav-link">Fase 2</a>
+      <a href="../fase3.html" class="nav-link">Fase 3</a>
+      <a href="../fase4.html" class="nav-link">Fase 4</a>
+      <a href="../fase5.html" class="nav-link">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html">Plano de Ensino</a>
+    <a href="../fase1.html">Fase 1 — Fundamentos</a>
+    <a href="../fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="../fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="../fase4.html">Fase 4 — Python</a>
+    <a href="../fase5.html">Fase 5 — Especialização</a>
+  </div>
+
+  <nav class="breadcrumb" aria-label="Navegação">
+    <a href="../../index.html">Plano</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Fase 1</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Sistemas Operacionais</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">O que é um SO</span>
+  </nav>
+
+  <header class="aula-hero">
+    <div class="fase-badge">Fase 1 · Sistemas Operacionais</div>
+    <h1 class="aula-title">O que é um sistema<br>operacional?</h1>
+    <p class="aula-intro">
+      O sistema operacional é a camada invisível que torna possível tudo que você faz no computador.
+      Sem ele, cada programa precisaria falar diretamente com o hardware — e isso seria um caos.
+      Entender o SO é entender quem realmente está no controle.
+    </p>
+    <div class="aula-meta">
+      <div class="meta-pill"><strong>⏱</strong> ~15 min</div>
+      <div class="meta-pill"><strong>📶</strong> Iniciante</div>
+      <div class="meta-pill">Módulo 3 de 5</div>
+    </div>
+  </header>
+
+  <article class="aula-body">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">O problema que o SO resolve</h2>
+
+      <p class="aula-text">
+        Imagine que você tem um computador com uma placa de vídeo da NVIDIA, um SSD da Samsung e
+        um teclado da Logitech. O Chrome, o Spotify e o VS Code rodando ao mesmo tempo.
+        <strong>Como cada um desses programas sabe como usar o hardware específico que você tem?</strong>
+      </p>
+
+      <p class="aula-text">
+        Sem um SO, cada desenvolvedor precisaria escrever código específico para cada combinação
+        possível de hardware. O Chrome precisaria de versões diferentes para cada placa de vídeo existente.
+        Seria impossível. O SO resolve isso sendo o <strong>único intermediário entre os programas e o hardware</strong>.
+      </p>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🏨</span>
+        <div class="aula-callout-text">
+          <strong>Analogia do hotel:</strong>
+          Você, hóspede, não precisa saber como a cozinha funciona, onde ficam os fusíveis ou como
+          o elevador foi construído. Você faz um pedido ao serviço de quarto — e o hotel cuida do resto.
+          O SO é o hotel: os programas fazem pedidos (syscalls), e o SO gerencia os recursos reais.
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">As camadas: do hardware ao app</h2>
+
+      <p class="aula-text">
+        O SO organiza o computador em camadas de abstração. Cada camada fala com a de baixo,
+        protegendo as de cima dos detalhes de hardware:
+      </p>
+
+      <div class="layer-stack">
+        <div class="layer layer--apps">
+          <span class="layer-icon">📱</span>
+          <div class="layer-info">
+            <div class="layer-name">Aplicações</div>
+            <div class="layer-desc">Chrome, VS Code, Python, jogos — o que você usa diretamente</div>
+          </div>
+        </div>
+        <div class="layer-arrow">↕</div>
+        <div class="layer layer--api">
+          <span class="layer-icon">📋</span>
+          <div class="layer-info">
+            <div class="layer-name">API do SO / Bibliotecas padrão</div>
+            <div class="layer-desc">Funções como "abrir arquivo", "alocar memória", "enviar dado pela rede"</div>
+          </div>
+        </div>
+        <div class="layer-arrow">↕</div>
+        <div class="layer layer--kernel">
+          <span class="layer-icon">⚙️</span>
+          <div class="layer-info">
+            <div class="layer-name">Kernel</div>
+            <div class="layer-desc">Núcleo do SO: gerencia processos, memória, I/O e segurança</div>
+          </div>
+        </div>
+        <div class="layer-arrow">↕</div>
+        <div class="layer layer--drivers">
+          <span class="layer-icon">🔌</span>
+          <div class="layer-info">
+            <div class="layer-name">Drivers</div>
+            <div class="layer-desc">Código específico para cada peça de hardware (GPU, disco, teclado...)</div>
+          </div>
+        </div>
+        <div class="layer-arrow">↕</div>
+        <div class="layer layer--hw">
+          <span class="layer-icon">🔧</span>
+          <div class="layer-info">
+            <div class="layer-name">Hardware</div>
+            <div class="layer-desc">CPU, RAM, disco, GPU, periféricos — o físico</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">O kernel: o núcleo do SO</h2>
+
+      <p class="aula-text">
+        O <strong>kernel</strong> é a parte central do sistema operacional — o código que roda com
+        acesso total ao hardware. Ele é responsável por quatro funções principais:
+      </p>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Função 1</div>
+          <h4>Gerenciamento de processos</h4>
+          <p>Cria, pausa, retoma e encerra programas. Decide qual programa usa a CPU em cada momento (scheduling). Garante que um programa travado não trave o computador inteiro.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Função 2</div>
+          <h4>Gerenciamento de memória</h4>
+          <p>Aloca RAM para cada processo. Garante isolamento: o Chrome não pode ler a memória do VS Code. Implementa memória virtual — a ilusão de que cada programa tem acesso a toda a RAM.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Função 3</div>
+          <h4>Gerenciamento de I/O</h4>
+          <p>Faz a ponte entre programas e dispositivos (disco, rede, teclado). Usa drivers para traduzir chamadas genéricas ("leia do disco") em comandos específicos para o hardware instalado.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Função 4</div>
+          <h4>Segurança e permissões</h4>
+          <p>Controla quem pode fazer o quê. Um programa do usuário não pode apagar arquivos do sistema sem permissão. Define os limites entre o que o usuário pode e o que só o administrador (root/admin) pode.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Syscalls: como os programas pedem ao SO</h2>
+
+      <p class="aula-text">
+        Quando um programa precisa de algo — abrir um arquivo, conectar à internet, mostrar algo na tela —
+        ele não faz isso diretamente. Ele chama o SO por meio de <strong>syscalls</strong>
+        (system calls / chamadas de sistema).
+      </p>
+
+      <ol class="aula-steps">
+        <li class="aula-step">
+          <span class="aula-step-num">1</span>
+          <div class="aula-step-content">
+            <strong>O programa faz uma syscall</strong> — ex: <code style="background:var(--bg);padding:1px 6px;border-radius:4px;font-size:12px;">open("arquivo.txt")</code>. O programa passa do modo <em>user space</em> para o modo <em>kernel space</em>.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">2</span>
+          <div class="aula-step-content">
+            <strong>O kernel verifica permissões</strong> — o arquivo existe? O programa tem permissão para lê-lo?
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">3</span>
+          <div class="aula-step-content">
+            <strong>O kernel executa a operação</strong> — instrui o driver do disco a buscar os dados.
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">4</span>
+          <div class="aula-step-content">
+            <strong>O resultado volta ao programa</strong> — os dados do arquivo chegam ao buffer do programa em user space.
+          </div>
+        </li>
+      </ol>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🔒</span>
+        <div class="aula-callout-text">
+          <strong>User space vs. kernel space:</strong>
+          Esta divisão é a principal proteção de segurança de qualquer SO. Código em user space
+          (seus programas, Python, Chrome) não pode acessar hardware diretamente — tudo passa pelo kernel.
+          Isso impede que um programa com bug (ou malicioso) quebre o sistema inteiro.
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Por que isso importa para você, programador?</h2>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Erros de permissão</div>
+          <h4>"Permission denied"</h4>
+          <p>Quando seu script Python recebe "Permission denied" ao tentar escrever em um arquivo, é o kernel aplicando as regras de permissão. Entender o SO transforma mensagens de erro em diagnósticos claros.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Portabilidade</div>
+          <h4>Por que o código muda entre SO</h4>
+          <p>Caminhos de arquivo usam <code>\</code> no Windows e <code>/</code> no Linux. Fim de linha é <code>\r\n</code> no Windows e <code>\n</code> no Unix. São diferenças do SO, não da linguagem.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Instalação de ferramentas</div>
+          <h4>Gerenciadores de pacotes</h4>
+          <p>apt (Ubuntu), brew (macOS), choco (Windows) são abstrações sobre o SO para instalar software. Saber que eles modificam o PATH e criam diretórios do sistema explica por que às vezes precisam de sudo/admin.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Servidores</div>
+          <h4>Por que Linux domina servidores</h4>
+          <p>~95% dos servidores web rodam Linux. Código aberto, estável, customizável, sem licença por servidor. Quando você faz deploy de uma aplicação na nuvem, ela quase certamente roda em um kernel Linux.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="aula-divider">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Termos-chave desta aula</h2>
+      <div class="aula-terms">
+        <div class="aula-term">
+          <span class="aula-term-word">Sistema Operacional (SO)</span>
+          <span class="aula-term-def">Software que gerencia os recursos de hardware e fornece serviços para os programas. Intermediário entre apps e hardware.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Kernel</span>
+          <span class="aula-term-def">Núcleo do SO. Roda com acesso total ao hardware. Gerencia processos, memória, I/O e segurança.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Driver</span>
+          <span class="aula-term-def">Código que permite ao kernel se comunicar com um hardware específico (placa de vídeo, impressora, teclado).</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Syscall</span>
+          <span class="aula-term-def">System call. Mecanismo pelo qual um programa pede ao kernel para realizar uma operação (abrir arquivo, alocar memória, enviar dado).</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">User space / Kernel space</span>
+          <span class="aula-term-def">Separação entre onde os programas do usuário rodam (user space, acesso restrito) e onde o kernel roda (acesso total ao hardware).</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Abstração</span>
+          <span class="aula-term-def">Princípio de esconder complexidade. O SO abstrai o hardware — o programa não precisa saber qual disco está instalado para salvar um arquivo.</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="aula-nav" aria-label="Navegação da aula">
+      <a href="../fase1.html" class="fase-nav-btn">← Sistemas Operacionais</a>
+      <a href="fase1-so-sistemas.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">Próxima: Windows, Linux e macOS →</a>
+    </nav>
+
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 1 · Sistemas Operacionais</span>
+      <div class="footer-phases">
+        <a href="../fase1.html" style="border-color:var(--fase-color);color:var(--fase-color);">F1</a>
+        <a href="../fase2.html">F2</a>
+        <a href="../fase3.html">F3</a>
+        <a href="../fase4.html">F4</a>
+        <a href="../fase5.html">F5</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/nav.js"></script>
+</body>
+</html>

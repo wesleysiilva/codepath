@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terminal e Shell | Linha de Comando | Fase 1 | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/style.css">
+  <style>
+    :root { --fase-color: #9B8FFF; }
+
+    .terminal-mock {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 1.25rem 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+    }
+    .terminal-header {
+      background: #161b22;
+      padding: 0.6rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid #30363d;
+    }
+    .terminal-dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+    }
+    .terminal-dot--red   { background: #ff5f56; }
+    .terminal-dot--yel   { background: #ffbd2e; }
+    .terminal-dot--grn   { background: #27c93f; }
+    .terminal-title { font-size: 0.72rem; color: #8b949e; margin-left: 0.5rem; }
+    .terminal-body { padding: 1rem 1.25rem; line-height: 1.7; }
+    .t-prompt { color: #58a6ff; }
+    .t-cmd { color: #e6edf3; }
+    .t-out  { color: #8b949e; }
+    .t-comment { color: #6e7681; font-style: italic; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link">Plano</a>
+      <a href="../fase1.html" class="nav-link active">Fase 1</a>
+      <a href="../fase2.html" class="nav-link">Fase 2</a>
+      <a href="../fase3.html" class="nav-link">Fase 3</a>
+      <a href="../fase4.html" class="nav-link">Fase 4</a>
+      <a href="../fase5.html" class="nav-link">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html">Plano de Ensino</a>
+    <a href="../fase1.html">Fase 1 — Fundamentos</a>
+    <a href="../fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="../fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="../fase4.html">Fase 4 — Python</a>
+    <a href="../fase5.html">Fase 5 — Especialização</a>
+  </div>
+
+  <nav class="breadcrumb" aria-label="Navegação">
+    <a href="../../index.html">Plano</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Fase 1</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Linha de Comando</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">O que é o terminal</span>
+  </nav>
+
+  <header class="aula-hero">
+    <div class="fase-badge">Fase 1 · Linha de Comando</div>
+    <h1 class="aula-title">Terminal e shell:<br>falar diretamente com o SO</h1>
+    <p class="aula-intro">
+      A interface gráfica é uma camada de conveniência — por baixo, tudo é texto.
+      O terminal é a porta de entrada para o controle real do sistema.
+      Todo desenvolvedor usa o terminal diariamente: instalar pacotes, rodar código, usar Git.
+    </p>
+    <div class="aula-meta">
+      <div class="meta-pill"><strong>⏱</strong> ~12 min</div>
+      <div class="meta-pill"><strong>📶</strong> Iniciante</div>
+      <div class="meta-pill">Módulo 5 de 5</div>
+    </div>
+  </header>
+
+  <article class="aula-body">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Terminal, shell, prompt — qual a diferença?</h2>
+
+      <p class="aula-text">
+        Esses três termos são frequentemente confundidos. Eles se referem a coisas relacionadas mas distintas:
+      </p>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Terminal</div>
+          <h4>A janela</h4>
+          <p>O programa que exibe a interface de texto. No macOS: Terminal.app ou iTerm2. No Windows: Windows Terminal. No Linux: GNOME Terminal, Konsole. O terminal <em>hospeda</em> o shell — ele é só a tela.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Shell</div>
+          <h4>O interpretador</h4>
+          <p>O programa que <em>interpreta</em> seus comandos e os envia ao SO. Bash (Linux/Mac antigo), Zsh (macOS padrão desde 2019), Fish (amigável), PowerShell (Windows moderno). O shell é onde a lógica acontece.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Prompt</div>
+          <h4>O convite para digitar</h4>
+          <p>O texto que o shell exibe para indicar que está pronto para receber um comando. Geralmente mostra usuário, máquina e diretório atual. O <code>$</code> no final indica que você não é root; <code>#</code> indica root.</p>
+        </div>
+      </div>
+
+      <div class="terminal-mock">
+        <div class="terminal-header">
+          <div class="terminal-dot terminal-dot--red"></div>
+          <div class="terminal-dot terminal-dot--yel"></div>
+          <div class="terminal-dot terminal-dot--grn"></div>
+          <span class="terminal-title">bash — wesley@ubuntu</span>
+        </div>
+        <div class="terminal-body">
+          <span class="t-comment"># Anatomia do prompt</span><br>
+          <span class="t-prompt">wesley@ubuntu:~/projetos$</span> <span class="t-cmd">_</span><br>
+          <br>
+          <span class="t-comment"># usuário @ máquina : diretório atual $</span><br>
+          <span class="t-comment"># ~ significa a pasta home do usuário</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Por que usar o terminal?</h2>
+
+      <p class="aula-text">
+        A interface gráfica é eficiente para tarefas visuais. O terminal é imbatível para:
+      </p>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Velocidade</div>
+          <h4>Um comando vs. 10 cliques</h4>
+          <p>Criar 50 pastas, renomear 200 arquivos, instalar 10 pacotes — o que levaria minutos na GUI leva segundos no terminal. Tarefas repetitivas são automatizáveis com scripts.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Ferramentas de dev</div>
+          <h4>Git, npm, pip, docker...</h4>
+          <p>As ferramentas mais importantes do desenvolvimento moderno não têm GUI — elas vivem no terminal. Git, pip, npm, cargo, docker, kubectl. Saber o terminal é pré-requisito para usá-las.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Servidores</div>
+          <h4>Sem GUI no servidor</h4>
+          <p>Servidores Linux em produção geralmente não têm interface gráfica. Para fazer deploy, configurar nginx, ler logs ou debugar em produção, o terminal é o único caminho.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Automação</div>
+          <h4>Scripts shell</h4>
+          <p>Comandos no terminal podem ser salvos em scripts (.sh, .ps1) e executados automaticamente. Backups, deploy, testes, geração de relatórios — qualquer tarefa repetível pode ser automatizada.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Shells mais comuns</h2>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Bash</div>
+          <h4>Bourne Again Shell</h4>
+          <p>O shell mais universal. Padrão no Linux há décadas. Scripts bash rodam em praticamente qualquer servidor. Aprenda bash e você pode trabalhar em qualquer ambiente Unix.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Zsh</div>
+          <h4>Padrão no macOS (2019+)</h4>
+          <p>Compatível com bash, mas com melhorias: autocomplete avançado, sugestões de comando, personalização fácil com Oh My Zsh. Se você usa Mac, já está no Zsh.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">PowerShell</div>
+          <h4>Shell moderno do Windows</h4>
+          <p>Muito mais poderoso que o CMD antigo. Trabalha com objetos .NET em vez de texto puro. Disponível também no Linux/Mac. Preferível ao CMD para desenvolvimento no Windows.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Fish</div>
+          <h4>Friendly Interactive Shell</h4>
+          <p>Foco em ser amigável: sugestões automáticas baseadas no histórico, sintaxe colorida, ajuda embutida. Excelente para iniciantes. Não é compatível com scripts bash — avalie bem antes de adotar.</p>
+        </div>
+      </div>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">💡</span>
+        <div class="aula-callout-text">
+          <strong>Por onde começar:</strong>
+          Se você usa Mac: já tem Zsh, abra o Terminal.<br>
+          Se usa Windows: instale o WSL (Ubuntu) ou use o Git Bash. O Windows Terminal com PowerShell também funciona para começar.<br>
+          Se usa Linux: já tem Bash. Abra o terminal do seu desktop environment.
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Seu primeiro comando</h2>
+
+      <p class="aula-text">
+        Abra o terminal e digite — <code style="background:var(--bg);padding:2px 8px;border-radius:4px;font-size:13px;">echo "Olá, terminal!"</code>.
+        O <code>echo</code> imprime texto na tela. Parabéns — você executou seu primeiro comando.
+      </p>
+
+      <div class="terminal-mock">
+        <div class="terminal-header">
+          <div class="terminal-dot terminal-dot--red"></div>
+          <div class="terminal-dot terminal-dot--yel"></div>
+          <div class="terminal-dot terminal-dot--grn"></div>
+          <span class="terminal-title">bash</span>
+        </div>
+        <div class="terminal-body">
+          <span class="t-prompt">$</span> <span class="t-cmd">echo "Olá, terminal!"</span><br>
+          <span class="t-out">Olá, terminal!</span><br>
+          <br>
+          <span class="t-prompt">$</span> <span class="t-cmd">whoami</span><br>
+          <span class="t-out">wesley</span><br>
+          <br>
+          <span class="t-prompt">$</span> <span class="t-cmd">date</span><br>
+          <span class="t-out">Sat Apr 19 10:30:00 -03 2025</span><br>
+          <br>
+          <span class="t-prompt">$</span> <span class="t-cmd">python3 --version</span><br>
+          <span class="t-out">Python 3.12.0</span>
+        </div>
+      </div>
+    </section>
+
+    <hr class="aula-divider">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Termos-chave desta aula</h2>
+      <div class="aula-terms">
+        <div class="aula-term">
+          <span class="aula-term-word">Terminal</span>
+          <span class="aula-term-def">Programa que fornece a interface de janela de texto. Hospeda o shell. Ex: Terminal.app, Windows Terminal, iTerm2.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Shell</span>
+          <span class="aula-term-def">Interpretador de comandos que roda dentro do terminal. Recebe texto, interpreta e envia ao SO. Ex: Bash, Zsh, PowerShell.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Prompt</span>
+          <span class="aula-term-def">Texto que o shell exibe para indicar que está aguardando entrada. Geralmente mostra usuário, host e diretório atual. $ = usuário comum, # = root.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Bash</span>
+          <span class="aula-term-def">Bourne Again Shell. Shell mais universal em sistemas Unix/Linux. Padrão em servidores. Scripts bash são portáveis para quase qualquer ambiente.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">CLI</span>
+          <span class="aula-term-def">Command Line Interface. Interface de linha de comando — qualquer programa operado por texto no terminal, em contraste com GUI (interface gráfica).</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="aula-nav" aria-label="Navegação da aula">
+      <a href="../fase1.html" class="fase-nav-btn">← Linha de Comando</a>
+      <a href="fase1-cli-navegacao.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">Próxima: Navegação →</a>
+    </nav>
+
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 1 · Linha de Comando</span>
+      <div class="footer-phases">
+        <a href="../fase1.html" style="border-color:var(--fase-color);color:var(--fase-color);">F1</a>
+        <a href="../fase2.html">F2</a>
+        <a href="../fase3.html">F3</a>
+        <a href="../fase4.html">F4</a>
+        <a href="../fase5.html">F5</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/nav.js"></script>
+</body>
+</html>

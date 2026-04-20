@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navegação | Linha de Comando | Fase 1 | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/style.css">
+  <style>
+    :root { --fase-color: #9B8FFF; }
+
+    .terminal-mock {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 1.25rem 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+    }
+    .terminal-header {
+      background: #161b22;
+      padding: 0.6rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid #30363d;
+    }
+    .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .terminal-dot--red { background: #ff5f56; }
+    .terminal-dot--yel { background: #ffbd2e; }
+    .terminal-dot--grn { background: #27c93f; }
+    .terminal-title { font-size: 0.72rem; color: #8b949e; margin-left: 0.5rem; }
+    .terminal-body { padding: 1rem 1.25rem; line-height: 1.8; }
+    .t-prompt  { color: #58a6ff; }
+    .t-cmd     { color: #e6edf3; }
+    .t-out     { color: #8b949e; }
+    .t-dir     { color: #79c0ff; }
+    .t-file    { color: #e6edf3; }
+    .t-comment { color: #6e7681; font-style: italic; }
+
+    .cmd-ref {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 0.75rem;
+      margin: 1.25rem 0;
+    }
+    .cmd-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+    }
+    .cmd-name {
+      font-family: monospace;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--fase-color);
+      margin-bottom: 0.2rem;
+    }
+    .cmd-win {
+      font-family: monospace;
+      font-size: 0.72rem;
+      color: #4FB0FF;
+      opacity: 0.7;
+      margin-bottom: 0.3rem;
+    }
+    .cmd-desc { font-size: 0.78rem; opacity: 0.75; line-height: 1.4; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link">Plano</a>
+      <a href="../fase1.html" class="nav-link active">Fase 1</a>
+      <a href="../fase2.html" class="nav-link">Fase 2</a>
+      <a href="../fase3.html" class="nav-link">Fase 3</a>
+      <a href="../fase4.html" class="nav-link">Fase 4</a>
+      <a href="../fase5.html" class="nav-link">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html">Plano de Ensino</a>
+    <a href="../fase1.html">Fase 1 — Fundamentos</a>
+    <a href="../fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="../fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="../fase4.html">Fase 4 — Python</a>
+    <a href="../fase5.html">Fase 5 — Especialização</a>
+  </div>
+
+  <nav class="breadcrumb" aria-label="Navegação">
+    <a href="../../index.html">Plano</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Fase 1</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Linha de Comando</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">Comandos de navegação</span>
+  </nav>
+
+  <header class="aula-hero">
+    <div class="fase-badge">Fase 1 · Linha de Comando</div>
+    <h1 class="aula-title">Navegação:<br>mover-se pelo sistema de arquivos</h1>
+    <p class="aula-intro">
+      pwd, ls, cd, mkdir, rm — são os comandos que você vai usar todos os dias.
+      Com eles você navega pastas, lista arquivos, cria estruturas de projeto e
+      apaga o que não precisa. Tudo sem tirar as mãos do teclado.
+    </p>
+    <div class="aula-meta">
+      <div class="meta-pill"><strong>⏱</strong> ~15 min</div>
+      <div class="meta-pill"><strong>📶</strong> Iniciante</div>
+      <div class="meta-pill">Módulo 5 de 5</div>
+    </div>
+  </header>
+
+  <article class="aula-body">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Referência rápida dos comandos essenciais</h2>
+
+      <div class="cmd-ref">
+        <div class="cmd-card">
+          <div class="cmd-name">pwd</div>
+          <div class="cmd-win">Windows: cd (sem args)</div>
+          <div class="cmd-desc"><strong>P</strong>rint <strong>W</strong>orking <strong>D</strong>irectory. Mostra o caminho absoluto do diretório atual. Sempre use quando estiver perdido.</div>
+        </div>
+        <div class="cmd-card">
+          <div class="cmd-name">ls / ls -la</div>
+          <div class="cmd-win">Windows: dir</div>
+          <div class="cmd-desc"><strong>L</strong>i<strong>s</strong>t. Lista arquivos e pastas. <code>-l</code> formato longo (permissões, tamanho, data). <code>-a</code> mostra arquivos ocultos (que começam com .).</div>
+        </div>
+        <div class="cmd-card">
+          <div class="cmd-name">cd &lt;caminho&gt;</div>
+          <div class="cmd-win">Windows: cd &lt;caminho&gt;</div>
+          <div class="cmd-desc"><strong>C</strong>hange <strong>D</strong>irectory. Navega para outra pasta. <code>cd ..</code> sobe um nível. <code>cd ~</code> vai para a home. <code>cd -</code> volta ao diretório anterior.</div>
+        </div>
+        <div class="cmd-card">
+          <div class="cmd-name">mkdir &lt;nome&gt;</div>
+          <div class="cmd-win">Windows: mkdir &lt;nome&gt;</div>
+          <div class="cmd-desc"><strong>M</strong>a<strong>k</strong>e <strong>Dir</strong>ectory. Cria uma pasta. <code>mkdir -p a/b/c</code> cria a hierarquia completa de uma vez.</div>
+        </div>
+        <div class="cmd-card">
+          <div class="cmd-name">rm &lt;arquivo&gt;</div>
+          <div class="cmd-win">Windows: del &lt;arquivo&gt;</div>
+          <div class="cmd-desc">Remove arquivo. <code>rm -r pasta/</code> remove pasta e todo o conteúdo. <strong>Não vai para a lixeira!</strong> Irreversível.</div>
+        </div>
+        <div class="cmd-card">
+          <div class="cmd-name">rmdir &lt;pasta&gt;</div>
+          <div class="cmd-win">Windows: rmdir &lt;pasta&gt;</div>
+          <div class="cmd-desc">Remove pasta vazia. Se a pasta tiver conteúdo, use <code>rm -r</code>. Mais seguro que <code>rm -r</code> para evitar acidentes.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Na prática: criando um projeto</h2>
+
+      <div class="terminal-mock">
+        <div class="terminal-header">
+          <div class="terminal-dot terminal-dot--red"></div>
+          <div class="terminal-dot terminal-dot--yel"></div>
+          <div class="terminal-dot terminal-dot--grn"></div>
+          <span class="terminal-title">bash</span>
+        </div>
+        <div class="terminal-body">
+          <span class="t-comment"># Onde estou?</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">pwd</span><br>
+          <span class="t-out">/home/wesley</span><br>
+          <br>
+          <span class="t-comment"># O que tem aqui?</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">ls</span><br>
+          <span class="t-dir">Desktop  Documents  Downloads  projetos</span><br>
+          <br>
+          <span class="t-comment"># Criar estrutura do projeto</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">mkdir -p projetos/meu-app/src</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">cd projetos/meu-app</span><br>
+          <span class="t-prompt">~/projetos/meu-app$</span> <span class="t-cmd">ls -la</span><br>
+          <span class="t-out">total 8</span><br>
+          <span class="t-out">drwxr-xr-x 3 wesley staff 96 Apr 19 10:00 .</span><br>
+          <span class="t-out">drwxr-xr-x 5 wesley staff 160 Apr 19 10:00 ..</span><br>
+          <span class="t-dir">drwxr-xr-x 2 wesley staff 64 Apr 19 10:00 src</span><br>
+          <br>
+          <span class="t-comment"># Voltar para home</span><br>
+          <span class="t-prompt">~/projetos/meu-app$</span> <span class="t-cmd">cd ~</span><br>
+          <span class="t-prompt">~$</span> <span class="t-cmd">pwd</span><br>
+          <span class="t-out">/home/wesley</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Caminhos absolutos e relativos no terminal</h2>
+
+      <p class="aula-text">
+        Todo comando que aceita um caminho funciona com absoluto ou relativo.
+        Escolha o mais conveniente para a situação:
+      </p>
+
+      <div class="terminal-mock">
+        <div class="terminal-header">
+          <div class="terminal-dot terminal-dot--red"></div>
+          <div class="terminal-dot terminal-dot--yel"></div>
+          <div class="terminal-dot terminal-dot--grn"></div>
+          <span class="terminal-title">bash — exemplos de caminho</span>
+        </div>
+        <div class="terminal-body">
+          <span class="t-comment"># Estou em: /home/wesley/projetos</span><br>
+          <br>
+          <span class="t-comment"># Caminho relativo (a partir de onde estou)</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">cd meu-app/src</span><br>
+          <br>
+          <span class="t-comment"># Caminho absoluto (sempre funciona)</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">cd /home/wesley/projetos/meu-app/src</span><br>
+          <br>
+          <span class="t-comment"># Subir um nível (..)</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">cd ..</span><br>
+          <span class="t-comment"># Agora em: /home/wesley/projetos/meu-app</span><br>
+          <br>
+          <span class="t-comment"># Subir dois níveis</span><br>
+          <span class="t-prompt">$</span> <span class="t-cmd">cd ../..</span><br>
+          <span class="t-comment"># Agora em: /home/wesley</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Atalhos de teclado essenciais</h2>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Tab</div>
+          <h4>Autocompletar</h4>
+          <p>O atalho mais importante do terminal. Digite as primeiras letras de um comando ou caminho e aperte Tab. O shell completa automaticamente. Aperte Tab duas vezes para ver todas as opções.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">↑ / ↓</div>
+          <h4>Histórico de comandos</h4>
+          <p>Seta para cima navega pelo histórico de comandos. Seta para baixo volta ao mais recente. <code>history</code> mostra os últimos N comandos. Ctrl+R busca no histórico.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Ctrl+C</div>
+          <h4>Cancelar comando</h4>
+          <p>Interrompe o comando em execução. Se um programa travou ou está rodando mais tempo que o esperado, Ctrl+C o cancela imediatamente. Ctrl+Z o pausa (coloca em background).</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Ctrl+L</div>
+          <h4>Limpar tela</h4>
+          <p>Equivalente a <code>clear</code>. Limpa o terminal sem apagar o histórico. O scroll ainda pode acessar o que estava antes. Mantém o prompt no topo da janela.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="aula-divider">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Termos-chave desta aula</h2>
+      <div class="aula-terms">
+        <div class="aula-term">
+          <span class="aula-term-word">pwd</span>
+          <span class="aula-term-def">Print Working Directory. Exibe o caminho absoluto do diretório atual. Use sempre que não souber onde está.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">ls</span>
+          <span class="aula-term-def">List. Lista arquivos e diretórios. <code>-l</code> = formato longo, <code>-a</code> = inclui ocultos, <code>-la</code> = ambos.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">cd</span>
+          <span class="aula-term-def">Change Directory. Muda o diretório de trabalho. <code>cd ..</code> sobe um nível, <code>cd ~</code> vai para home, <code>cd -</code> volta ao anterior.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">mkdir -p</span>
+          <span class="aula-term-def">Make Directory com flag -p (parents). Cria diretórios aninhados de uma vez: <code>mkdir -p a/b/c</code> cria a, b e c.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">rm -r</span>
+          <span class="aula-term-def">Remove recursivamente pasta e todo o conteúdo. Irreversível — não vai para lixeira. Use com cuidado.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Tab (autocomplete)</span>
+          <span class="aula-term-def">Atalho mais útil do terminal. Completa comandos, caminhos e nomes de arquivo automaticamente. Dois Tabs mostra todas as opções.</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="aula-nav" aria-label="Navegação da aula">
+      <a href="fase1-cli-intro.html" class="fase-nav-btn">← Terminal e shell</a>
+      <a href="fase1-cli-arquivos.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">Próxima: Manipulação de arquivos →</a>
+    </nav>
+
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 1 · Linha de Comando</span>
+      <div class="footer-phases">
+        <a href="../fase1.html" style="border-color:var(--fase-color);color:var(--fase-color);">F1</a>
+        <a href="../fase2.html">F2</a>
+        <a href="../fase3.html">F3</a>
+        <a href="../fase4.html">F4</a>
+        <a href="../fase5.html">F5</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/nav.js"></script>
+</body>
+</html>

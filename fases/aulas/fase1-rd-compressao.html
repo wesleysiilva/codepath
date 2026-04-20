@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compressão | Representação de Dados | Fase 1 | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/style.css">
+  <style>
+    :root { --fase-color: #9B8FFF; }
+
+    .rle-demo {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin: 1.25rem 0;
+      font-family: monospace;
+      font-size: 0.85rem;
+    }
+    .rle-row { margin-bottom: 0.6rem; display: flex; gap: 0.75rem; align-items: baseline; flex-wrap: wrap; }
+    .rle-row:last-child { margin-bottom: 0; }
+    .rle-label { font-size: 0.72rem; font-weight: 700; opacity: 0.55; min-width: 80px; text-transform: uppercase; }
+    .rle-value { color: var(--fase-color); }
+    .rle-arrow { opacity: 0.4; }
+    .rle-result { color: #5BC4A0; }
+    .rle-note { font-size: 0.72rem; opacity: 0.5; }
+
+    .size-compare {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 1.25rem 0;
+    }
+    .size-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .size-label { font-size: 0.8rem; min-width: 140px; font-weight: 500; }
+    .size-bar-wrap { flex: 1; height: 18px; background: var(--bg3); border-radius: 4px; overflow: hidden; }
+    .size-bar { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; }
+    .size-bar span { font-size: 0.7rem; font-weight: 700; color: white; }
+    .size-num { font-size: 0.78rem; opacity: 0.6; min-width: 50px; text-align: right; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link">Plano</a>
+      <a href="../fase1.html" class="nav-link active">Fase 1</a>
+      <a href="../fase2.html" class="nav-link">Fase 2</a>
+      <a href="../fase3.html" class="nav-link">Fase 3</a>
+      <a href="../fase4.html" class="nav-link">Fase 4</a>
+      <a href="../fase5.html" class="nav-link">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html">Plano de Ensino</a>
+    <a href="../fase1.html">Fase 1 — Fundamentos</a>
+    <a href="../fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="../fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="../fase4.html">Fase 4 — Python</a>
+    <a href="../fase5.html">Fase 5 — Especialização</a>
+  </div>
+
+  <nav class="breadcrumb" aria-label="Navegação">
+    <a href="../../index.html">Plano</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Fase 1</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Representação de Dados</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">Compressão</span>
+  </nav>
+
+  <header class="aula-hero">
+    <div class="fase-badge">Fase 1 · Representação de Dados</div>
+    <h1 class="aula-title">Compressão:<br>fazer mais com menos bits</h1>
+    <p class="aula-intro">
+      Uma música WAV de 3 minutos ocupa ~30 MB. O mesmo áudio em MP3 ocupa ~3 MB.
+      Um vídeo bruto de 4K ocuparia terabytes por hora — o streaming só funciona porque comprimimos.
+      Entenda como reduzir dados sem (ou com pouca) perda de qualidade.
+    </p>
+    <div class="aula-meta">
+      <div class="meta-pill"><strong>⏱</strong> ~12 min</div>
+      <div class="meta-pill"><strong>📶</strong> Iniciante</div>
+      <div class="meta-pill">Módulo 4 de 5</div>
+    </div>
+  </header>
+
+  <article class="aula-body">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Dois tipos de compressão</h2>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Lossless (sem perdas)</div>
+          <h4>Comprime e restaura perfeitamente</h4>
+          <p>O arquivo descomprimido é <em>bit a bit idêntico</em> ao original. Nenhuma informação é perdida. Funciona encontrando e eliminando redundâncias nos dados. Ex: ZIP, PNG, FLAC, zstd.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Lossy (com perdas)</div>
+          <h4>Descarta o imperceptível</h4>
+          <p>Remove informações que o olho ou ouvido humano dificilmente percebe. Irreversível — não é possível recuperar o original. Compressões muito maiores. Ex: JPEG, MP3, AAC, H.264, WebP.</p>
+        </div>
+      </div>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">📊</span>
+        <div class="aula-callout-text">
+          <strong>Quando usar cada um:</strong>
+          Use <em>lossless</em> quando a precisão importa: código-fonte (ZIP/gzip), imagens que serão editadas
+          (PNG), áudio de produção (FLAC), dados científicos, backups.
+          Use <em>lossy</em> para distribuição final ao usuário: fotos publicadas (JPEG), streaming de
+          música (MP3/AAC), vídeos na web (H.264/H.265).
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Como funciona a compressão lossless</h2>
+
+      <p class="aula-text">
+        A ideia central é <strong>explorar padrões e redundâncias</strong> nos dados.
+        Dois métodos clássicos:
+      </p>
+
+      <p class="aula-text"><strong>Run-Length Encoding (RLE)</strong> — comprimir sequências repetidas:</p>
+
+      <div class="rle-demo">
+        <div class="rle-row">
+          <span class="rle-label">Original</span>
+          <span class="rle-value">AAAAAABBBBCCDDDDDDDDDD</span>
+          <span class="rle-note">(22 bytes)</span>
+        </div>
+        <div class="rle-row">
+          <span class="rle-label">Comprimido</span>
+          <span class="rle-result">6A 4B 2C 10D</span>
+          <span class="rle-note">(8 bytes) — 64% menor</span>
+        </div>
+      </div>
+
+      <p class="aula-text">
+        <strong>Huffman Coding</strong> — caracteres frequentes recebem códigos menores.
+        Em vez de 8 bits para cada letra, 'e' (mais comum) pode usar 3 bits e 'z' (raro) usa 9 bits.
+        É o que o DEFLATE (usado pelo ZIP e PNG) faz internamente.
+      </p>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">📦</span>
+        <div class="aula-callout-text">
+          <strong>Limites da compressão lossless:</strong>
+          Dados sem padrão — como ruído aleatório ou dados já comprimidos — não se comprimem mais.
+          Tentar compactar um arquivo JPEG com ZIP pode até aumentar levemente o tamanho.
+          O teorema de Shannon define o limite teórico de compressão: a entropia da informação.
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Como funciona a compressão lossy</h2>
+
+      <p class="aula-text">
+        Compressão lossy aproveita as <strong>limitações da percepção humana</strong>.
+        O JPEG, por exemplo, usa que o olho humano percebe variações de brilho melhor que variações de cor —
+        e descarta mais informação de cor que de brilho.
+      </p>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">JPEG</div>
+          <h4>DCT + quantização</h4>
+          <p>A imagem é dividida em blocos de 8×8 pixels. Cada bloco é transformado por DCT (coseno) em coeficientes de frequência. Frequências altas (detalhes finos) são descartadas com base no nível de qualidade. O famoso "efeito JPEG" visível em baixa qualidade é esse descarte excessivo.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">MP3 / AAC</div>
+          <h4>Mascaramento psicoacústico</h4>
+          <p>Sons muito altos "mascaram" sons baixos próximos — o ouvido não percebe os mais baixos. MP3 identifica esses sons mascarados e os descarta. Também remove frequências acima de ~16 kHz (pouco audíveis para adultos). Resultado: 10× menor que WAV com qualidade subjetiva parecida.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">H.264 / H.265 (vídeo)</div>
+          <h4>Inter-frame prediction</h4>
+          <p>Em vez de armazenar cada frame completo, o codec armazena apenas as <em>diferenças</em> entre frames consecutivos. Um fundo estático só é guardado uma vez. O personagem movendo na frente é uma "diferença" pequena. H.265 é 40% mais eficiente que H.264 na mesma qualidade.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Comparação de tamanhos</h2>
+
+      <p class="aula-text">Uma música de 3 minutos em diferentes formatos:</p>
+      <div class="size-compare">
+        <div class="size-row">
+          <span class="size-label">WAV (sem compressão)</span>
+          <div class="size-bar-wrap"><div class="size-bar" style="width:100%;background:#E06060;"><span>~30 MB</span></div></div>
+        </div>
+        <div class="size-row">
+          <span class="size-label">FLAC (lossless)</span>
+          <div class="size-bar-wrap"><div class="size-bar" style="width:55%;background:#5BC4A0;"><span>~15 MB</span></div></div>
+        </div>
+        <div class="size-row">
+          <span class="size-label">MP3 320kbps</span>
+          <div class="size-bar-wrap"><div class="size-bar" style="width:25%;background:var(--fase-color);"><span>~7 MB</span></div></div>
+        </div>
+        <div class="size-row">
+          <span class="size-label">MP3 128kbps</span>
+          <div class="size-bar-wrap"><div class="size-bar" style="width:10%;background:#F0A050;"><span>~3 MB</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="aula-divider">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Termos-chave desta aula</h2>
+      <div class="aula-terms">
+        <div class="aula-term">
+          <span class="aula-term-word">Compressão lossless</span>
+          <span class="aula-term-def">Compressão sem perdas de dados. O arquivo descomprimido é idêntico ao original. Ex: ZIP, PNG, FLAC.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Compressão lossy</span>
+          <span class="aula-term-def">Compressão com descarte irreversível de dados imperceptíveis. Arquivos muito menores. Ex: JPEG, MP3, H.264.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Run-Length Encoding (RLE)</span>
+          <span class="aula-term-def">Técnica lossless que substitui sequências repetidas por contador + valor. Ex: AAAAA → 5A.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Huffman Coding</span>
+          <span class="aula-term-def">Técnica lossless que atribui códigos binários menores a símbolos mais frequentes. Base do ZIP e PNG.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Artefato de compressão</span>
+          <span class="aula-term-def">Distorção visual ou auditiva causada por compressão lossy excessiva. O efeito de blocos no JPEG em baixa qualidade é o exemplo mais visível.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Bitrate</span>
+          <span class="aula-term-def">Taxa de bits por segundo em áudio/vídeo (kbps, Mbps). Maior bitrate = mais qualidade + arquivo maior. MP3 128kbps vs. 320kbps é um trade-off qualidade/tamanho.</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="aula-nav" aria-label="Navegação da aula">
+      <a href="fase1-rd-imagens.html" class="fase-nav-btn">← Imagens e pixels</a>
+      <a href="../fase1.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">Concluir módulo →</a>
+    </nav>
+
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 1 · Representação de Dados</span>
+      <div class="footer-phases">
+        <a href="../fase1.html" style="border-color:var(--fase-color);color:var(--fase-color);">F1</a>
+        <a href="../fase2.html">F2</a>
+        <a href="../fase3.html">F3</a>
+        <a href="../fase4.html">F4</a>
+        <a href="../fase5.html">F5</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/nav.js"></script>
+</body>
+</html>

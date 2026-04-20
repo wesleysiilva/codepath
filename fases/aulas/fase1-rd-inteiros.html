@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inteiros e Negativos | Representação de Dados | Fase 1 | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/style.css">
+  <style>
+    :root { --fase-color: #9B8FFF; }
+
+    .twos-comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin: 1.25rem 0;
+    }
+    .twos-comp-table th {
+      background: var(--bg3);
+      padding: 0.55rem 0.9rem;
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      opacity: 0.7;
+      border-bottom: 1px solid var(--border);
+    }
+    .twos-comp-table td {
+      padding: 0.45rem 0.9rem;
+      border-bottom: 1px solid var(--border);
+      font-family: monospace;
+      text-align: center;
+    }
+    .twos-comp-table tr:last-child td { border-bottom: none; }
+    .twos-comp-table tr:hover td { background: var(--bg3); }
+    .td-pos { color: #5BC4A0; }
+    .td-neg { color: #E06060; }
+    .td-bits { color: var(--fase-color); }
+    .sign-bit { color: #F0A050; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="../../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link">Plano</a>
+      <a href="../fase1.html" class="nav-link active">Fase 1</a>
+      <a href="../fase2.html" class="nav-link">Fase 2</a>
+      <a href="../fase3.html" class="nav-link">Fase 3</a>
+      <a href="../fase4.html" class="nav-link">Fase 4</a>
+      <a href="../fase5.html" class="nav-link">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html">Plano de Ensino</a>
+    <a href="../fase1.html">Fase 1 — Fundamentos</a>
+    <a href="../fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="../fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="../fase4.html">Fase 4 — Python</a>
+    <a href="../fase5.html">Fase 5 — Especialização</a>
+  </div>
+
+  <nav class="breadcrumb" aria-label="Navegação">
+    <a href="../../index.html">Plano</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Fase 1</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="../fase1.html">Representação de Dados</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">Inteiros e negativos</span>
+  </nav>
+
+  <header class="aula-hero">
+    <div class="fase-badge">Fase 1 · Representação de Dados</div>
+    <h1 class="aula-title">Inteiros e negativos:<br>complemento de dois</h1>
+    <p class="aula-intro">
+      Como representar -1 em binário se você só tem 0s e 1s? A solução elegante da computação
+      é o complemento de dois — um truque matemático que permite somar e subtrair com o mesmo
+      circuito. E entender overflow é fundamental para evitar bugs sérios.
+    </p>
+    <div class="aula-meta">
+      <div class="meta-pill"><strong>⏱</strong> ~12 min</div>
+      <div class="meta-pill"><strong>📶</strong> Iniciante</div>
+      <div class="meta-pill">Módulo 4 de 5</div>
+    </div>
+  </header>
+
+  <article class="aula-body">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Inteiros sem sinal (unsigned)</h2>
+
+      <p class="aula-text">
+        Um inteiro de 8 bits sem sinal representa valores de 0 a 255 (2⁸ − 1).
+        Com 16 bits: 0 a 65.535. Com 32 bits: 0 a 4.294.967.295. A fórmula é simples:
+        <strong>N bits → 0 a (2ᴺ − 1)</strong>.
+      </p>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🎨</span>
+        <div class="aula-callout-text">
+          <strong>Exemplo prático: cores RGB</strong>
+          Cada canal de cor (R, G, B) é um inteiro de 8 bits sem sinal: 0 a 255.
+          É por isso que <code>rgb(255, 128, 0)</code> é laranja — vermelho máximo, verde médio, azul zero.
+          O "255" não é arbitrário: é o máximo de 8 bits.
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">O problema dos negativos</h2>
+
+      <p class="aula-text">
+        Para representar negativos, a solução ingênua seria usar 1 bit para o sinal (0 = positivo, 1 = negativo).
+        Mas isso tem um problema: <strong>0 positivo e 0 negativo seriam valores diferentes</strong>,
+        e o hardware de soma precisaria de lógica extra para lidar com o sinal.
+      </p>
+
+      <p class="aula-text">
+        A solução adotada universalmente é o <strong>complemento de dois</strong>
+        (two's complement) — uma representação elegante que elimina esses problemas.
+      </p>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Complemento de dois: como funciona</h2>
+
+      <p class="aula-text">
+        Em complemento de dois com 8 bits:
+        o bit mais significativo (o da esquerda) vale <strong>−128</strong> (negativo!), e os outros continuam iguais.
+      </p>
+
+      <ol class="aula-steps">
+        <li class="aula-step">
+          <span class="aula-step-num">+5</span>
+          <div class="aula-step-content">
+            <code style="background:var(--bg);padding:1px 6px;border-radius:4px;">0</code><code style="background:var(--bg);padding:1px 6px;border-radius:4px;">0000101</code> = 0 + 4 + 1 = <strong>+5</strong>
+            <br><span style="opacity:0.6;font-size:0.8rem;">bit de sinal = 0 (positivo)</span>
+          </div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">−5</span>
+          <div class="aula-step-content">
+            <code style="background:var(--bg);padding:1px 6px;border-radius:4px;">1</code><code style="background:var(--bg);padding:1px 6px;border-radius:4px;">1111011</code> = −128 + 64 + 32 + 16 + 8 + 2 + 1 = <strong>−5</strong>
+            <br><span style="opacity:0.6;font-size:0.8rem;">bit de sinal = 1 (negativo)</span>
+          </div>
+        </li>
+      </ol>
+
+      <p class="aula-text">
+        Para obter o complemento de dois de um número: <strong>inverta todos os bits, depois some 1</strong>.
+      </p>
+
+      <ol class="aula-steps">
+        <li class="aula-step">
+          <span class="aula-step-num">1</span>
+          <div class="aula-step-content">+5 em binário: <code style="background:var(--bg);padding:1px 6px;border-radius:4px;">00000101</code></div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">2</span>
+          <div class="aula-step-content">Inverta todos os bits: <code style="background:var(--bg);padding:1px 6px;border-radius:4px;">11111010</code></div>
+        </li>
+        <li class="aula-step">
+          <span class="aula-step-num">3</span>
+          <div class="aula-step-content">Some 1: <code style="background:var(--bg);padding:1px 6px;border-radius:4px;">11111011</code> = <strong>−5</strong> ✓</div>
+        </li>
+      </ol>
+
+      <table class="twos-comp-table">
+        <thead>
+          <tr>
+            <th>Binário (8 bits)</th>
+            <th>Unsigned</th>
+            <th>Signed (compl. 2)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-bits"><span class="sign-bit">0</span>0000000</td><td class="td-pos">0</td><td class="td-pos">0</td></tr>
+          <tr><td class="td-bits"><span class="sign-bit">0</span>0000001</td><td class="td-pos">1</td><td class="td-pos">+1</td></tr>
+          <tr><td class="td-bits"><span class="sign-bit">0</span>1111111</td><td class="td-pos">127</td><td class="td-pos">+127</td></tr>
+          <tr><td class="td-bits"><span class="sign-bit">1</span>0000000</td><td class="td-pos">128</td><td class="td-neg">−128</td></tr>
+          <tr><td class="td-bits"><span class="sign-bit">1</span>1111110</td><td class="td-pos">254</td><td class="td-neg">−2</td></tr>
+          <tr><td class="td-bits"><span class="sign-bit">1</span>1111111</td><td class="td-pos">255</td><td class="td-neg">−1</td></tr>
+        </tbody>
+      </table>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">✨</span>
+        <div class="aula-callout-text">
+          <strong>A elegância do complemento de dois:</strong>
+          Com essa representação, a mesma ULA que soma positivos soma negativos corretamente.
+          5 + (−5) = 00000101 + 11111011 = 100000000 — o carry do 9º bit é descartado,
+          sobrando 00000000 = 0. Perfeito, sem nenhuma lógica extra.
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Overflow: quando os bits acabam</h2>
+
+      <p class="aula-text">
+        Overflow acontece quando o resultado de uma operação ultrapassa o range do tipo de dado.
+        O valor "dá a volta" de forma inesperada.
+      </p>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Overflow em unsigned (8 bits)</div>
+          <h4>255 + 1 = 0</h4>
+          <p><code>11111111 + 00000001 = 100000000</code>. O 9º bit não cabe — é descartado. O resultado é <code>00000000</code> = 0. O número "dá a volta" do máximo para zero.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Overflow em signed (8 bits)</div>
+          <h4>127 + 1 = −128</h4>
+          <p><code>01111111 + 1 = 10000000</code>. O bit de sinal vira 1, tornando o resultado −128. Do maior positivo para o menor negativo em um passo.</p>
+        </div>
+      </div>
+
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🐛</span>
+        <div class="aula-callout-text">
+          <strong>Bug histórico — Ariane 5 (1996):</strong>
+          O foguete europeu Ariane 5 explodiu 37 segundos após o lançamento por um bug de overflow:
+          um número de ponto flutuante de 64 bits foi convertido para um inteiro de 16 bits,
+          causando overflow. O sistema de navegação travou e o foguete foi destruído.
+          Custo: ~370 milhões de dólares. Overflow não é trivial.
+        </div>
+      </div>
+    </section>
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Tipos inteiros em linguagens de programação</h2>
+
+      <div class="aula-cards">
+        <div class="aula-card">
+          <div class="aula-card-label">Python</div>
+          <h4>int de tamanho ilimitado</h4>
+          <p>Python aloca mais memória automaticamente conforme o número cresce. Não há overflow em inteiros Python puros — mas isso tem custo de performance. Para precisão de bits, use <code>numpy.int32</code>.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">C / C++</div>
+          <h4>Tamanhos fixos</h4>
+          <p><code>int8_t</code> (−128 a 127), <code>uint8_t</code> (0 a 255), <code>int32_t</code> (±2 bilhões), <code>int64_t</code> (±9 quintilhões). Overflow é silencioso e causa bugs difíceis de detectar.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">JavaScript</div>
+          <h4>Number (64-bit float)</h4>
+          <p>JS usa ponto flutuante de 64 bits para todos os números. Inteiros são seguros até 2⁵³. Acima disso, use <code>BigInt</code>. É por isso que <code>0.1 + 0.2 !== 0.3</code> em JavaScript.</p>
+        </div>
+        <div class="aula-card">
+          <div class="aula-card-label">Rust</div>
+          <h4>Overflow é erro em debug</h4>
+          <p>Rust detecta overflow em modo debug e entra em panic. Em release, comporta-se como C (wrapping). Você pode escolher explicitamente: <code>wrapping_add</code>, <code>saturating_add</code>, <code>checked_add</code>.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="aula-divider">
+
+    <section class="aula-section">
+      <h2 class="aula-section-title">Termos-chave desta aula</h2>
+      <div class="aula-terms">
+        <div class="aula-term">
+          <span class="aula-term-word">Unsigned integer</span>
+          <span class="aula-term-def">Inteiro sem sinal. Representa apenas valores ≥ 0. Um byte unsigned vai de 0 a 255.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Signed integer</span>
+          <span class="aula-term-def">Inteiro com sinal. Usa complemento de dois. Um byte signed vai de −128 a +127.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Complemento de dois</span>
+          <span class="aula-term-def">Representação de negativos: inverta todos os bits e some 1. Permite que a mesma ULA opere com positivos e negativos sem circuitos extras.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Bit de sinal</span>
+          <span class="aula-term-def">O bit mais significativo em complemento de dois. 0 = positivo, 1 = negativo.</span>
+        </div>
+        <div class="aula-term">
+          <span class="aula-term-word">Integer overflow</span>
+          <span class="aula-term-def">Quando um cálculo produz um resultado fora do range do tipo de dado. O valor "dá a volta" de forma inesperada. Causa bugs sérios em linguagens de baixo nível.</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="aula-nav" aria-label="Navegação da aula">
+      <a href="fase1-rd-hex.html" class="fase-nav-btn">← Hexadecimal</a>
+      <a href="fase1-rd-texto.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">Próxima: Texto e encoding →</a>
+    </nav>
+
+  </article>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 1 · Representação de Dados</span>
+      <div class="footer-phases">
+        <a href="../fase1.html" style="border-color:var(--fase-color);color:var(--fase-color);">F1</a>
+        <a href="../fase2.html">F2</a>
+        <a href="../fase3.html">F3</a>
+        <a href="../fase4.html">F4</a>
+        <a href="../fase5.html">F5</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/nav.js"></script>
+</body>
+</html>
