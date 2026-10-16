@@ -53,6 +53,12 @@ curso_programador/
 │       ├── fase1-gpu-placa-mae.html      # GPU & Placa-mãe
 │       ├── fase1-perifericos.html        # Periféricos & I/O
 │       └── fase1-atividade-hardware.html # Atividade prática
+│
+│       # Fases 2–5 — aulas individuais por tópico
+│       ├── fase2-*.html                  # 18 aulas: Redes, Internet & Segurança
+│       ├── fase3-*.html                  # 21 aulas: Lógica & Algoritmos
+│       ├── fase4-*.html                  # 24 aulas: Python
+│       └── fase5-*.html                  # 16 aulas: Especialização & Projetos
 └── vercel.json                       # Configuração de deploy (Vercel)
 ```
 
@@ -65,10 +71,26 @@ curso_programador/
 | Fase 1 | Sistemas Operacionais | 4 | ✅ 4 completas |
 | Fase 1 | Representação de Dados | 6 | ✅ 6 completas |
 | Fase 1 | Linha de Comando | 4 | ✅ 4 completas |
-| Fase 2 | Redes & Internet | — | — |
-| Fase 3 | Lógica & Algoritmos | — | — |
-| Fase 4 | Python | — | — |
-| Fase 5 | Especialização | — | — |
+| Fase 2 | Redes de Computadores | 6 | ✅ 6 completas |
+| Fase 2 | Web, HTTP e APIs | 4 | ✅ 4 completas |
+| Fase 2 | Segurança Digital | 4 | ✅ 4 completas |
+| Fase 2 | Projeto: Glossário de Redes | 4 | ✅ 4 completas |
+| Fase 3 | Pensamento Computacional | 4 | ✅ 4 completas |
+| Fase 3 | Pseudocódigo & Estruturas de Controle | 4 | ✅ 4 completas |
+| Fase 3 | Algoritmos Clássicos | 5 | ✅ 5 completas |
+| Fase 3 | Estruturas de Dados | 4 | ✅ 4 completas |
+| Fase 3 | Código Limpo & Depuração | 4 | ✅ 4 completas |
+| Fase 4 | Ambiente e Primeiros Passos | 4 | ✅ 4 completas |
+| Fase 4 | Variáveis, Tipos e Operadores | 4 | ✅ 4 completas |
+| Fase 4 | Condicionais, Laços e Lógica | 4 | ✅ 4 completas |
+| Fase 4 | Funções e Organização do Código | 4 | ✅ 4 completas |
+| Fase 4 | Arquivos, Bibliotecas e Git | 4 | ✅ 4 completas |
+| Fase 4 | Projeto Autoral | 4 | ✅ 4 completas |
+| Fase 5 | Escolha da Trilha (sem aulas individuais) | 0 | — |
+| Fase 5 | Projeto Autoral Guiado | 4 | ✅ 4 completas |
+| Fase 5 | Git Avançado & Colaboração | 4 | ✅ 4 completas |
+| Fase 5 | Portfólio & Apresentação | 4 | ✅ 4 completas |
+| Fase 5 | Comunidade & Próximos Passos | 4 | ✅ 4 completas |
 
 ## Tecnologias
 
