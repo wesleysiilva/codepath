@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DNS — Domain Name System | Redes de Computadores | Fase 2 | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/style.css">
+  <style>:root { --fase-color: #2EC38A; }</style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="../../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link">Plano</a>
+      <a href="../fase1.html" class="nav-link">Fase 1</a>
+      <a href="../fase2.html" class="nav-link active">Fase 2</a>
+      <a href="../fase3.html" class="nav-link">Fase 3</a>
+      <a href="../fase4.html" class="nav-link">Fase 4</a>
+      <a href="../fase5.html" class="nav-link">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Abrir menu">☰</button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html">Plano de Ensino</a>
+    <a href="../fase1.html">Fase 1 — Fundamentos</a>
+    <a href="../fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="../fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="../fase4.html">Fase 4 — Python</a>
+    <a href="../fase5.html">Fase 5 — Especialização</a>
+  </div>
+  <nav class="breadcrumb" aria-label="Navegação">
+    <a href="../../index.html">Plano</a><span class="breadcrumb-sep">›</span>
+    <a href="../fase2.html">Fase 2</a><span class="breadcrumb-sep">›</span>
+    <a href="../fase2.html">Redes de Computadores</a><span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">DNS — Domain Name System</span>
+  </nav>
+  <header class="aula-hero">
+    <div class="fase-badge">Fase 2 · Redes de Computadores</div>
+    <h1 class="aula-title">DNS — Domain Name System</h1>
+    <p class="aula-intro">O &quot;livro de endereços&quot; da internet. Como &quot;google.com&quot; vira um endereço IP. Hierarquia de servidores DNS. O que acontece quando um site &quot;cai&quot; por problema de DNS.</p>
+    <div class="aula-meta">
+      <div class="meta-pill"><strong>⏱</strong> ~15 min</div>
+      <div class="meta-pill"><strong>📶</strong> Iniciante</div>
+      <div class="meta-pill">3 de 18 aulas</div>
+    </div>
+  </header>
+  <article class="aula-body">
+    <section class="aula-section">
+      <h2 class="aula-section-title">O conceito essencial</h2>
+      <p class="aula-text">O &quot;livro de endereços&quot; da internet. Como &quot;google.com&quot; vira um endereço IP. Hierarquia de servidores DNS. O que acontece quando um site &quot;cai&quot; por problema de DNS.</p>
+      <div class="aula-callout">
+        <span class="aula-callout-icon">💡</span>
+        <div class="aula-callout-text"><strong>Observe a ideia em contexto</strong>Ao abrir exemplo.com, o navegador consulta um resolvedor DNS, que pode recorrer à hierarquia de servidores para obter um endereço IP. Cache acelera consultas; registros podem apontar para endereços diferentes conforme região e balanceamento.</div>
+      </div>
+    </section>
+    <section class="aula-section">
+      <h2 class="aula-section-title">Como aplicar</h2>
+      <p class="aula-text">Ao abrir exemplo.com, o navegador consulta um resolvedor DNS, que pode recorrer à hierarquia de servidores para obter um endereço IP. Cache acelera consultas; registros podem apontar para endereços diferentes conforme região e balanceamento.</p>
+      <p class="aula-text">Ao analisar um caso, identifique primeiro a entrada e o resultado esperado. Depois verifique as condições e os limites descritos acima; essa sequência ajuda a distinguir a regra do exemplo e a transferi-la para outras situações.</p>
+    </section>
+    <hr class="aula-divider">
+    <section class="aula-section">
+      <h2 class="aula-section-title">Prática e entregável</h2>
+      <p class="aula-text">Use nslookup (ou dig) para consultar três domínios. Guarde os resultados, repita após algum tempo e explique por que endereço resolvido e resposta podem variar.</p>
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🎯</span>
+        <div class="aula-callout-text"><strong>Critério de conclusão</strong>Entregue o artefato solicitado com um exemplo testado, explique a decisão tomada e registre ao menos um limite ou caso de borda.</div>
+      </div>
+    </section>
+    <section class="aula-section">
+      <h2 class="aula-section-title">Termos-chave desta aula</h2>
+      <div class="aula-terms">
+        <div class="aula-term"><span class="aula-term-word">Resolvedor DNS</span><span class="aula-term-def">Servidor que recebe consultas de nomes e procura a resposta usando cache e a hierarquia DNS.</span></div>
+        <div class="aula-term"><span class="aula-term-word">DNS — Domain Name System</span><span class="aula-term-def">O &quot;livro de endereços&quot; da internet. Como &quot;google.com&quot; vira um endereço IP. Hierarquia de servidores DNS. O que acontece quando um site &quot;cai&quot; por problema de DNS.</span></div>
+      </div>
+    </section>
+    <nav class="aula-nav" aria-label="Navegação da aula">
+      <a href="fase2-endereco-ip.html" class="fase-nav-btn">← Endereço IP</a>
+      <a href="fase2-tcp-vs-udp.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">Próxima: TCP vs UDP →</a>
+    </nav>
+  </article>
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 2 · Redes &amp; Internet</span>
+      <div class="footer-phases">
+        <a href="../fase1.html">F1</a><a href="../fase2.html" style="border-color:var(--fase-color);color:var(--fase-color);">F2</a>
+        <a href="../fase3.html">F3</a>
+        <a href="../fase4.html">F4</a>
+        <a href="../fase5.html">F5</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../../assets/nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>O que é uma API | Web, HTTP e APIs | Fase 2 | CodePath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/style.css">
+  <style>:root { --fase-color: #2EC38A; }</style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="../../index.html" class="nav-logo">⬡ CodePath</a>
+    <div class="nav-links">
+      <a href="../../index.html" class="nav-link">Plano</a>
+      <a href="../fase1.html" class="nav-link">Fase 1</a>
+      <a href="../fase2.html" class="nav-link active">Fase 2</a>
+      <a href="../fase3.html" class="nav-link">Fase 3</a>
+      <a href="../fase4.html" class="nav-link">Fase 4</a>
+      <a href="../fase5.html" class="nav-link">Fase 5</a>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Abrir menu">☰</button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html">Plano de Ensino</a>
+    <a href="../fase1.html">Fase 1 — Fundamentos</a>
+    <a href="../fase2.html">Fase 2 — Redes & Internet</a>
+    <a href="../fase3.html">Fase 3 — Lógica & Algoritmos</a>
+    <a href="../fase4.html">Fase 4 — Python</a>
+    <a href="../fase5.html">Fase 5 — Especialização</a>
+  </div>
+  <nav class="breadcrumb" aria-label="Navegação">
+    <a href="../../index.html">Plano</a><span class="breadcrumb-sep">›</span>
+    <a href="../fase2.html">Fase 2</a><span class="breadcrumb-sep">›</span>
+    <a href="../fase2.html">Web, HTTP e APIs</a><span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">O que é uma API</span>
+  </nav>
+  <header class="aula-hero">
+    <div class="fase-badge">Fase 2 · Web, HTTP e APIs</div>
+    <h1 class="aula-title">O que é uma API</h1>
+    <p class="aula-intro">Interface de programação — um contrato entre sistemas. REST API como o padrão mais comum. JSON como formato de dados. Você faz uma requisição real a uma API pública (ex: previsão do tempo, fatos aleatórios).</p>
+    <div class="aula-meta">
+      <div class="meta-pill"><strong>⏱</strong> ~15 min</div>
+      <div class="meta-pill"><strong>📶</strong> Iniciante</div>
+      <div class="meta-pill">9 de 18 aulas</div>
+    </div>
+  </header>
+  <article class="aula-body">
+    <section class="aula-section">
+      <h2 class="aula-section-title">O conceito essencial</h2>
+      <p class="aula-text">Interface de programação — um contrato entre sistemas. REST API como o padrão mais comum. JSON como formato de dados. Você faz uma requisição real a uma API pública (ex: previsão do tempo, fatos aleatórios).</p>
+      <div class="aula-callout">
+        <span class="aula-callout-icon">💡</span>
+        <div class="aula-callout-text"><strong>Observe a ideia em contexto</strong>Uma API define como outro programa pode solicitar operações e dados. Em uma API REST, GET /temperatura?cidade=Recife pode devolver JSON como {&quot;cidade&quot;:&quot;Recife&quot;,&quot;celsius&quot;:29}; o contrato especifica parâmetros, formatos e erros.</div>
+      </div>
+    </section>
+    <section class="aula-section">
+      <h2 class="aula-section-title">Como aplicar</h2>
+      <p class="aula-text">Uma API define como outro programa pode solicitar operações e dados. Em uma API REST, GET /temperatura?cidade=Recife pode devolver JSON como {&quot;cidade&quot;:&quot;Recife&quot;,&quot;celsius&quot;:29}; o contrato especifica parâmetros, formatos e erros.</p>
+      <p class="aula-text">Ao analisar um caso, identifique primeiro a entrada e o resultado esperado. Depois verifique as condições e os limites descritos acima; essa sequência ajuda a distinguir a regra do exemplo e a transferi-la para outras situações.</p>
+    </section>
+    <hr class="aula-divider">
+    <section class="aula-section">
+      <h2 class="aula-section-title">Prática e entregável</h2>
+      <p class="aula-text">Consulte uma API pública documentada; registre endpoint, método, parâmetro e campos do JSON retornado. Faça um pequeno relatório explicando como outro programa poderia consumir esses dados.</p>
+      <div class="aula-callout">
+        <span class="aula-callout-icon">🎯</span>
+        <div class="aula-callout-text"><strong>Critério de conclusão</strong>Entregue o artefato solicitado com um exemplo testado, explique a decisão tomada e registre ao menos um limite ou caso de borda.</div>
+      </div>
+    </section>
+    <section class="aula-section">
+      <h2 class="aula-section-title">Termos-chave desta aula</h2>
+      <div class="aula-terms">
+        <div class="aula-term"><span class="aula-term-word">JSON</span><span class="aula-term-def">Formato textual estruturado de pares chave-valor e listas, usado para trocar dados entre sistemas.</span></div>
+        <div class="aula-term"><span class="aula-term-word">O que é uma API</span><span class="aula-term-def">Interface de programação — um contrato entre sistemas. REST API como o padrão mais comum. JSON como formato de dados. Você faz uma requisição real a uma API pública (ex: previsão do tempo, fatos aleatórios).</span></div>
+      </div>
+    </section>
+    <nav class="aula-nav" aria-label="Navegação da aula">
+      <a href="fase2-cliente-servidor.html" class="fase-nav-btn">← Cliente × Servidor</a>
+      <a href="fase2-devtools-na-pratica.html" class="fase-nav-btn" style="background:color-mix(in srgb,var(--fase-color) 12%,var(--bg2));border-color:color-mix(in srgb,var(--fase-color) 25%,transparent);color:var(--fase-color);">Próxima: DevTools na prática →</a>
+    </nav>
+  </article>
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>⬡ CodePath — Fase 2 · Redes &amp; Internet</span>
+      <div class="footer-phases">
+        <a href="../fase1.html">F1</a><a href="../fase2.html" style="border-color:var(--fase-color);color:var(--fase-color);">F2</a>
+        <a href="../fase3.html">F3</a>
+        <a href="../fase4.html">F4</a>
+        <a href="../fase5.html">F5</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../../assets/nav.js"></script>
+</body>
+</html>
